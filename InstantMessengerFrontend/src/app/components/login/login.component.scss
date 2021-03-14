@@ -1,0 +1,27 @@
+@import  "./src/styles.scss";
+
+.login-form {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    width: 300px;
+    height: 500px;
+    color: var(--color);
+}
+
+.centered {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+.login-icon {
+    font-size: 164px;
+    margin-right: 128px;
+}
+
+.form-element {
+    width: 80%;
+}
