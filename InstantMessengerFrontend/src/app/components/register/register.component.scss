@@ -1,24 +1,19 @@
 @import  "./src/styles.scss";
 
-.login-card {
+.register-card {
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
     width: 300px;
-    
+    padding: 25px;
 }
 
-.login-form {
+.register-form {
     display: flex;
     align-items: center;
     flex-direction: column;
     width: 100%;
-}
-
-.login-icon {
-    font-size: 164px;
-    margin-right: 128px;
 }
 
 .form-element {

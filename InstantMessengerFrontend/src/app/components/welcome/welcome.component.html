@@ -1,0 +1,9 @@
+<div  class="centered-content">
+    <app-login *ngIf="!isRegisterFormOpen"
+        (onSignUpClickEmit)="toggleRegisterForm()">
+    </app-login>    
+    <app-register *ngIf="isRegisterFormOpen"
+        (onCancelClickEmit)="toggleRegisterForm()">   
+    </app-register>  
+</div>
+
