@@ -4,35 +4,36 @@
       <mat-icon class="login-icon">account_circle</mat-icon>
     </div>
     <span>
-      <h1>Login</h1>
+      <h1 class="m-b-25">Login</h1>
     </span>
-    <div [formGroup]="loginForm" class="login-form">
+    <div [formGroup]="loginForm" (ngSubmit)="!loginForm.valid" class="login-form">
       <mat-form-field appearance="outline" class="form-element">
-        <mat-label>Username</mat-label>
+        <mat-label>Email</mat-label>
         <input
           matInput
           type="text"
-          formControlName="username"
-          placeholder="Username">
-          <mat-icon matSuffix>person</mat-icon>
+          formControlName="email"
+          placeholder="Email">
+          <mat-icon matSuffix>email</mat-icon>
       </mat-form-field>
       <mat-form-field appearance="outline" class="form-element">
         <mat-label>Password</mat-label>
         <input
           matInput
-          [type]="isPasswordHidden ? 'password' : 'text'"
+          [type]="isPassHidden ? 'password' : 'text'"
           formControlName="password"
           placeholder="Password">      
         <button
           mat-icon-button matSuffix
-          (click)="isPasswordHidden = !isPasswordHidden"
+          (click)="isPassHidden = !isPassHidden"
           [attr.aria-label]="'Hide password'"
-          [attr.aria-pressed]="isPasswordHidden">
-          <mat-icon>{{isPasswordHidden ? 'visibility_off' : 'visibility'}}</mat-icon>
+          [attr.aria-pressed]="isPassHidden">
+          <mat-icon>{{isPassHidden ? 'visibility_off' : 'visibility'}}</mat-icon>
         </button>
       </mat-form-field>
     </div>
     <button
+      [disabled]="!loginForm.valid"
       mat-raised-button
       color="primary"
       class="form-element m-b-10"
@@ -42,6 +43,9 @@
     <button
       mat-raised-button
       color="accent"
-      class="form-element m-b-10">Sign up</button>  
+      class="form-element"
+      (click)="openRegisterForm()"
+    >Sign up
+    </button>  
   </mat-card>
 </div>

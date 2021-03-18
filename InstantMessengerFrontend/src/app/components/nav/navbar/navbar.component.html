@@ -1,4 +1,4 @@
-<mat-toolbar color="primary" class="navbar">
+<mat-toolbar *ngIf="authService.loggedIn" color="primary" class="navbar">
     <div>Instant Messenger</div>
     <div>
         <span class="align-icon"><mat-icon class="m-r-5">home</mat-icon>Home</span>

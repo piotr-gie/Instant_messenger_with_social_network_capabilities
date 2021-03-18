@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { UserService } from 'src/app/services/user.service';
+import { error } from 'selenium-webdriver';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -8,23 +9,43 @@ import { UserService } from 'src/app/services/user.service';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
-  loginForm: FormGroup
-  isPasswordHidden = true;
+  @Output() onSignUpClickEmit: EventEmitter<any> = new EventEmitter();
 
-  constructor(private formBuilder: FormBuilder, private userService: UserService) {}
+  loginForm: FormGroup
+  isPassHidden = true;
+
+  constructor(private formBuilder: FormBuilder, private authService: AuthService) {}
 
   ngOnInit() {
     this.buildLoginForm();
+    this.getCurrentUser();
+  }
+
+  submitLoginForm() {
+    // this.authService.login(null).subscribe(respone => {
+    // }, error => {
+    //   console.log(error);
+    // })
+
+    this.authService.loggedIn = true; //TODO
+  }
+
+  getCurrentUser() {
+    this.authService.currentUser$.subscribe(user => {
+      this.authService.loggedIn = !!user;
+    }, error => {
+      console.log(error);
+    })
+  }
+
+  openRegisterForm() {
+    this.onSignUpClickEmit.emit();
   }
 
   private buildLoginForm() {
     this.loginForm = this.formBuilder.group({
-      username: ['', [Validators.required]],
+      email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required]]
     })
-  }
-
-  submitLoginForm() {
-    console.log(this.loginForm.value);
   }
 }
