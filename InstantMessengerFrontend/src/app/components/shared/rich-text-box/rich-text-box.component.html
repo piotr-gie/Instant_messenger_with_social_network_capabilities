@@ -1,0 +1,21 @@
+<div>
+  <Form [formGroup]="editorForm" (ngSubmit)="onSubmit()">
+    <div class="editor-container">
+      <div class="border">
+        <quill-editor 
+          formControlName="editor"
+          [styles]="editorStyle"
+          [modules]="editorConfig"
+          [readOnly]="isReadOnly"  
+          [placeholder]="''"
+          theme="bubble"
+        ></quill-editor>
+      </div>
+      <div>
+        <button class="m-l-10" mat-mini-fab color="primary">
+          <mat-icon>send</mat-icon>
+        </button>
+      </div> 
+    </div>
+  </Form>
+</div>
