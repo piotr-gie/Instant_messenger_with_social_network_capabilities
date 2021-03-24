@@ -1,0 +1,19 @@
+@import  "./src/styles.scss";
+
+.editor-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    margin: 10px;
+}
+
+.border {
+    border-style: solid;
+    border-radius: 20px;
+    border-width: 1px;
+    border-color: grey;
+    background-color: white;
+    width: 90%;
+}
+
+
