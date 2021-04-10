@@ -1,6 +1,8 @@
 <div>
   <Form [formGroup]="editorForm" (ngSubmit)="onSubmit()">
     <div class="editor-container">
+      <app-file-uploader [ngClass]="isEditorFormEmpty() ? 'hidden-uploader' : 'm-r-5'">
+      </app-file-uploader>
       <div class="border">
         <quill-editor 
           formControlName="editor"
@@ -11,7 +13,7 @@
           theme="bubble"
         ></quill-editor>
       </div>
-      <div>
+      <div class="send-button-box">
         <button class="m-l-10" mat-mini-fab color="primary">
           <mat-icon>send</mat-icon>
         </button>

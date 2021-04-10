@@ -13,6 +13,7 @@ const material = [
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
+    MatFormFieldModule
 ]
 
 @NgModule({

@@ -35,7 +35,7 @@ export class RichTextBoxComponent implements OnInit {
         ['bold', 'italic', 'underline', 'strike',
           { 'size': [] }, { 'color': [] }, { 'background': [] },
           { 'list': 'ordered' }, { 'list': 'bullet'},
-          'link', 'image', 'clean'],
+          'image', 'clean'],
       ],
     }
   }
@@ -51,5 +51,9 @@ export class RichTextBoxComponent implements OnInit {
     this.editorForm = new FormGroup({
       'editor' : new FormControl(null)
     })
+  }
+
+  isEditorFormEmpty() {
+    return (this.editorForm.get("editor").value !== null);
   }
 }
