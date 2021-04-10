@@ -7,25 +7,29 @@ import { BaseModel } from '../models/baseModel';
 @Injectable({
   providedIn: 'root'
 })
-export class BaseService {
+export class BaseService<T extends BaseModel> {
   baseUrl = environment.apiUrl;
   controllerPath: string;
 
   constructor(private http: HttpClient) { }
 
-  getModels(): Observable<BaseModel[]>{
-    return this.http.get<BaseModel[]>(this.baseUrl + this.controllerPath)
+  getModels(): Observable<T[]>{
+    return this.http.get<T[]>(this.baseUrl + this.controllerPath)
   }
 
-  getModel(id: number): Observable<BaseModel>{
-    return this.http.get<BaseModel>(this.baseUrl + this.controllerPath + '/' + id)
+  getModel(id: number): Observable<T>{
+    return this.http.get<T>(this.baseUrl + this.controllerPath + '/' + id)
   }
 
-  postModel(model: BaseModel): Observable<BaseModel>{
-    return this.http.post<BaseModel>(this.baseUrl + this.controllerPath, model)
+  postModel(model: T): Observable<T>{
+    return this.http.post<T>(this.baseUrl + this.controllerPath, model)
   }
 
-  deleteModel(id: number): Observable<BaseModel>{
-    return this.http.delete<BaseModel>(this.baseUrl + this.controllerPath + '/' + id)
+  updateModel(model: T): Observable<T>{
+    return this.http.put<T>(this.baseUrl + this.controllerPath + '/' + model.id, model)
+  }
+
+  deleteModel(id: number): Observable<T>{
+    return this.http.delete<T>(this.baseUrl + this.controllerPath + '/' + id)
   }
 }
