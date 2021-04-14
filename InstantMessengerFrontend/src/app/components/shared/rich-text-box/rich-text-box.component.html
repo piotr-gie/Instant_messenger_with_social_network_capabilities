@@ -30,14 +30,17 @@
             </div>        
           </mat-chip-list>    
         </div> 
-        <quill-editor 
-          formControlName="editor"
-          [styles]="editorStyle"
-          [modules]="editorConfig"
-          [readOnly]="isReadOnly"  
-          [placeholder]="''"
-          theme="bubble"
-        ></quill-editor>
+        <div *ngIf="!(!isEditorFormNotEmpty() &&
+          textBoxType !== textBoxTypeEnum.edit)">
+          <quill-editor 
+            formControlName="editor"
+            [styles]="editorStyle"
+            [modules]="editorConfig"
+            [readOnly]="isReadOnly"  
+            [placeholder]="''"
+            theme="bubble"
+          ></quill-editor>
+        </div>
       </div>
       <div *ngIf="!isReadOnly" class="send-button-box">
         <button class="m-l-10" type="submit" mat-mini-fab color="primary">

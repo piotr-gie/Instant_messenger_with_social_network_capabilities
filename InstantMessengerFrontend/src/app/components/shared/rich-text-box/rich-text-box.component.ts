@@ -40,9 +40,13 @@ export class RichTextBoxComponent implements OnInit {
       content: (this.editorForm.get("editor").value)?.toString(),
       files: this.uploadedFiles
     }
-    this.textBoxSubmitEmit.emit(message);
-    this.uploadedFiles = [];
-    this.editorForm.get("editor").setValue(null);
+    console.log(message.content)
+    console.log(this.uploadedFiles.length)
+    if (this.isEditorFormNotEmpty() || this.uploadedFiles.length > 0) {
+      this.textBoxSubmitEmit.emit(message);
+      this.cleanTextBoxData();
+    }  
+  
   }
 
   private initEditorConfig() {
@@ -71,6 +75,11 @@ export class RichTextBoxComponent implements OnInit {
     if(this.content !== undefined) {
       this.editorForm.get("editor").setValue(this.content);
     }
+  }
+
+  private cleanTextBoxData() {
+    this.uploadedFiles = [];
+    this.editorForm.get("editor").setValue(null);
   }
 
   addFileToUpload(file: File) {
