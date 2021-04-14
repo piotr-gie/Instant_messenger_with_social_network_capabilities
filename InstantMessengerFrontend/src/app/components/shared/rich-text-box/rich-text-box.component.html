@@ -1,9 +1,35 @@
 <div>
   <Form [formGroup]="editorForm" (ngSubmit)="onSubmit()">
     <div class="editor-container">
-      <app-file-uploader [ngClass]="isEditorFormEmpty() ? 'hidden-uploader' : 'm-r-5'">
+      <app-file-uploader
+        [ngClass]="isEditorFormNotEmpty() || isReadOnly ? 'hidden-uploader' : 'm-r-5'"
+        (fileSelectedEmit)="addFileToUpload($event)"
+       >  
       </app-file-uploader>
-      <div class="border">
+      <div
+        [ngClass]="{
+          'edit-border' : textBoxType === textBoxTypeEnum.edit,
+          'sent-border' : textBoxType === textBoxTypeEnum.sent,
+          'recived-border' : textBoxType === textBoxTypeEnum.recived
+        }"
+        >
+        <div class="files-container">    
+          <mat-chip-list>
+            <div *ngFor="let file of uploadedFiles">
+              <mat-chip
+                matChipRemove
+                [removable]="textBoxType === textBoxTypeEnum.edit"
+                (removed)="removeFile(file)"          
+              >
+                {{file.name}}
+                <mat-icon 
+                  *ngIf="textBoxType === textBoxTypeEnum.edit"
+                  matChipRemove>cancel
+                </mat-icon>          
+              </mat-chip>
+            </div>        
+          </mat-chip-list>    
+        </div> 
         <quill-editor 
           formControlName="editor"
           [styles]="editorStyle"
@@ -13,8 +39,8 @@
           theme="bubble"
         ></quill-editor>
       </div>
-      <div class="send-button-box">
-        <button class="m-l-10" mat-mini-fab color="primary">
+      <div *ngIf="!isReadOnly" class="send-button-box">
+        <button class="m-l-10" type="submit" mat-mini-fab color="primary">
           <mat-icon>send</mat-icon>
         </button>
       </div> 

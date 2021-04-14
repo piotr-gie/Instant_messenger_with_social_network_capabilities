@@ -1,5 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
+import { TextBoxType } from 'src/app/enums/message-box-type.enum';
+import { Message } from 'src/app/helpers/message';
 
 @Component({
   selector: 'app-rich-text-box',
@@ -7,15 +9,25 @@ import { FormControl, FormGroup } from '@angular/forms';
   styleUrls: ['./rich-text-box.component.scss']
 })
 export class RichTextBoxComponent implements OnInit {
-  @Output() textBoxValueEmit: EventEmitter<string> = new EventEmitter();
+  @Output() textBoxSubmitEmit: EventEmitter<Message> = new EventEmitter();
+
+  @Input() content: string;
+  @Input() isReadOnly: boolean;
+  @Input() textBoxType: TextBoxType;
+  @Input() uploadedFiles: File [] = [];
 
   @Input() maxWidth: number;
   @Input() maxHeight: number;
-  @Input() isReadOnly: boolean;
 
   editorForm: FormGroup;
   editorStyle: any;
   editorConfig: any;
+
+  textBoxTypeEnum = TextBoxType;
+
+  constructor() {
+    this.textBoxType = this.textBoxTypeEnum.edit;
+  }
     
   ngOnInit() { 
     this.initFormGroup();
@@ -24,9 +36,13 @@ export class RichTextBoxComponent implements OnInit {
   }
 
   onSubmit() {
-    const value = this.editorForm.get("editor").value;
-    this.textBoxValueEmit.emit(value);
-    console.log(value);
+    const message: Message = {
+      content: (this.editorForm.get("editor").value)?.toString(),
+      files: this.uploadedFiles
+    }
+    this.textBoxSubmitEmit.emit(message);
+    this.uploadedFiles = [];
+    this.editorForm.get("editor").setValue(null);
   }
 
   private initEditorConfig() {
@@ -51,9 +67,28 @@ export class RichTextBoxComponent implements OnInit {
     this.editorForm = new FormGroup({
       'editor' : new FormControl(null)
     })
+
+    if(this.content !== undefined) {
+      this.editorForm.get("editor").setValue(this.content);
+    }
   }
 
-  isEditorFormEmpty() {
+  addFileToUpload(file: File) {
+    if(this.uploadedFiles.length < 3) {
+      this.uploadedFiles.push(file);
+    } 
+  }
+
+  isEditorFormNotEmpty() {
     return (this.editorForm.get("editor").value !== null);
   }
+
+  removeFile(file: File) {
+    const index = this.uploadedFiles.indexOf(file);
+
+    if (index >= 0) {
+      this.uploadedFiles.splice(index, 1);
+    }
+  }
 }
+

@@ -5,15 +5,28 @@
     flex-direction: row;
     justify-content: flex-start;
     padding: 10px;
+    color: white;
 }
 
-.border {
-    border-style: solid;
+.edit-border,
+.sent-border,
+.recived-border  {
     border-radius: 20px;
-    border-width: 1px;
-    border-color: grey;
-    background-color: white;
+}
+
+.edit-border { 
+    background-color: gray;
     width: 90%;
+}
+
+.sent-border {
+    background-color: #673ab7;
+    max-width: 250px;
+}
+
+.recived-border {
+    background-color: gray;
+    max-width: 250px;
 }
 
 .send-button-box {
@@ -22,6 +35,11 @@
 
 .hidden-uploader {
     display: none;
+}
+
+.files-container {
+    padding: 3px;
+    margin: 3px;
 }
 
 
