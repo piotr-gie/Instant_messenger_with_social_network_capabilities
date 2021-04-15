@@ -1,0 +1,28 @@
+.chat-box-container {
+    display: flex;
+    flex-direction: column;
+    width: 450px;
+    height: 850px;
+    background-color: rgb(29, 29, 29);
+    padding-right: 0px;
+}
+
+.user-image {
+    background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
+    background-size: cover;
+}
+
+.chat-content {
+    height: 630px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    background-color: rgb(29, 29, 29);
+}
+
+.inputs-container {
+   margin-right: 16px;   
+}
+
+.title {
+    color: white;
+}

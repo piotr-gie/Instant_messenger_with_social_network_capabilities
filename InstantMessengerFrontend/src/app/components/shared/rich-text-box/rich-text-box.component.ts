@@ -1,5 +1,7 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
+import { TextBoxType } from 'src/app/enums/message-box-type.enum';
+import { Message } from 'src/app/helpers/message';
 
 @Component({
   selector: 'app-rich-text-box',
@@ -7,15 +9,28 @@ import { FormControl, FormGroup } from '@angular/forms';
   styleUrls: ['./rich-text-box.component.scss']
 })
 export class RichTextBoxComponent implements OnInit {
-  @Output() textBoxValueEmit: EventEmitter<string> = new EventEmitter();
+  @ViewChild('editor') elementView: ElementRef;
+  @Output() textBoxSubmitEmit: EventEmitter<Message> = new EventEmitter();
 
-  @Input() maxWidth: number;
-  @Input() maxHeight: number;
+  @Input() content: string;
   @Input() isReadOnly: boolean;
+  @Input() textBoxType: TextBoxType;
+  @Input() uploadedFiles: File [] = [];
+
+  @Input() height: number;
+  @Input() maxWidth: number;
+  @Input() minHeight: number;
+  @Input() maxHeight: number;
 
   editorForm: FormGroup;
   editorStyle: any;
   editorConfig: any;
+
+  textBoxTypeEnum = TextBoxType;
+
+  constructor() {
+    this.textBoxType = this.textBoxTypeEnum.edit;
+  }
     
   ngOnInit() { 
     this.initFormGroup();
@@ -24,9 +39,17 @@ export class RichTextBoxComponent implements OnInit {
   }
 
   onSubmit() {
-    const value = this.editorForm.get("editor").value;
-    this.textBoxValueEmit.emit(value);
-    console.log(value);
+    const message: Message = {
+      content: (this.editorForm.get("editor").value)?.toString(),
+      files: this.uploadedFiles
+    }
+    console.log(message.content)
+    console.log(this.uploadedFiles.length)
+    if (this.isEditorFormNotEmpty() || this.uploadedFiles.length > 0) {
+      this.textBoxSubmitEmit.emit(message);
+      this.cleanTextBoxData();
+    }  
+  
   }
 
   private initEditorConfig() {
@@ -35,7 +58,7 @@ export class RichTextBoxComponent implements OnInit {
         ['bold', 'italic', 'underline', 'strike',
           { 'size': [] }, { 'color': [] }, { 'background': [] },
           { 'list': 'ordered' }, { 'list': 'bullet'},
-          'link', 'image', 'clean'],
+          'image', 'clean'],
       ],
     }
   }
@@ -43,7 +66,8 @@ export class RichTextBoxComponent implements OnInit {
   private initEditorStyle() {
     this.editorStyle = {
       maxWidth: this.maxWidth + 'px',
-      maxHeight: this.maxHeight + 'px'
+      maxHeight: this.maxHeight + 'px',
+      height: (this.isEditMode()) ? this.height + 'px' : ''
     }
   }
 
@@ -51,5 +75,60 @@ export class RichTextBoxComponent implements OnInit {
     this.editorForm = new FormGroup({
       'editor' : new FormControl(null)
     })
+
+    if(this.content !== undefined) {
+      this.editorForm.get("editor").setValue(this.content);
+    }
+  }
+
+  private cleanTextBoxData() {
+    this.uploadedFiles = [];
+    this.editorForm.get("editor").setValue(null);
+  }
+
+  addFileToUpload(file: File) {
+    if(this.uploadedFiles.length < 3) {
+      this.uploadedFiles.push(file);
+    } 
+  }
+
+  isEditorFormNotEmpty() {
+    return (this.editorForm.get("editor").value !== null);
+  }
+
+  removeFile(file: File) {
+    const index = this.uploadedFiles.indexOf(file);
+
+    if (index >= 0) {
+      this.uploadedFiles.splice(index, 1);
+    }
+  }
+
+  isEditMode(): boolean {
+    return this.textBoxType === this.textBoxTypeEnum.edit
+  }
+
+  adjustHeight() {
+    if(!this.isEditorFormNotEmpty()) {
+      this.editorStyle = {
+        maxHeight: this.height
+      }
+    }
+    
+    if (this.isEditMode()) {
+      const editorHeight = this.elementView.nativeElement.offsetHeight;
+      if(editorHeight >= this.maxHeight) {
+        this.editorStyle = {
+          height: this.maxHeight + 'px'
+        }
+      }
+      if (!this.isEditorFormNotEmpty() &&
+        editorHeight !== this.minHeight) {
+          this.editorStyle = {
+            maxheight: this.minHeight + 'px'
+        }
+      }     
+    }
   }
 }
+

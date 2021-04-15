@@ -14,6 +14,10 @@ import { RegisterComponent } from './components/register/register.component';
 import { WelcomeComponent } from './components/welcome/welcome.component';
 import { RichTextBoxComponent } from './components/shared/rich-text-box/rich-text-box.component';
 import { QuillModule } from 'ngx-quill';
+import { FileUploaderComponent } from './components/shared/file-uploader/file-uploader.component';
+import { ChatBoxComponent } from './components/messenger/chat-box/chat-box.component';
+import { MessageComponent } from './components/messenger/message/message.component';
+import { AttachmentDirective } from './directives/attachment.directive';
 
 @NgModule({
   declarations: [	
@@ -24,6 +28,10 @@ import { QuillModule } from 'ngx-quill';
     HomeComponent,
     WelcomeComponent,
     RichTextBoxComponent,
+    FileUploaderComponent,
+    ChatBoxComponent,
+    MessageComponent,
+    AttachmentDirective
    ],
   imports: [
     BrowserModule,

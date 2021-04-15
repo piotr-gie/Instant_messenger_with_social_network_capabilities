@@ -4,12 +4,11 @@ import { User } from '../models/user';
 import { BaseService } from './base.service';
 import { map } from 'rxjs/operators';
 import { ReplaySubject } from 'rxjs';
-import { UserService } from './user.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class AuthService extends BaseService{
+export class AuthService extends BaseService<User>{
 loggedIn: boolean;
 private currentUserSource = new ReplaySubject<User>(1);
 currentUser$ = this.currentUserSource.asObservable()

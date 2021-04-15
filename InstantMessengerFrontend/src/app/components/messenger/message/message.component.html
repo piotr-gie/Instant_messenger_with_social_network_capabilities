@@ -1,0 +1,16 @@
+<div
+  class="message-container"
+  [ngClass]="{
+    'sent' : textBoxType === textBoxTypeEnum.sent,
+    'recived' : textBoxType === textBoxTypeEnum.recived
+  }"
+>
+  <div class="message">
+      <app-rich-text-box 
+      [isReadOnly]="true"
+      [content]="content"
+      [textBoxType]="textBoxType"
+      [uploadedFiles]="uploadedFiles"
+    ></app-rich-text-box>    
+  </div>
+</div>

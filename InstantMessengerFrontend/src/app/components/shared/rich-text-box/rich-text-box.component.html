@@ -1,18 +1,54 @@
 <div>
   <Form [formGroup]="editorForm" (ngSubmit)="onSubmit()">
     <div class="editor-container">
-      <div class="border">
-        <quill-editor 
-          formControlName="editor"
-          [styles]="editorStyle"
-          [modules]="editorConfig"
-          [readOnly]="isReadOnly"  
-          [placeholder]="''"
-          theme="bubble"
-        ></quill-editor>
+      <app-file-uploader
+        [ngClass]="isEditorFormNotEmpty() || isReadOnly ? 'hidden-uploader' : 'm-r-5'"
+        (fileSelectedEmit)="addFileToUpload($event)"
+       >  
+      </app-file-uploader>
+      <div
+        [ngClass]="{
+          'edit-border' : textBoxType === textBoxTypeEnum.edit,
+          'sent-border' : textBoxType === textBoxTypeEnum.sent,
+          'recived-border' : textBoxType === textBoxTypeEnum.recived
+        }"
+        >
+        <div class="files-container">    
+          <mat-chip-list>
+            <div *ngFor="let file of uploadedFiles">
+              <mat-chip
+                attachment
+                [attachedFile]="file"
+                [removable]="isEditMode()"
+                (removed)="removeFile(file)"         
+              >
+                {{file.name}}
+                <mat-icon 
+                  *ngIf="isEditMode()"
+                  matChipRemove>cancel
+                </mat-icon>          
+              </mat-chip>
+            </div>        
+          </mat-chip-list>    
+        </div> 
+        <div 
+          #editor
+          *ngIf="!(!isEditorFormNotEmpty() &&
+            textBoxType !== textBoxTypeEnum.edit)"
+        >      
+          <quill-editor       
+            formControlName="editor"
+            [styles]="editorStyle"
+            [modules]="editorConfig"
+            [readOnly]="isReadOnly"  
+            [placeholder]="''"
+            theme="bubble"
+            (onContentChanged)="adjustHeight()"
+          ></quill-editor>
+        </div>
       </div>
-      <div>
-        <button class="m-l-10" mat-mini-fab color="primary">
+      <div *ngIf="!isReadOnly" class="send-button-box">
+        <button class="m-l-10" type="submit" mat-mini-fab color="primary">
           <mat-icon>send</mat-icon>
         </button>
       </div> 

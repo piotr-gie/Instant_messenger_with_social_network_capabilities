@@ -1,0 +1,27 @@
+<div>
+  <mat-card class="chat-box-container">
+    <mat-card-header>
+      <div mat-card-avatar class="user-image"></div>
+      <mat-card-title class="title">{{ firstAndLastName }}</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="chat-content">
+        <div *ngFor="let message of messages ">
+          <app-message
+           [content]="message.message.content"
+           [uploadedFiles]="message.message.files"
+           [textBoxType]="message.textBoxType"
+          ></app-message>
+        </div>
+      </div>
+    </mat-card-content>
+    <mat-card-actions class="inputs-container">
+      <app-rich-text-box
+        [minHeight]="54"
+        [maxHeight]="120"
+        (textBoxSubmitEmit)="sendMessage($event)"
+      >
+      </app-rich-text-box>
+    </mat-card-actions>
+  </mat-card>
+</div>
