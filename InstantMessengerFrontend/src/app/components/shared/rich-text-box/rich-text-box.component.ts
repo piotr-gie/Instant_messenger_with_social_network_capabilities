@@ -2,8 +2,6 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { TextBoxType } from 'src/app/enums/message-box-type.enum';
 import { Message } from 'src/app/helpers/message';
-import { FileDownloadService } from 'src/app/services/file-download.service';
-import { saveAs } from 'file-saver';
 
 @Component({
   selector: 'app-rich-text-box',
@@ -102,9 +100,8 @@ export class RichTextBoxComponent implements OnInit {
     }
   }
 
-  downloadFile() {
-    const fileToDowload = this.uploadedFiles[0];
-    saveAs(new Blob([fileToDowload], {type: ''}), fileToDowload.name);   
+  isEditMode(): boolean {
+    return this.textBoxType === this.textBoxTypeEnum.edit
   }
 }
 

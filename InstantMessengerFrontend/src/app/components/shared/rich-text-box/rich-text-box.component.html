@@ -17,14 +17,14 @@
           <mat-chip-list>
             <div *ngFor="let file of uploadedFiles">
               <mat-chip
-                matChipRemove
-                [removable]="textBoxType === textBoxTypeEnum.edit"
-                (removed)="removeFile(file)" 
-                (click)="downloadFile()"         
+                attachment
+                [attachedFile]="file"
+                [removable]="isEditMode()"
+                (removed)="removeFile(file)"         
               >
                 {{file.name}}
                 <mat-icon 
-                  *ngIf="textBoxType === textBoxTypeEnum.edit"
+                  *ngIf="isEditMode()"
                   matChipRemove>cancel
                 </mat-icon>          
               </mat-chip>

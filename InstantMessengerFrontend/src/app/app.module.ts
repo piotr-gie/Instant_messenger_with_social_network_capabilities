@@ -17,6 +17,7 @@ import { QuillModule } from 'ngx-quill';
 import { FileUploaderComponent } from './components/shared/file-uploader/file-uploader.component';
 import { ChatBoxComponent } from './components/messenger/chat-box/chat-box.component';
 import { MessageComponent } from './components/messenger/message/message.component';
+import { AttachmentDirective } from './directives/attachment.directive';
 
 @NgModule({
   declarations: [	
@@ -29,7 +30,8 @@ import { MessageComponent } from './components/messenger/message/message.compone
     RichTextBoxComponent,
     FileUploaderComponent,
     ChatBoxComponent,
-    MessageComponent
+    MessageComponent,
+    AttachmentDirective
    ],
   imports: [
     BrowserModule,
