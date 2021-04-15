@@ -19,7 +19,8 @@
               <mat-chip
                 matChipRemove
                 [removable]="textBoxType === textBoxTypeEnum.edit"
-                (removed)="removeFile(file)"          
+                (removed)="removeFile(file)" 
+                (click)="downloadFile()"         
               >
                 {{file.name}}
                 <mat-icon 

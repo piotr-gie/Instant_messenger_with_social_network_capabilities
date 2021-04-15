@@ -17,6 +17,8 @@
 
 .edit-border { 
     background-color: gray;
+    overflow-y: auto;
+    overflow-x: hidden;
     width: 90%;
 }
 
