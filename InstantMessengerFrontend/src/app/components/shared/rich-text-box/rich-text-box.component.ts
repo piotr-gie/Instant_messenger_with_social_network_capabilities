@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { TextBoxType } from 'src/app/enums/message-box-type.enum';
 import { Message } from 'src/app/helpers/message';
@@ -9,6 +9,7 @@ import { Message } from 'src/app/helpers/message';
   styleUrls: ['./rich-text-box.component.scss']
 })
 export class RichTextBoxComponent implements OnInit {
+  @ViewChild('editor') elementView: ElementRef;
   @Output() textBoxSubmitEmit: EventEmitter<Message> = new EventEmitter();
 
   @Input() content: string;
@@ -16,7 +17,9 @@ export class RichTextBoxComponent implements OnInit {
   @Input() textBoxType: TextBoxType;
   @Input() uploadedFiles: File [] = [];
 
+  @Input() height: number;
   @Input() maxWidth: number;
+  @Input() minHeight: number;
   @Input() maxHeight: number;
 
   editorForm: FormGroup;
@@ -63,7 +66,8 @@ export class RichTextBoxComponent implements OnInit {
   private initEditorStyle() {
     this.editorStyle = {
       maxWidth: this.maxWidth + 'px',
-      maxHeight: this.maxHeight + 'px'
+      maxHeight: this.maxHeight + 'px',
+      height: (this.isEditMode()) ? this.height + 'px' : ''
     }
   }
 
@@ -102,6 +106,29 @@ export class RichTextBoxComponent implements OnInit {
 
   isEditMode(): boolean {
     return this.textBoxType === this.textBoxTypeEnum.edit
+  }
+
+  adjustHeight() {
+    if(!this.isEditorFormNotEmpty()) {
+      this.editorStyle = {
+        maxHeight: this.height
+      }
+    }
+    
+    if (this.isEditMode()) {
+      const editorHeight = this.elementView.nativeElement.offsetHeight;
+      if(editorHeight >= this.maxHeight) {
+        this.editorStyle = {
+          height: this.maxHeight + 'px'
+        }
+      }
+      if (!this.isEditorFormNotEmpty() &&
+        editorHeight !== this.minHeight) {
+          this.editorStyle = {
+            maxheight: this.minHeight + 'px'
+        }
+      }     
+    }
   }
 }
 

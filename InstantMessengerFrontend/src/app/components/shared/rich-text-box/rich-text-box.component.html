@@ -31,15 +31,19 @@
             </div>        
           </mat-chip-list>    
         </div> 
-        <div *ngIf="!(!isEditorFormNotEmpty() &&
-          textBoxType !== textBoxTypeEnum.edit)">
-          <quill-editor 
+        <div 
+          #editor
+          *ngIf="!(!isEditorFormNotEmpty() &&
+            textBoxType !== textBoxTypeEnum.edit)"
+        >      
+          <quill-editor       
             formControlName="editor"
             [styles]="editorStyle"
             [modules]="editorConfig"
             [readOnly]="isReadOnly"  
             [placeholder]="''"
             theme="bubble"
+            (onContentChanged)="adjustHeight()"
           ></quill-editor>
         </div>
       </div>

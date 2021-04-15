@@ -17,7 +17,8 @@
     </mat-card-content>
     <mat-card-actions class="inputs-container">
       <app-rich-text-box
-        [maxHeight]="100"
+        [minHeight]="54"
+        [maxHeight]="120"
         (textBoxSubmitEmit)="sendMessage($event)"
       >
       </app-rich-text-box>
