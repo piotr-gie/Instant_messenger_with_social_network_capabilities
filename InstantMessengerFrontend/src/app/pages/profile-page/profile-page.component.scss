@@ -1,0 +1,75 @@
+@import  "./src/styles.scss";
+
+.profile-container {
+    display: flex;
+    flex-direction: row;
+    height: 600px;
+}
+
+.data-list-container {
+    width: 350px;
+    height: 600px;
+}
+
+.data-list {
+    margin: 20px;
+}
+
+.avatar-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    width: 300px;
+    height: 600px;
+    background-color: rgba(245, 245, 245, 0.89);
+}
+
+.avatar {
+    width: 250px;
+    height: 250px;
+    margin-top: 25px;
+    border-width: 3px;
+    border-color: #673ab7;
+    border-style: solid;
+    border-radius: 5px;
+    background-image: url('https://images.vexels.com/media/users/3/129616/isolated/preview/fb517f8913bd99cd48ef00facb4a67c0-businessman-avatar-silhouette-by-vexels.png');
+    background-size: cover;
+}
+
+.post-list-container {
+    width: 800px;
+    height: 1500px;
+}
+
+.data-span {
+    width: 40%;
+    // justify-self: flex-start;
+}
+
+.test-box {
+    display: flex;
+    flex-direction: row;
+}
+
+.photo-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
+.photo-preview {
+    width: 80px;
+    height: 80px;
+    background-color: white;
+    margin: 5px;
+}
+
+.presentation-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: start;
+}
+
+

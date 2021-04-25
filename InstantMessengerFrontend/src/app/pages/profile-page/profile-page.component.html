@@ -1,0 +1,100 @@
+<div class="test-box">
+  <app-chat-box class="m-l-10"></app-chat-box>
+  <div class="post-list-container m-l-25 m-r-25">
+    <mat-card style="height: 200px;" class="m-b-10" >
+      <h2>Post 1</h2>
+    </mat-card> 
+    <mat-card style="height: 200px;" class="m-b-10">
+      <h2>Post 2</h2>
+    </mat-card> 
+    <mat-card style="height: 200px;" class="m-b-10">
+      <h2>Post 3</h2>
+    </mat-card> 
+    <mat-card style="height: 200px;" class="m-b-10">
+      <h2>Post 4</h2>
+    </mat-card> 
+  </div>
+  <mat-card class="profile-container m-r-10">
+    <div class="avatar-container">
+      <div class="avatar">
+      </div> 
+      <div class="action-buttons-container m-t-10">
+        <button mat-raised-button><mat-icon>person_add</mat-icon></button>
+        <button mat-raised-button class="m-l-10"><mat-icon>chat</mat-icon></button>
+        <button mat-raised-button class="m-l-10" (click)="openEditDialog()"><mat-icon>settings</mat-icon></button>
+      </div> 
+      <h2 class="m-t-25">
+        Photos
+      </h2>
+      <div class="photo-container">
+        <div class="photo-preview"></div>
+        <div class="photo-preview"></div>
+        <div class="photo-preview"></div>
+      </div>
+      <div class="photo-container">
+        <div class="photo-preview"></div>
+        <div class="photo-preview"></div>
+        <div class="photo-preview"></div>
+      </div>
+
+    </div>
+    
+    <div class="data-list-container" style="position: relative;">
+      <mat-list class="data-list">
+        <mat-list-item>
+          <h2> {{model.firstName + " " + model.lastName}}</h2>
+        </mat-list-item>
+        <mat-divider></mat-divider>
+        <mat-list-item>
+          <span class="data-span"> Country:  </span>
+          <span>
+            {{model.country}}
+          </span>
+        </mat-list-item>
+        <mat-divider></mat-divider>
+        <mat-list-item>
+          <span class="data-span"> City:  </span>
+          <span>
+            {{model.city}}
+          </span>
+        </mat-list-item>
+        <mat-divider></mat-divider>
+        <mat-list-item>
+          <span class="data-span"> Birthday:  </span>
+          <span>
+            {{model.birthday}}
+          </span>
+        </mat-list-item>
+        <mat-divider></mat-divider>
+        <mat-list-item>
+          <span class="data-span"> Gender:  </span>
+          <span>
+            {{model.gender}}
+          </span>
+        </mat-list-item>
+        <mat-divider></mat-divider>
+        <mat-list-item>
+          <span class="data-span"> Mobile:  </span>
+          <span>
+            {{model.mobile}}
+          </span>
+        </mat-list-item>
+        <mat-divider></mat-divider>
+        <mat-list-item>
+          <span class="data-span"> Email:  </span>
+          <span>
+            {{model.email}}
+          </span>
+        </mat-list-item>
+        <mat-divider></mat-divider>     
+      </mat-list>
+      <div class="presentation-container">
+        <h2>Presentation</h2>
+        <p class="m-t-25">
+          {{model.presentation}}
+        </p>
+      </div>    
+    </div>  
+  </mat-card>
+  
+</div>

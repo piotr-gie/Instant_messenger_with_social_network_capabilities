@@ -7,17 +7,19 @@ import { NavbarComponent } from './components/nav/navbar/navbar.component';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MaterialModule } from './material.module';
 import { LoginComponent } from './components/login/login.component';
-import { HomeComponent } from './components/home/home.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { RegisterComponent } from './components/register/register.component';
-import { WelcomeComponent } from './components/welcome/welcome.component';
 import { RichTextBoxComponent } from './components/shared/rich-text-box/rich-text-box.component';
 import { QuillModule } from 'ngx-quill';
 import { FileUploaderComponent } from './components/shared/file-uploader/file-uploader.component';
 import { ChatBoxComponent } from './components/messenger/chat-box/chat-box.component';
 import { MessageComponent } from './components/messenger/message/message.component';
-import { AttachmentDirective } from './directives/attachment.directive';
+import { AttachmentDirective } from './directives/attachment.directive';;
+import { HomePageComponent } from './pages/home-page/home-page.component';
+import { WelcomePageComponent } from './pages/welcome-page/welcome-page.component';
+import { ProfilePageComponent } from './pages/profile-page/profile-page.component';
+import { EditProfileDialogComponent } from './components/dialog/edit-profile-dialog/edit-profile-dialog.component';
 
 @NgModule({
   declarations: [	
@@ -25,13 +27,16 @@ import { AttachmentDirective } from './directives/attachment.directive';
     NavbarComponent,
     LoginComponent,
     RegisterComponent,
-    HomeComponent,
-    WelcomeComponent,
+    HomePageComponent,
+    WelcomePageComponent,
     RichTextBoxComponent,
     FileUploaderComponent,
     ChatBoxComponent,
     MessageComponent,
-    AttachmentDirective
+    AttachmentDirective,
+    ProfilePageComponent,
+    EditProfileDialogComponent
+
    ],
   imports: [
     BrowserModule,
@@ -44,6 +49,6 @@ import { AttachmentDirective } from './directives/attachment.directive';
     QuillModule.forRoot()
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
 export class AppModule { }

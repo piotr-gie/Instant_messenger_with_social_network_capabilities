@@ -21,6 +21,7 @@ export class RichTextBoxComponent implements OnInit {
   @Input() maxWidth: number;
   @Input() minHeight: number;
   @Input() maxHeight: number;
+  @Input() theme: string = 'bubble';
 
   editorForm: FormGroup;
   editorStyle: any;

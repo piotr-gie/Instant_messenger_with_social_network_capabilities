@@ -3,12 +3,12 @@
     flex-direction: column;
     width: 450px;
     height: 850px;
-    background-color: rgb(29, 29, 29);
+    background-color: white;
     padding-right: 0px;
 }
 
 .user-image {
-    background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
+    background-image: url('https://images.vexels.com/media/users/3/129616/isolated/preview/fb517f8913bd99cd48ef00facb4a67c0-businessman-avatar-silhouette-by-vexels.png');
     background-size: cover;
 }
 
@@ -16,7 +16,7 @@
     height: 630px;
     overflow-y: auto;
     overflow-x: hidden;
-    background-color: rgb(29, 29, 29);
+    background-color: white;
 }
 
 .inputs-container {
@@ -24,5 +24,11 @@
 }
 
 .title {
-    color: white;
+    color: black;
+}
+
+.separator {
+    height: 2px;
+    width: calc(95%);
+    background-color: #673ab7;
 }

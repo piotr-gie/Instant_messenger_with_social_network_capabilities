@@ -1,12 +1,14 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { HomeComponent } from './components/home/home.component';
-import { WelcomeComponent } from './components/welcome/welcome.component';
+import { WelcomePageComponent } from './pages/welcome-page/welcome-page.component';
+import { HomePageComponent } from './pages/home-page/home-page.component';
+import { ProfilePageComponent } from './pages/profile-page/profile-page.component';
 
 const routes: Routes = [
-  {path: '', component: WelcomeComponent},
-  {path: 'home', component: HomeComponent},
-  {path: '**', component: HomeComponent, pathMatch: 'full'},
+  {path: '', component: WelcomePageComponent},
+  {path: 'home', component: HomePageComponent},
+  {path: 'profile', component: ProfilePageComponent},
+  {path: '**', component: HomePageComponent, pathMatch: 'full'},
 ];
 
 @NgModule({
