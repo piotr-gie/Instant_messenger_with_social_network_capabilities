@@ -1,4 +1,5 @@
 /* You can add global styles to this file, and also import other style files */
+/* IMPORT -> @import  "./src/styles.scss";           */
 
 html, body { height: 100%; }
 body { 
@@ -6,7 +7,6 @@ body {
     font-family: Roboto, "Helvetica Neue", sans-serif;
     background-color: whitesmoke;
 }
-
 
 .align-icon {
     display: inline-flex;
@@ -19,6 +19,22 @@ body {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+}
+
+.male-avatar {
+    background-image: url('https://images.vexels.com/media/users/3/129616/isolated/preview/fb517f8913bd99cd48ef00facb4a67c0-businessman-avatar-silhouette-by-vexels.png'); 
+}
+
+.female-avatar {
+    background-image: url('https://kaufmanlegalgroup.com/wp-content/uploads/2020/06/female-silhouette.png');
+}
+
+.w-100 {
+    width: 100%;
+}
+
+.h-100 {
+    height: 100%;
 }
 
 /* margins */

@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-welcome',
-  templateUrl: './welcome.component.html',
-  styleUrls: ['./welcome.component.scss']
+  selector: 'app-welcome-page',
+  templateUrl: './welcome-page.component.html',
+  styleUrls: ['./welcome-page.component.scss']
 })
-export class WelcomeComponent implements OnInit {
+export class WelcomePageComponent implements OnInit {
   isRegisterFormOpen: boolean;
 
   constructor() { }
