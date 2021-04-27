@@ -1,8 +1,12 @@
 @import  "./src/styles.scss";
 
 .navbar {
+    display: flex;
     justify-content: space-between;
+    top: 0;
+    z-index: 1;
     margin-bottom: 15px;
+    position: sticky;
 }
 
 span {
@@ -11,4 +15,13 @@ span {
 
 .nav-button {
     font-size: 20px;
+}
+
+.search {
+    font-size: 12px;
+    height: 70%;
+}
+
+.search-form-field .mat-form-field-wrapper{
+    padding-bottom: 0em;
 }
