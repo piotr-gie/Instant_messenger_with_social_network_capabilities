@@ -1,13 +1,7 @@
 <mat-toolbar *ngIf="authService.loggedIn" color="primary" class="navbar">
   <div>
     <span>Instant Messenger<mat-icon class="align-icon m-l-5">forum</mat-icon></span>
-    <span class="search m-l-10">
-      <mat-form-field appearance="outline" class="search-form-field">
-        <mat-label>Search</mat-label>
-        <input matInput placeholder="Placeholder">
-        <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
-      </mat-form-field>
-    </span>
+    <app-search></app-search>
   </div>
   
   <div>

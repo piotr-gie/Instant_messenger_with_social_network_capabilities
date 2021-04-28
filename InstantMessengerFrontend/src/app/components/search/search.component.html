@@ -1,0 +1,11 @@
+<span class="search m-l-10">
+    <mat-form-field appearance="outline" >
+        <mat-label>Search users</mat-label>
+        <input matInput (focus)="show = true" (blur)="show = false" autocomplete="off">
+        <mat-icon matSuffix>search</mat-icon>
+    </mat-form-field>
+    <div class="search-autocomplete" *ngIf="show">
+        Sample user
+    </div>
+    <!-- style="display: none;"  -->
+</span>
