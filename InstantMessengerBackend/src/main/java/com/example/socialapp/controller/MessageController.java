@@ -21,20 +21,19 @@ public class MessageController {
     }
 
     @PostMapping
-    public ResponseEntity<Message> sendMessage(@RequestBody Map<String, Object> m){
-        ObjectMapper mapper = new ObjectMapper();
-        var message= mapper.convertValue(m.get("message"), Message.class);
+    public ResponseEntity<Message> sendMessage(@RequestBody Message message,
+                                               @RequestParam int senderId, @RequestParam int receiverId){
         return ResponseEntity.ok(messageService.sendMessage(
                 message,
-                (int)(m.get("senderId")),
-                (int)(m.get("receiverId"))));
+                senderId,
+                receiverId));
     }
 
-    @PostMapping(value = "/test")
-    public ResponseEntity<Message> sendMessage(@RequestBody Message message){
-
-        return ResponseEntity.ok(message);
-    }
+//    @PostMapping(value = "/test")
+//    public ResponseEntity<Message> sendMessage(@RequestBody Message message){
+//
+//        return ResponseEntity.ok(message);
+//    }
 
     @GetMapping
     public ResponseEntity<List<Message>> getAllMessagesInConversationByUsers(
