@@ -21,6 +21,7 @@ public class MessageService {
     }
 
     public Message sendMessage(Message message, int senderId, int receiverId){
+        // TODO:  check user authentication
         message.setSenderId(senderId);
         Conversation conversation = conversationService.findOrCreateByUsersIds(senderId, receiverId);
         message.setConversation(conversation);
@@ -31,6 +32,12 @@ public class MessageService {
     }
 
     public List<Message> getAllMessagesInConversation(int senderId, int receiverId){
+        // TODO:  check user authentication
         return conversationService.getAllMessagesByUsersIds(senderId, receiverId);
     }
+    public void deleteMessage(int messageId){
+        // TODO:  check user authentication
+        messageRepository.deleteById(messageId);
+    }
+
 }
