@@ -42,6 +42,12 @@ public class MessageController {
         return ResponseEntity.ok(messageService.getAllMessagesInConversation(senderId, receiverId));
     }
 
+    @DeleteMapping
+    public ResponseEntity<?> deleteMessageById(@RequestParam int id){
+        messageService.deleteMessage(id);
+        return ResponseEntity.noContent().build();
+    }
+
 
 }
 
