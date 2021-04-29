@@ -10,17 +10,28 @@
     background-color: #563098;//whitesmoke;
     color: whitesmoke;
     border-radius: 0px 0px 5px 5px;
-    border: 2px solid #563098;
-    padding: 5px;
+    border: 0px solid #563098;
+    // padding: 5px;
     display: block;
     top: 0px;
 }
 
+.search-autocomplete .mat-card{
+    background-color: #563098;
+    color: whitesmoke;
+}
+
 .mat-input-element{
-    width: 30em;
+    width: 6em;
     font-weight: 500;
     color: whitesmoke;
     padding: 0.4em;
+    transition-property: width;
+    transition-duration: 0.2s;
+}
+
+.mat-input-element:focus{
+    width: 30em;
 }
 
 .mat-input-element::placeholder{
@@ -31,5 +42,17 @@
 .search-box{
     background: #0000002b;
     border-radius: 5px 5px 5px 5px;
-    padding-right: 0.65em;
+    // padding-right: 0.65em;
+    transition-property: background;
+    transition-duration: 0.1s;
+}
+
+// .search-box:hover{
+//     background: #0000002b;
+// }
+
+.search-box .mat-button{
+    width: 55px;
+    height: 43px;
+    min-width: 0px;
 }

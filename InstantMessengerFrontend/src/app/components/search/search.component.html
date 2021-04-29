@@ -1,10 +1,19 @@
 <span class="search m-l-10">
     <div class="search-box m-t-10">
-        <input matInput (focus)="show = true;" (blur)="show = false" autocomplete="off" placeholder="Search users">
-        <mat-icon matSuffix>search</mat-icon>
+        <input class="m-l-5" matInput (focus)="show = true;" (blur)="show = false" autocomplete="off" placeholder="Search users">
+        <button mat-button>
+            <mat-icon matSuffix>search</mat-icon>
+        </button>
+        <div class="search-autocomplete" *ngIf="show">
+            <mat-card>
+                <h2>User 1</h2>
+            </mat-card>
+            <mat-card>
+                <h2>User 2</h2>
+            </mat-card>
+            <mat-card>
+                <h2>User 3</h2>
+            </mat-card>
+        </div>
     </div>
-    <div class="search-autocomplete" *ngIf="show">
-        Sample user
-    </div>
-    <!-- style="display: none;"  -->
 </span>
