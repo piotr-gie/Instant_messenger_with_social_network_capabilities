@@ -6,21 +6,30 @@
     position: absolute;
 }
 
-.search .mat-form-field{
-    width: 30em;
-    font-weight: 500;
-}
-
-.search .mat-form-field .mat-form-field-wrapper{
-    padding-bottom: 0em;
-}
-
 .search-autocomplete {
-    background-color: whitesmoke;
-    color: black;
+    background-color: #563098;//whitesmoke;
+    color: whitesmoke;
     border-radius: 0px 0px 5px 5px;
-    border: 2px solid #673ab7;
+    border: 2px solid #563098;
     padding: 5px;
     display: block;
     top: 0px;
+}
+
+.mat-input-element{
+    width: 30em;
+    font-weight: 500;
+    color: whitesmoke;
+    padding: 0.4em;
+}
+
+.mat-input-element::placeholder{
+    color: rgba(245, 245, 245, 0.7);
+    font-weight: 500;
+}
+
+.search-box{
+    background: #0000002b;
+    border-radius: 5px 5px 5px 5px;
+    padding-right: 0.65em;
 }
