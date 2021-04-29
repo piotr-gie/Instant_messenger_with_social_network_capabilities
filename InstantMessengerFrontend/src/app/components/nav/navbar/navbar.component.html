@@ -1,20 +1,24 @@
 <mat-toolbar *ngIf="authService.loggedIn" color="primary" class="navbar">
-    <div>Instant Messenger<mat-icon class="align-icon m-l-5">forum</mat-icon></div>
-    <div>
-        <span>
-            <button mat-button class="align-icon nav-button" routerLink="/home">
-              <mat-icon class="m-r-5">home</mat-icon>Home
-            </button>     
-          </span>
-          <span>
-            <button mat-button class="align-icon nav-button" routerLink="/profile">
-              <mat-icon class="m-r-5">account_box</mat-icon>Profile
-            </button>     
-          </span>
-          <span>
-            <button mat-button class="align-icon nav-button" routerLink="">
-              <mat-icon class="m-r-5">logout</mat-icon>Logout
-            </button>     
-          </span>
-    </div>
+  <div>
+    <span>Instant Messenger<mat-icon class="align-icon m-l-5">forum</mat-icon></span>
+    <app-search></app-search>
+  </div>
+  
+  <div>
+    <span>
+      <button mat-button class="align-icon nav-button" routerLink="/home">
+        <mat-icon class="m-r-5">home</mat-icon>Home
+      </button>     
+    </span>
+    <span>
+      <button mat-button class="align-icon nav-button" routerLink="/profile">
+        <mat-icon class="m-r-5">account_box</mat-icon>Profile
+      </button>     
+    </span>
+    <span>
+      <button mat-button class="align-icon nav-button" routerLink="">
+        <mat-icon class="m-r-5">logout</mat-icon>Logout
+      </button>     
+    </span>
+  </div>
 </mat-toolbar>

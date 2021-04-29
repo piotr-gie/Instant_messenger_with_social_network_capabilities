@@ -20,6 +20,7 @@ import { HomePageComponent } from './pages/home-page/home-page.component';
 import { WelcomePageComponent } from './pages/welcome-page/welcome-page.component';
 import { ProfilePageComponent } from './pages/profile-page/profile-page.component';
 import { EditProfileDialogComponent } from './components/dialog/edit-profile-dialog/edit-profile-dialog.component';
+import { SearchComponent } from './components/search/search.component';
 
 @NgModule({
   declarations: [	
@@ -35,7 +36,8 @@ import { EditProfileDialogComponent } from './components/dialog/edit-profile-dia
     MessageComponent,
     AttachmentDirective,
     ProfilePageComponent,
-    EditProfileDialogComponent
+    EditProfileDialogComponent,
+    SearchComponent
 
    ],
   imports: [
