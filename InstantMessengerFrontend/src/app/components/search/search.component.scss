@@ -7,24 +7,24 @@
 }
 
 .search-autocomplete {
-    background-color: #563098;//whitesmoke;
-    color: whitesmoke;
+    background-color: $primary;
+    color: $main;
     border-radius: 0px 0px 5px 5px;
-    border: 0px solid #563098;
+    border: 0px solid $primary;
     // padding: 5px;
     display: block;
     top: 0px;
 }
 
 .search-autocomplete .mat-card{
-    background-color: #563098;
-    color: whitesmoke;
+    background-color: $primary;
+    color: $main;
 }
 
 .mat-input-element{
     width: 6em;
     font-weight: 500;
-    color: whitesmoke;
+    color: $main;
     padding: 0.4em;
     transition-property: width;
     transition-duration: 0.2s;
@@ -40,7 +40,7 @@
 }
 
 .search-box{
-    background: #0000002b;
+    background: $dark;
     border-radius: 5px 5px 5px 5px;
     // padding-right: 0.65em;
     transition-property: background;
