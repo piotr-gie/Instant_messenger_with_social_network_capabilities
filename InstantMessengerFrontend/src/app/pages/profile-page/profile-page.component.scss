@@ -22,7 +22,7 @@
     justify-content: flex-start;
     width: 300px;
     height: 600px;
-    background-color: rgba(245, 245, 245, 0.89);
+    background-color: $additional;
 }
 
 .avatar {
@@ -30,7 +30,7 @@
     height: 250px;
     margin-top: 25px;
     border-width: 3px;
-    border-color: #673ab7;
+    border-color: $primary;
     border-style: solid;
     border-radius: 5px;
     background-image: url('https://images.vexels.com/media/users/3/129616/isolated/preview/fb517f8913bd99cd48ef00facb4a67c0-businessman-avatar-silhouette-by-vexels.png');
@@ -61,7 +61,7 @@
 .photo-preview {
     width: 80px;
     height: 80px;
-    background-color: white;
+    background-color: $secondary;
     margin: 5px;
 }
 
