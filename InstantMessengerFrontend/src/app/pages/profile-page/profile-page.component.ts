@@ -12,6 +12,7 @@ import { DialogWindowService } from 'src/app/services/dialog-window.service';
 export class ProfilePageComponent {
   model: User;
   genderType = GenderType;
+  temp: any; //delete later
 
   constructor(private dialogService: DialogWindowService) {
     //TODO: remove mock
