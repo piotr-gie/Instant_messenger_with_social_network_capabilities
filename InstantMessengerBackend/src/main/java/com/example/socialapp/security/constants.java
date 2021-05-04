@@ -1,4 +1,4 @@
-package security;
+package com.example.socialapp.security;
 
 public class constants {
 
