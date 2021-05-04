@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-@Controller
+@RestController
 @RequestMapping(value = "/message")
 public class MessageController {
     MessageService messageService;
