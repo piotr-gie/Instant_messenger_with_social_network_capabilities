@@ -4,8 +4,8 @@ import javax.persistence.*;
 import javax.sql.rowset.serial.SerialBlob;
 import java.text.SimpleDateFormat;
 
+@Table(name = "users")
 @Entity
-//@Table(name = "users")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

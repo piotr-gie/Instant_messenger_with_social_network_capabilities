@@ -3,7 +3,6 @@ package com.example.socialapp.service;
 import com.example.socialapp.model.User;
 import com.example.socialapp.model.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -64,7 +63,7 @@ public class UserService implements UserDetailsService {
 
         user.orElseThrow(() -> new UsernameNotFoundException("Not found: " + mail));
 
-        com.example.socialapp.model.UserDetails userDetails = new com.example.socialapp.model.UserDetails(user.get());
+        CustomUserDetails userDetails = new CustomUserDetails(user.get());
 
         return userDetails;
     }

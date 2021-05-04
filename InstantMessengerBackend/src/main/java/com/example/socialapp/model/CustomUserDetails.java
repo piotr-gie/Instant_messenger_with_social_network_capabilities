@@ -2,20 +2,21 @@ package com.example.socialapp.model;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class UserDetails implements org.springframework.security.core.userdetails.UserDetails {
+public class CustomUserDetails implements UserDetails {
 
     private String userName;
     private String password;
     private boolean active;
     private List<GrantedAuthority> authorities;
 
-    public UserDetails(User user) {
+    public CustomUserDetails(User user) {
         this.userName = user.getMail();
         this.password = user.getPassword();
         this.active = user.isActive();
