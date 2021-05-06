@@ -10,7 +10,7 @@ export class UserService extends BaseService<User> {
 
   constructor(http: HttpClient) {
       super(http);
-      this.controllerPath = "users"
+      this.controllerPath = "user"
   }
 
 }

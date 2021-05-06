@@ -17,8 +17,7 @@ export class RegisterComponent implements OnInit {
   
   constructor(
     private formBuilder: FormBuilder,
-    private userService: UserService,
-    private authService: AuthService) {}
+    private userService: UserService) {}
 
   ngOnInit() {
     this.buildRegisterForm();
@@ -26,9 +25,10 @@ export class RegisterComponent implements OnInit {
 
   submitRegisterForm() {
     // this.authService.register(this.registerForm.value).subscribe(response => {  
-    // })
-    this.authService.setCurrentUser(this.registerForm.value); //TODO
+    // console.log(response) })
+    // //this.authService.setCurrentUser(this.registerForm.value); //TODO
     this.closeRegisterForm();
+    this.userService.postModel(this.registerForm.value).subscribe();
   }
 
   closeRegisterForm() {

@@ -15,7 +15,7 @@ currentUser$ = this.currentUserSource.asObservable()
 
  constructor(http: HttpClient) {
       super(http);
-      this.controllerPath = "users";
+      this.controllerPath = "user";
     this.login(null);
   }
 
@@ -29,7 +29,7 @@ currentUser$ = this.currentUserSource.asObservable()
     //     }
     //   })
     // )
-    this.currentUserSource.next({ firstName: "Johny", lastName: "Baker", id: 1 }) //TODO: to remove after login imp
+    this.currentUserSource.next({ firstName: "John", lastName: "Smith", id: 1 }) //TODO: to remove after login imp
     if(this.currentUser$ != null) { 
       this.loggedIn = true;
     } 

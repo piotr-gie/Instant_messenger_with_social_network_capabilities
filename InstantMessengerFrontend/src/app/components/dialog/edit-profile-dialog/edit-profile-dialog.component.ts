@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { GenderType } from 'src/app/enums/gender-type.enum';
 import { User } from 'src/app/models/user';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-edit-profile-dialog',
@@ -17,7 +18,7 @@ export class EditProfileDialogComponent implements OnInit {
   avatar: File;
 
   constructor(@Inject(MAT_DIALOG_DATA) data: User,
-   private formBuilder: FormBuilder) { 
+   private formBuilder: FormBuilder, private userService: UserService) { 
      this.model = data;
    }
 
@@ -26,20 +27,21 @@ export class EditProfileDialogComponent implements OnInit {
   }
 
   submitUserForm() {
-    //TODO: Update user profile
-    console.log(this.userForm.value)
+    this.userForm.get("birthday").setValue(null); //TODO
+    this.userService.postModel(this.userForm.value).subscribe();
   }
 
   private buildUserForm() {
     this.userForm = this.formBuilder.group({
+      id: this.model.id, //TODO
       firstName: [this.model.firstName, [Validators.required]],
       lastName: [this.model.lastName, [Validators.required]],
       country: [this.model.country],
       city: [this.model.city],
       birthday: [this.model.birthday],
       gender: [this.model.gender],
-      mobile: [this.model.mobile],
-      email: [this.model.email],
+      phone: [this.model.phone],
+      mail: [this.model.mail],
       presentation: [this.model.presentation],
     })
   }

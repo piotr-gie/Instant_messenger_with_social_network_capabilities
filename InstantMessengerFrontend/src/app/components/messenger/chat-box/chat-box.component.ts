@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { TextBoxType } from 'src/app/enums/message-box-type.enum';
 import { MessageHelper } from 'src/app/helpers/messageHelper';
 import { Message } from 'src/app/models/message';
+import { User } from 'src/app/models/user';
 import { AuthService } from 'src/app/services/auth.service';
 import { MessageService } from 'src/app/services/message.service';
 
@@ -11,7 +12,7 @@ import { MessageService } from 'src/app/services/message.service';
   styleUrls: ['./chat-box.component.scss']
 })
 export class ChatBoxComponent implements OnInit{
-  
+  @Input() user: User;
   messages: Message [] = [];
   firstAndLastName = "John Smith"
 
@@ -20,7 +21,7 @@ export class ChatBoxComponent implements OnInit{
   constructor(private messageService: MessageService, private authService: AuthService) {}
 
   ngOnInit(): void {
-    this.messageService.getAllMessagesInConversationByUsers(1, 2).subscribe((response) => {
+    this.messageService.getAllMessagesInConversationByUsers(1, this.user.id).subscribe((response) => {
       this.messages = response;
     });
   }
@@ -42,7 +43,7 @@ export class ChatBoxComponent implements OnInit{
         senderId: this.authService.getCurrentUserId(),
         attachment: null, 
         date: new Date()
-      }, this.authService.getCurrentUserId(), 2).subscribe((response) => {
+      }, this.authService.getCurrentUserId(), this.user.id).subscribe((response) => {
         
       })
 

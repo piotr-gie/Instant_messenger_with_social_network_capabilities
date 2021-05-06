@@ -7,8 +7,8 @@ export interface User extends BaseModel {
     city?: string;
     birthday?: Date;
     gender?: string;
-    mobile?: string;
-    email?: string,
+    phone?: string;
+    mail?: string,
     presentation?: string;
     avatar?: File;
 
