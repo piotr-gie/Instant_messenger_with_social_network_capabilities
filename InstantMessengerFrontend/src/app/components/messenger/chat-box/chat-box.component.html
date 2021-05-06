@@ -9,9 +9,7 @@
       <div class="chat-content">
         <div *ngFor="let message of messages ">
           <app-message
-           [content]="message.message.content"
-           [uploadedFiles]="message.message.files"
-           [textBoxType]="message.textBoxType"
+           [model]="message"
           ></app-message>
         </div>
       </div>

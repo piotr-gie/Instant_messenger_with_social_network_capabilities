@@ -5,12 +5,19 @@
     'recived' : textBoxType === textBoxTypeEnum.recived
   }"
 >
-  <div class="message">
+  <div class="message"
+    (mouseover)="showDate()"
+    (mouseout)="hideDate()"
+  >
       <app-rich-text-box 
       [isReadOnly]="true"
-      [content]="content"
+      [content]="model.content"
       [textBoxType]="textBoxType"
-      [uploadedFiles]="uploadedFiles"
+      [uploadedFiles]="model.attachment?.files"
     ></app-rich-text-box>    
+    <div *ngIf="isDateShown && isMouseEnetered" class="date"
+    >
+      {{model.date.toString().substring(0, 16).replace('T',' ')}}
+    </div>
   </div>
 </div>

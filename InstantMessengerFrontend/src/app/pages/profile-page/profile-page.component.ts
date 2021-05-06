@@ -20,7 +20,7 @@ export class ProfilePageComponent {
       lastName: "Smith",
       country: "Poland",
       city: "Warsaw",
-      birthday: "Jan 24",
+      birthday: new Date(),
       gender: this.genderType.male,
       mobile: "502 421 210",
       email: "john.smith@gmail.com",
@@ -32,15 +32,7 @@ export class ProfilePageComponent {
     this.dialogService.openDialogWindow(EditProfileDialogComponent, this.model, (data) => { 
       if(data != null)  {
         this.model = data;
-        this.formatDate(data);
       }
     });  
-  }
-
-  formatDate(data: any) {
-    if(data.birthday !== undefined) {
-      let formattedDate =  data.birthday.toString().substring(3,15);
-      this.model.birthday = formattedDate;
-    } 
   }
 }

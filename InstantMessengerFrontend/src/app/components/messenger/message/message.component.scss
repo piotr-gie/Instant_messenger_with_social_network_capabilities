@@ -1,5 +1,9 @@
+@import  "./src/styles.scss";
+
 .message {
-    margin: 5px;
+    margin-top: 5px;
+    display: flex;
+    flex-direction: column;
 }
 
 .recived {
@@ -10,4 +14,10 @@
 .sent {   
     display: flex;
     justify-content: flex-end;   
+}
+
+.date {
+    font-size: 10px;
+    color: $faded;
+    margin: 0px;
 }

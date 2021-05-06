@@ -1,32 +1,52 @@
 import { Component, OnInit } from '@angular/core';
 import { TextBoxType } from 'src/app/enums/message-box-type.enum';
-import { Message } from 'src/app/helpers/message';
+import { MessageHelper } from 'src/app/helpers/messageHelper';
+import { Message } from 'src/app/models/message';
+import { AuthService } from 'src/app/services/auth.service';
+import { MessageService } from 'src/app/services/message.service';
 
 @Component({
   selector: 'app-chat-box',
   templateUrl: './chat-box.component.html',
   styleUrls: ['./chat-box.component.scss']
 })
-export class ChatBoxComponent {
-  messages: any [] = [];
+export class ChatBoxComponent implements OnInit{
+  
+  messages: Message [] = [];
   firstAndLastName = "John Smith"
 
   textBoxTypeEnum = TextBoxType
 
-  sendMessage(message: Message) {
+  constructor(private messageService: MessageService, private authService: AuthService) {}
 
-    //TODO: to implement
-    const x = this.getRandomInt(0, 1);
-    const messtype = x === 1 ? this.textBoxTypeEnum.sent : this.textBoxTypeEnum.recived
-    console.log(messtype);
-
-    this.messages.push({message: message, textBoxType: messtype});
+  ngOnInit(): void {
+    this.messageService.getAllMessagesInConversationByUsers(1, 2).subscribe((response) => {
+      this.messages = response;
+    });
   }
 
-  //TODO: to remove
-  getRandomInt(min, max) {
-    min = Math.ceil(min);
-    max = Math.floor(max);
-    return Math.floor(Math.random() * (max - min + 1)) + min;
-}
+  sendMessage(messageHelper: MessageHelper) {
+
+    let message = {
+      content: messageHelper.content,
+      senderId: this.authService.getCurrentUserId(),
+      attachment: { files: messageHelper.files }, 
+      date: new Date()
+    }
+
+    this.messages.push(message);
+    
+    this.messageService.sendMessage(
+      {
+        content: messageHelper.content,
+        senderId: this.authService.getCurrentUserId(),
+        attachment: null, 
+        date: new Date()
+      }, this.authService.getCurrentUserId(), 2).subscribe((response) => {
+        
+      })
+
+  }
+
+
 }

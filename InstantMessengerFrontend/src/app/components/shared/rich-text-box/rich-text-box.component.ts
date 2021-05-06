@@ -1,7 +1,7 @@
 import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { TextBoxType } from 'src/app/enums/message-box-type.enum';
-import { Message } from 'src/app/helpers/message';
+import { MessageHelper } from 'src/app/helpers/messageHelper';
 
 @Component({
   selector: 'app-rich-text-box',
@@ -10,7 +10,7 @@ import { Message } from 'src/app/helpers/message';
 })
 export class RichTextBoxComponent implements OnInit {
   @ViewChild('editor') elementView: ElementRef;
-  @Output() textBoxSubmitEmit: EventEmitter<Message> = new EventEmitter();
+  @Output() textBoxSubmitEmit: EventEmitter<MessageHelper> = new EventEmitter();
 
   @Input() content: string;
   @Input() isReadOnly: boolean;
@@ -40,14 +40,12 @@ export class RichTextBoxComponent implements OnInit {
   }
 
   onSubmit() {
-    const message: Message = {
+    const messageHelper: MessageHelper = {
       content: (this.editorForm.get("editor").value)?.toString(),
       files: this.uploadedFiles
     }
-    console.log(message.content)
-    console.log(this.uploadedFiles.length)
     if (this.isEditorFormNotEmpty() || this.uploadedFiles.length > 0) {
-      this.textBoxSubmitEmit.emit(message);
+      this.textBoxSubmitEmit.emit(messageHelper);
       this.cleanTextBoxData();
     }  
   

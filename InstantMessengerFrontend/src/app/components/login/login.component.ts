@@ -26,7 +26,8 @@ export class LoginComponent implements OnInit {
     //   console.log(error);
     // })
 
-    this.authService.loggedIn = true; //TODO
+    this.authService.login(null);
+    //this.authService.loggedIn = true; //TODO
   }
 
   getCurrentUser() {
