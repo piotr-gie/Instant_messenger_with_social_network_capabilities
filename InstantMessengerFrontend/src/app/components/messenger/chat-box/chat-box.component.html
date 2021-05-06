@@ -2,16 +2,14 @@
   <mat-card class="chat-box-container">
     <mat-card-header>
       <div mat-card-avatar class="user-image"></div>
-      <mat-card-title class="title">{{ firstAndLastName }}</mat-card-title>    
+      <mat-card-title class="title">{{ user.firstName + " " + user.lastName }}</mat-card-title>    
     </mat-card-header>
     <div class="separator m-t-5"></div>
     <mat-card-content>
       <div class="chat-content">
         <div *ngFor="let message of messages ">
           <app-message
-           [content]="message.message.content"
-           [uploadedFiles]="message.message.files"
-           [textBoxType]="message.textBoxType"
+           [model]="message"
           ></app-message>
         </div>
       </div>

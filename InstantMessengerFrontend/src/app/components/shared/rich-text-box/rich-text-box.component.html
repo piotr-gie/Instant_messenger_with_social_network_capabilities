@@ -1,6 +1,9 @@
 <div>
   <Form [formGroup]="editorForm" (ngSubmit)="onSubmit()">
-    <div class="editor-container">
+    <div [ngClass]="{
+      'sent' : textBoxType === textBoxTypeEnum.sent,
+      'recived' : textBoxType === textBoxTypeEnum.recived
+    }" class="editor-container">
       <app-file-uploader
         [ngClass]="isEditorFormNotEmpty() || isReadOnly ? 'hidden-uploader' : 'm-r-5'"
         (fileSelectedEmit)="addFileToUpload($event)"

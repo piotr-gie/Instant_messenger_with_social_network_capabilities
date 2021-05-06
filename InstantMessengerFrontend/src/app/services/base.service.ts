@@ -11,7 +11,7 @@ export class BaseService<T extends BaseModel> {
   baseUrl = environment.apiUrl;
   controllerPath: string;
 
-  constructor(private http: HttpClient) { }
+  constructor(protected http: HttpClient) { }
 
   getModels(): Observable<T[]>{
     return this.http.get<T[]>(this.baseUrl + this.controllerPath)

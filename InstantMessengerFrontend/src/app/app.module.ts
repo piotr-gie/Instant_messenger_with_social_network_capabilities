@@ -21,6 +21,7 @@ import { WelcomePageComponent } from './pages/welcome-page/welcome-page.componen
 import { ProfilePageComponent } from './pages/profile-page/profile-page.component';
 import { EditProfileDialogComponent } from './components/dialog/edit-profile-dialog/edit-profile-dialog.component';
 import { SearchComponent } from './components/search/search.component';
+import { UserListComponent } from './pages/user-list/user-list.component';
 
 @NgModule({
   declarations: [	
@@ -37,7 +38,8 @@ import { SearchComponent } from './components/search/search.component';
     AttachmentDirective,
     ProfilePageComponent,
     EditProfileDialogComponent,
-    SearchComponent
+    SearchComponent,
+    UserListComponent
 
    ],
   imports: [

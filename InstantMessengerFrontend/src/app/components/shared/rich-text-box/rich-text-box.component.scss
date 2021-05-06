@@ -16,7 +16,7 @@
 }
 
 .edit-border { 
-    background-color: $additional;
+    background-color: $faded;
     width: 90%;
 }
 
@@ -26,7 +26,7 @@
 }
 
 .recived-border {
-    background-color: $additional;
+    background-color: $faded;
     max-width: 250px;
 }
 
@@ -43,4 +43,12 @@
     margin: 3px;
 }
 
+.recived {
+    display: flex;
+    justify-content: flex-start;
+}
 
+.sent {   
+    display: flex;
+    justify-content: flex-end;   
+}

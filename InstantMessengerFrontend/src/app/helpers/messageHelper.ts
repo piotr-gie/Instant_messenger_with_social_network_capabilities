@@ -1,4 +1,4 @@
-export interface Message {
+export interface MessageHelper {
     content: string;
     files: File[]
 }

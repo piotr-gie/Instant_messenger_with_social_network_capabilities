@@ -1,6 +1,7 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/services/auth.service';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-login',
@@ -13,7 +14,7 @@ export class LoginComponent implements OnInit {
   loginForm: FormGroup
   isPassHidden = true;
 
-  constructor(private formBuilder: FormBuilder, private authService: AuthService) {}
+  constructor(private formBuilder: FormBuilder, private authService: AuthService, private userService: UserService) {}
 
   ngOnInit() {
     this.buildLoginForm();
@@ -26,7 +27,13 @@ export class LoginComponent implements OnInit {
     //   console.log(error);
     // })
 
-    this.authService.loggedIn = true; //TODO
+    this.authService.login(null);
+    this.authService.loggedIn = true; 
+
+    this.userService.getModels().subscribe((response) => {
+      console.log(response);
+    });
+   
   }
 
   getCurrentUser() {
