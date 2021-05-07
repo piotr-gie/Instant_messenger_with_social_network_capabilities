@@ -21,20 +21,33 @@
     color: whitesmoke;
 }
 
-.mat-input-element{
+.search-box .mat-input-element{
     width: 6em;
+    font: inherit;
     font-weight: 500;
+<<<<<<< Updated upstream
     color: whitesmoke;
+=======
+    color: $main;
+    background: transparent;
+    border: none;
+    outline: none; 
+    max-width: 100%;
+    vertical-align: bottom;
+    text-align: inherit;
+    box-sizing: content-box;
+    margin-left: 10px;
+>>>>>>> Stashed changes
     padding: 0.4em;
     transition-property: width;
     transition-duration: 0.2s;
 }
 
-.mat-input-element:focus{
+.search-box .mat-input-element:focus{
     width: 30em;
 }
 
-.mat-input-element::placeholder{
+.search-box .mat-input-element::placeholder{
     color: rgba(245, 245, 245, 0.7);
     font-weight: 500;
 }
@@ -45,6 +58,10 @@
     // padding-right: 0.65em;
     transition-property: background;
     transition-duration: 0.1s;
+}
+
+.search-input{
+    align-items: center;
 }
 
 // .search-box:hover{
