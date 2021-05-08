@@ -19,22 +19,42 @@
 .search-autocomplete .mat-card{
     background-color: $primary;
     color: $main;
+    cursor: pointer;
+    transition-property: background-color;
+    transition-duration: 0.2s;
 }
 
-.mat-input-element{
-    width: 6em;
+.search-autocomplete .mat-card:hover{
+    background-color: $dark;
+}
+
+.search-box  .mat-input-element{
+    width: 20em;
+    font: inherit;
     font-weight: 500;
     color: $main;
+    background: transparent;
+    border: none;
+    outline: none; 
+    max-width: 100%;
+    vertical-align: bottom;
+    text-align: inherit;
+    box-sizing: content-box;
+    margin-left: 10px;
     padding: 0.4em;
     transition-property: width;
     transition-duration: 0.2s;
 }
 
-.mat-input-element:focus{
-    width: 30em;
+// .search-box .mat-input-element:focus{
+//     width: 30em;
+// }
+
+.search-box .mat-input-element:placeholder-shown{
+    width: 6em;
 }
 
-.mat-input-element::placeholder{
+.search-box .mat-input-element::placeholder{
     color: rgba(245, 245, 245, 0.7);
     font-weight: 500;
 }
@@ -42,9 +62,8 @@
 .search-box{
     background: $dark;
     border-radius: 5px 5px 5px 5px;
-    // padding-right: 0.65em;
-    transition-property: background;
-    transition-duration: 0.1s;
+    // transition-property: background;
+    // transition-duration: 0.1s;
 }
 
 // .search-box:hover{
@@ -55,4 +74,4 @@
     width: 55px;
     height: 43px;
     min-width: 0px;
-}
+} 

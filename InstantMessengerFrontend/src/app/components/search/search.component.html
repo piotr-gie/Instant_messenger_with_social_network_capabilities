@@ -1,19 +1,15 @@
 <span class="search m-l-10">
     <div class="search-box m-t-10">
-        <input class="m-l-5" matInput (focus)="show = true;" (blur)="show = false" autocomplete="off" placeholder="Search users">
-        <button mat-button>
+        <input matInput (focus)="show = true;" (blur)="show = false" (keyup)="search($event)" (keyup.enter)="showSearchResults()" autocomplete="off" placeholder="Search users">
+        <button mat-button (click)="showSearchResults()">
             <mat-icon matSuffix>search</mat-icon>
         </button>
         <div class="search-autocomplete" *ngIf="show">
-            <mat-card>
-                <h2>User 1</h2>
-            </mat-card>
-            <mat-card>
-                <h2>User 2</h2>
-            </mat-card>
-            <mat-card>
-                <h2>User 3</h2>
-            </mat-card>
+            <div *ngFor="let user of usersSearchList | slice:0:5;">
+                <mat-card (click)="showUserProfile(user.id)">
+                    <h2>{{user.firstName + " " + user.lastName}}</h2>
+                </mat-card>
+            </div>
         </div>
     </div>
 </span>

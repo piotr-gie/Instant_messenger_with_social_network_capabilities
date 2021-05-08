@@ -22,6 +22,7 @@ import { ProfilePageComponent } from './pages/profile-page/profile-page.componen
 import { EditProfileDialogComponent } from './components/dialog/edit-profile-dialog/edit-profile-dialog.component';
 import { SearchComponent } from './components/search/search.component';
 import { UserListComponent } from './pages/user-list/user-list.component';
+import { SearchPageComponent } from './pages/search-page/search-page.component';
 
 @NgModule({
   declarations: [	
@@ -39,7 +40,8 @@ import { UserListComponent } from './pages/user-list/user-list.component';
     ProfilePageComponent,
     EditProfileDialogComponent,
     SearchComponent,
-    UserListComponent
+    UserListComponent,
+    SearchPageComponent
 
    ],
   imports: [
