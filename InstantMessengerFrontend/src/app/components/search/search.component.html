@@ -1,7 +1,7 @@
 <span class="search m-l-10">
     <div class="search-box m-t-10">
-        <input matInput (focus)="show = true;" (blur)="show = false" (keyup)="search($event)" autocomplete="off" placeholder="Search users">
-        <button mat-button>
+        <input matInput (focus)="show = true;" (blur)="show = false" (keyup)="search($event)" (keyup.enter)="showSearchResults()" autocomplete="off" placeholder="Search users">
+        <button mat-button (click)="showSearchResults()">
             <mat-icon matSuffix>search</mat-icon>
         </button>
         <div class="search-autocomplete" *ngIf="show">
@@ -10,15 +10,6 @@
                     <h2>{{user.firstName + " " + user.lastName}}</h2>
                 </mat-card>
             </div>
-            <!-- <mat-card>
-                <h2>User 1</h2>
-            </mat-card>
-            <mat-card>
-                <h2>User 2</h2>
-            </mat-card>
-            <mat-card>
-                <h2>User 3</h2>
-            </mat-card> -->
         </div>
     </div>
 </span>

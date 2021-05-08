@@ -14,6 +14,7 @@ import { filter } from 'rxjs/operators';
 })
 export class SearchComponent implements OnInit {
   show: boolean;
+  input: string;
   users: User [] = [];
   usersSearchList: User [] = [];
   // users: Observable<User>
@@ -37,12 +38,16 @@ export class SearchComponent implements OnInit {
     this.router.navigate(['/profile', id])
   }
 
+  showSearchResults(){
+    this.router.navigate(['/search', this.input]);
+  }
+
   search($event){
-    let input = $event.target.value;
+    this.input = $event.target.value;
     let userList: User [] = [];
     const sauce = from(this.users);
 
-    sauce.pipe(filter(user => user.firstName.includes(input) || user.lastName.includes(input)))
+    sauce.pipe(filter(user => user.firstName.includes(this.input) || user.lastName.includes(this.input)))
     .subscribe(us => userList.push(us));
 
     this.usersSearchList = userList;

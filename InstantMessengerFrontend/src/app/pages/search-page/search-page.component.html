@@ -1,0 +1,25 @@
+<div *ngFor="let user of usersSearchList">
+    <mat-card class="user-card">
+      <div *ngIf="!avatar" class="avatar"
+        [ngClass]="this.user.gender === genderType.female ? 'female-avatar' : 'male-avatar'"
+      >
+      </div>
+        <div *ngIf="avatar" class="avatar">
+          <img [src]="avatar">
+        </div> 
+      <div class="card-container w-100">
+        <div class="m-l-25">
+          <h2>{{user.firstName + " " + user.lastName}}</h2>
+          <h2>{{user.country}}</h2>
+        </div>
+        <div class="actions-container">
+          <button (click)="showUserProfile(user.id)" type="button" mat-mini-fab color="primary" class="upload-btn">
+            <mat-icon>person</mat-icon>
+          </button>
+          <button type="button" mat-mini-fab color="primary" class="upload-btn m-l-10">
+            <mat-icon>message</mat-icon>
+          </button>
+        </div>
+      </div> 
+    </mat-card>
+  </div>
