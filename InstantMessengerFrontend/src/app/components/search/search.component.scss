@@ -19,6 +19,13 @@
 .search-autocomplete .mat-card{
     background-color: $primary;
     color: $main;
+    cursor: pointer;
+    transition-property: background-color;
+    transition-duration: 0.2s;
+}
+
+.search-autocomplete .mat-card:hover{
+    background-color: #344397;
 }
 
 .search-box  .mat-input-element{
