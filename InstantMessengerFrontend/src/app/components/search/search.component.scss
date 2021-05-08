@@ -21,20 +21,29 @@
     color: $main;
 }
 
-.mat-input-element{
+.search-box  .mat-input-element{
     width: 6em;
+    font: inherit;
     font-weight: 500;
     color: $main;
+    background: transparent;
+    border: none;
+    outline: none; 
+    max-width: 100%;
+    vertical-align: bottom;
+    text-align: inherit;
+    box-sizing: content-box;
+    margin-left: 10px;
     padding: 0.4em;
     transition-property: width;
     transition-duration: 0.2s;
 }
 
-.mat-input-element:focus{
+.search-box .mat-input-element:focus{
     width: 30em;
 }
 
-.mat-input-element::placeholder{
+.search-box .mat-input-element::placeholder{
     color: rgba(245, 245, 245, 0.7);
     font-weight: 500;
 }
@@ -55,4 +64,4 @@
     width: 55px;
     height: 43px;
     min-width: 0px;
-}
+} 
