@@ -1,5 +1,6 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
 import { AuthService } from 'src/app/services/auth.service';
 import { UserService } from 'src/app/services/user.service';
 
@@ -17,7 +18,8 @@ export class RegisterComponent implements OnInit {
   
   constructor(
     private formBuilder: FormBuilder,
-    private userService: UserService) {}
+    private userService: UserService,
+    private toastrService: ToastrService) {}
 
   ngOnInit() {
     this.buildRegisterForm();
@@ -28,7 +30,12 @@ export class RegisterComponent implements OnInit {
     // console.log(response) })
     // //this.authService.setCurrentUser(this.registerForm.value); //TODO
     this.closeRegisterForm();
-    this.userService.postModel(this.registerForm.value).subscribe();
+    this.userService.postModel(this.registerForm.value).subscribe((response) => {
+      this.toastrService.success("Successfully registered new account!")
+    }, error => {
+      this.toastrService.error("Failed to register!");
+    });
+    
   }
 
   closeRegisterForm() {

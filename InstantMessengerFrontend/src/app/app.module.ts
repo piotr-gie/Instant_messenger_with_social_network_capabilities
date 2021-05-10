@@ -23,6 +23,7 @@ import { EditProfileDialogComponent } from './components/dialog/edit-profile-dia
 import { SearchComponent } from './components/search/search.component';
 import { UserListComponent } from './pages/user-list/user-list.component';
 import { SearchPageComponent } from './pages/search-page/search-page.component';
+import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
   declarations: [	
@@ -52,7 +53,12 @@ import { SearchPageComponent } from './pages/search-page/search-page.component';
     MatToolbarModule,
     ReactiveFormsModule,
     HttpClientModule,
-    QuillModule.forRoot()
+    QuillModule.forRoot(),
+    ToastrModule.forRoot({
+      timeOut: 3000,
+      positionClass: 'toast-bottom-right',
+      preventDuplicates: true,
+    }), 
   ],
   providers: [],
   bootstrap: [AppComponent],
