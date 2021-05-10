@@ -3,7 +3,7 @@ import { Injectable, OnInit } from '@angular/core';
 import { User } from '../models/user';
 import { BaseService } from './base.service';
 import { map } from 'rxjs/operators';
-import { ReplaySubject } from 'rxjs';
+import { Observable, ReplaySubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -19,7 +19,7 @@ currentUser$ = this.currentUserSource.asObservable()
     this.login(null);
   }
 
-  login(user: User) {
+  login(user: User): Observable<User> {
     // return this.postModel(user).pipe(
     //   map((respose: User) => {
     //     const user = respose;
@@ -31,8 +31,9 @@ currentUser$ = this.currentUserSource.asObservable()
     // )
     this.currentUserSource.next({ firstName: "John", lastName: "Smith", id: 1 }) //TODO: to remove after login imp
     if(this.currentUser$ != null) { 
-      this.loggedIn = true;
+      this.loggedIn = true;  
     } 
+    return this.currentUserSource;
   } 
 
   register(user: User) {
@@ -46,9 +47,10 @@ currentUser$ = this.currentUserSource.asObservable()
     )
   }
 
-  logout() {
+  logout(): Observable<User>  {
     localStorage.removeItem('user');
     this.currentUserSource.next(null);
+    return this.currentUserSource;
   }
 
   setCurrentUser(user: User) {

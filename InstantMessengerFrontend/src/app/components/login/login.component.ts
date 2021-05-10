@@ -1,5 +1,6 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
 import { AuthService } from 'src/app/services/auth.service';
 import { UserService } from 'src/app/services/user.service';
 
@@ -14,7 +15,11 @@ export class LoginComponent implements OnInit {
   loginForm: FormGroup
   isPassHidden = true;
 
-  constructor(private formBuilder: FormBuilder, private authService: AuthService, private userService: UserService) {}
+  constructor(
+    private formBuilder: FormBuilder,
+    private authService: AuthService,
+    private userService: UserService,
+    private toastrService: ToastrService) {}
 
   ngOnInit() {
     this.buildLoginForm();
@@ -27,12 +32,12 @@ export class LoginComponent implements OnInit {
     //   console.log(error);
     // })
 
-    this.authService.login(null);
-    this.authService.loggedIn = true; 
-
-    this.userService.getModels().subscribe((response) => {
-      console.log(response);
+    this.authService.login(null).subscribe((response) => {
+      this.toastrService.success("Successfully logged in!")
+    }, error => {
+      this.toastrService.error("Failed to login!");
     });
+    this.authService.loggedIn = true; 
    
   }
 

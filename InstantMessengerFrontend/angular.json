@@ -32,7 +32,8 @@
               "./node_modules/quill/dist/quill.snow.css",
               "./node_modules/quill/dist/quill.bubble.css",
               "src/app-theme.scss",
-              "src/styles.scss"
+              "src/styles.scss",
+              "node_modules/ngx-toastr/toastr.css"
             ],
             "scripts": [
               "./node_modules/quill/dist/quill.js"
@@ -98,7 +99,8 @@
             ],
             "styles": [
               "src/app-theme.scss",
-              "src/styles.scss"
+              "src/styles.scss",
+              "node_modules/ngx-toastr/toastr.css"
             ],
             "scripts": []
           }
