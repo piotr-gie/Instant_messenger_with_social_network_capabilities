@@ -13,6 +13,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatRadioModule } from '@angular/material/radio';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
+import {MatRippleModule} from '@angular/material/core';
 
 
 const material = [
@@ -31,7 +32,8 @@ const material = [
     MatRadioModule,
     MatDatepickerModule,
     MatNativeDateModule,  
-    MatToolbarModule
+    MatToolbarModule,
+    MatRippleModule
 ]
 
 @NgModule({

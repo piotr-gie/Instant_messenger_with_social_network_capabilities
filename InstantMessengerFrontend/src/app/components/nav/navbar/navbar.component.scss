@@ -9,11 +9,39 @@
     position: sticky;
 }
 
-// span {
-//     padding-right: 1rem;
-// }
+.button-group {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 
-// .nav-button {
-//     font-size: 20px;
-// }
+.chat-box-panel {
+    width: 470px;
+    padding: 7px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    background-color: $primary;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+    justify-content: center;
+    transition: all .2s linear;
+    border-radius: 5px;
+} 
+
+.chat-hidden {
+    height: 20px;
+    background-color: $dark;
+}
+
+.chat-expanded {
+    height: 1820px;
+}
+
+.chat-box-button {
+    text-align: center;
+    align-items: center;
+    font-size: 28px;
+}
+
 

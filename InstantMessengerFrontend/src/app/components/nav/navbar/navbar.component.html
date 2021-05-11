@@ -1,26 +1,30 @@
 <mat-toolbar *ngIf="authService.loggedIn" color="primary" class="navbar">
   <div>
     <span>Instant Messenger<mat-icon class="align-icon m-l-5">forum</mat-icon></span>
-    <app-search></app-search>
+    <app-search class="m-l-25"></app-search>
   </div>
-  
   <div>
-    <span>
+    <span class="button-group">           
       <button mat-button class="align-icon nav-button" routerLink="/home">
-        <mat-icon class="m-r-5">home</mat-icon>Home
+        <mat-icon class="m-r-10">home</mat-icon>Home
       </button>    
       <button mat-button class="align-icon nav-button" routerLink="/users">
-        <mat-icon class="m-r-5">people</mat-icon>Users
-      </button>   
-    </span>
-    <span>
+        <mat-icon class="m-r-10">people</mat-icon>Users
+      </button>  
       <button mat-button class="align-icon nav-button" routerLink="/profile/1">
-        <mat-icon class="m-r-5">account_box</mat-icon>Profile
-      </button>     
-    </span>
-    <span>
+        <mat-icon class="m-r-10">account_box</mat-icon>Profile
+      </button>   
+      <div
+        (click)="toggleExpand()"
+        matRipple
+        class="chat-box-panel"
+        [ngClass]="this.chatTriggered ? 'chat-expanded' : 'chat-hidden'" 
+      >
+        <mat-icon class="chat-box-button" *ngIf="!this.chatExpanded">chat</mat-icon>
+        <app-chat-box *ngIf="this.chatExpanded"></app-chat-box>
+      </div>  
       <button mat-button (click)="logout()" class="align-icon nav-button" routerLink="">
-        <mat-icon class="m-r-5">logout</mat-icon>Logout
+        <mat-icon class="m-r-10">logout</mat-icon>Logout
       </button>     
     </span>
   </div>

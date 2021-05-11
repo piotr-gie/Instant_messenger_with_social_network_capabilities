@@ -5,6 +5,7 @@ import { Message } from 'src/app/models/message';
 import { User } from 'src/app/models/user';
 import { AuthService } from 'src/app/services/auth.service';
 import { MessageService } from 'src/app/services/message.service';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-chat-box',
@@ -13,14 +14,23 @@ import { MessageService } from 'src/app/services/message.service';
 })
 export class ChatBoxComponent implements OnInit{
   @Input() user: User;
+  @Input() friends: User [] = [];
   messages: Message [] = [];
   firstAndLastName = "John Smith"
 
   textBoxTypeEnum = TextBoxType
 
-  constructor(private messageService: MessageService, private authService: AuthService) {}
+  constructor(
+    private messageService: MessageService,
+    private authService: AuthService,
+    private userSerivce: UserService) {}
 
   ngOnInit(): void {
+    this.userSerivce.getModels().subscribe((response) => {
+      this.friends = response;
+      this.user = response[2];
+    })
+
     this.messageService.getAllMessagesInConversationByUsers(1, this.user.id).subscribe((response) => {
       this.messages = response;
     });

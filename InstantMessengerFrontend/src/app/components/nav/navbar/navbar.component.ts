@@ -11,6 +11,9 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class NavbarComponent implements OnInit {
   authService: AuthService;
+  chatTriggered: boolean = false;
+  chatExpanded: boolean = false;
+  expandTime: number = 200;
 
   constructor(
     authService: AuthService,
@@ -23,10 +26,16 @@ export class NavbarComponent implements OnInit {
   }
 
   logout() {
-    this.authService.logout().subscribe((response) => {
+    this.authService.logout().subscribe(() => {
       this.toastrService.info("Logged out")
     });
 
+  }
+
+  toggleExpand() {
+    this.chatTriggered = !this.chatTriggered;
+      setTimeout(() => { this.chatExpanded= !this.chatExpanded
+      }, (this.chatExpanded ? 1 : 0) * this.expandTime);  
   }
 
 }
