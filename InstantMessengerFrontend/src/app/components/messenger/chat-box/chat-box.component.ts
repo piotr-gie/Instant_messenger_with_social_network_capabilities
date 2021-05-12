@@ -43,7 +43,7 @@ export class ChatBoxComponent implements OnInit{
 
     let message = {
       content: messageHelper.content,
-      senderId: this.authService.getCurrentUserId(),
+      senderId: this.authService.getCurrentUser().id,
       attachment: { files: messageHelper.files }, 
       date: new Date()
     }
@@ -53,10 +53,10 @@ export class ChatBoxComponent implements OnInit{
     this.messageService.sendMessage(
       {
         content: messageHelper.content,
-        senderId: this.authService.getCurrentUserId(),
+        senderId: this.authService.getCurrentUser().id,
         attachment: null, 
         date: new Date()
-      }, this.authService.getCurrentUserId(), this.user.id).subscribe((response) => {
+      }, this.authService.getCurrentUser().id, this.user.id).subscribe((response) => {
         
       })
   }

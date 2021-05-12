@@ -21,7 +21,7 @@ export class MessageComponent implements OnInit{
 
   ngOnInit(): void {
 
-    this.textBoxType = (this.model.senderId === this.authService.getCurrentUserId()) ?
+    this.textBoxType = (this.model.senderId === this.authService.getCurrentUser().id) ?
       this.textBoxTypeEnum.sent : this.textBoxTypeEnum.recived;
   }
 

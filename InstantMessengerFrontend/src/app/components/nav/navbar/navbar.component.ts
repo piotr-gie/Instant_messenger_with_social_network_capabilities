@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
-import { Observable, Subscription } from 'rxjs';
+import { GenderType } from 'src/app/enums/gender-type.enum';
+import { User } from 'src/app/models/user';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
@@ -10,10 +11,14 @@ import { AuthService } from 'src/app/services/auth.service';
   encapsulation : ViewEncapsulation.None
 })
 export class NavbarComponent implements OnInit {
+  user: User;
   authService: AuthService;
   chatTriggered: boolean = false;
   chatExpanded: boolean = false;
   expandTime: number = 200;
+  avatar: File;
+
+  genderType = GenderType;
 
   constructor(
     authService: AuthService,
@@ -22,7 +27,13 @@ export class NavbarComponent implements OnInit {
    }
 
   ngOnInit() {
-    
+    this.initUser(); 
+  }
+
+  initUser() {
+    this.authService.getCurrentUser().subscribe((response) => {
+     this.user = response;
+    })
   }
 
   logout() {

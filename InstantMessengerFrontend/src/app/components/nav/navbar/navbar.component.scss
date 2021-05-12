@@ -6,10 +6,13 @@
     top: 0;
     z-index: 1;
     margin-bottom: 15px;
+    background-color: $primary;
+    color: $secondary;
     position: sticky;
+    height: 60px;
 }
 
-.button-group {
+.nav-group {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -43,6 +46,27 @@
     text-align: center;
     align-items: center;
     font-size: 28px;
+}
+
+.nav-avatar {
+    width: 100px;
+    height: 100px;
+    margin-top: 50px;
+    position: relative;
+    border-width: 2px;
+    border-color: $primary;
+    border-style: solid;
+    border-radius: 5px;
+    background-size: cover;
+    background-color: $secondary;
+}
+
+.nav-male-avatar {
+    background-image: url('https://images.vexels.com/media/users/3/129616/isolated/preview/fb517f8913bd99cd48ef00facb4a67c0-businessman-avatar-silhouette-by-vexels.png'); 
+}
+
+.nav-female-avatar {
+    background-image: url('https://kaufmanlegalgroup.com/wp-content/uploads/2020/06/female-silhouette.png');
 }
 
 

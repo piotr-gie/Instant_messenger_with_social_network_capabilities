@@ -1,10 +1,20 @@
-<mat-toolbar *ngIf="authService.loggedIn" color="primary" class="navbar">
-  <div>
-    <span>Instant Messenger<mat-icon class="align-icon m-l-5">forum</mat-icon></span>
-    <app-search class="m-l-25"></app-search>
+<mat-toolbar *ngIf="authService.loggedIn" class="navbar">
+  <div class="nav-group">
+    <span>Instant Messenger<mat-icon class="align-icon m-l-5">forum</mat-icon></span>  
+    <div class="nav-avatar m-l-25"
+      [ngClass]="this.user?.gender === genderType.female ? 'nav-female-avatar' : 'nav-male-avatar'"
+    >
+    </div> 
+    <span class="m-l-10">{{this.user?.firstName}}</span>
+    <app-search class="m-l-25"></app-search>   
   </div>
   <div>
-    <span class="button-group">           
+    <span class="nav-group">       
+      <!-- <div *ngIf="!avatar" class="nav-avatar"
+        [ngClass]="this.user.gender === genderType.female ? 'nav-female-avatar' : 'nav-male-avatar'"
+      >
+      </div>  -->
+     
       <button mat-button class="align-icon nav-button" routerLink="/home">
         <mat-icon class="m-r-10">home</mat-icon>Home
       </button>    
