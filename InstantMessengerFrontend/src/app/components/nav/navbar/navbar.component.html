@@ -16,12 +16,16 @@
       </button>   
       <div
         (click)="toggleExpand()"
-        matRipple
+       
         class="chat-box-panel"
         [ngClass]="this.chatTriggered ? 'chat-expanded' : 'chat-hidden'" 
       >
         <mat-icon class="chat-box-button" *ngIf="!this.chatExpanded">chat</mat-icon>
-        <app-chat-box *ngIf="this.chatExpanded"></app-chat-box>
+        <app-contact-list
+         class="w-100"
+         *ngIf="this.chatExpanded"
+         (hideEmit)="toggleExpand(true)"
+        ></app-contact-list>
       </div>  
       <button mat-button (click)="logout()" class="align-icon nav-button" routerLink="">
         <mat-icon class="m-r-10">logout</mat-icon>Logout

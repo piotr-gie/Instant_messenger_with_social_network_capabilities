@@ -1,4 +1,5 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { GenderType } from 'src/app/enums/gender-type.enum';
 import { TextBoxType } from 'src/app/enums/message-box-type.enum';
 import { MessageHelper } from 'src/app/helpers/messageHelper';
 import { Message } from 'src/app/models/message';
@@ -13,11 +14,14 @@ import { UserService } from 'src/app/services/user.service';
   styleUrls: ['./chat-box.component.scss']
 })
 export class ChatBoxComponent implements OnInit{
+  @Output() closeEmit: EventEmitter<File> = new EventEmitter();
+  
   @Input() user: User;
   @Input() friends: User [] = [];
   messages: Message [] = [];
   firstAndLastName = "John Smith"
 
+  genderType = GenderType;
   textBoxTypeEnum = TextBoxType
 
   constructor(
@@ -28,7 +32,6 @@ export class ChatBoxComponent implements OnInit{
   ngOnInit(): void {
     this.userSerivce.getModels().subscribe((response) => {
       this.friends = response;
-      this.user = response[2];
     })
 
     this.messageService.getAllMessagesInConversationByUsers(1, this.user.id).subscribe((response) => {
@@ -56,8 +59,10 @@ export class ChatBoxComponent implements OnInit{
       }, this.authService.getCurrentUserId(), this.user.id).subscribe((response) => {
         
       })
-
   }
 
+  close() {
+    this.closeEmit.emit();
+  }
 
 }

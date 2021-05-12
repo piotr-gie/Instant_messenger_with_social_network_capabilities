@@ -24,6 +24,7 @@ import { SearchComponent } from './components/search/search.component';
 import { UserListComponent } from './pages/user-list/user-list.component';
 import { SearchPageComponent } from './pages/search-page/search-page.component';
 import { ToastrModule } from 'ngx-toastr';
+import { ContactListComponent } from './components/messenger/contact-list/contact-list.component';
 
 @NgModule({
   declarations: [	
@@ -42,7 +43,8 @@ import { ToastrModule } from 'ngx-toastr';
     EditProfileDialogComponent,
     SearchComponent,
     UserListComponent,
-    SearchPageComponent
+    SearchPageComponent,
+    ContactListComponent
 
    ],
   imports: [

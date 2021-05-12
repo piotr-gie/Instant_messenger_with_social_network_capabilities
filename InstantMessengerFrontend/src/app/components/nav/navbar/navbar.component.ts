@@ -32,10 +32,12 @@ export class NavbarComponent implements OnInit {
 
   }
 
-  toggleExpand() {
-    this.chatTriggered = !this.chatTriggered;
+  toggleExpand(isHidding: boolean) {
+    if(!this.chatExpanded || isHidding) {
+      this.chatTriggered = !this.chatTriggered;
       setTimeout(() => { this.chatExpanded= !this.chatExpanded
       }, (this.chatExpanded ? 1 : 0) * this.expandTime);  
+    }   
   }
 
 }
