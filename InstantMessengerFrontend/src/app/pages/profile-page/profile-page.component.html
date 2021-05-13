@@ -3,6 +3,8 @@
   *ngIf="model?.id != 1"
    class="m-l-10"
    [user]="this.model"></app-chat-box>
+  <!-- <app-board [filter]="this.model.id"></app-board> -->
+  <app-board [filter]="this.temp"></app-board>
   <mat-card class="profile-container m-r-10">
     <div class="avatar-container">
       <div *ngIf="!avatar" class="avatar"

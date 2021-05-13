@@ -15,6 +15,7 @@ export class ProfilePageComponent {
   model: User;
   genderType = GenderType;
   avatar: File;
+  temp: any; //delete later
 
   constructor(private userService: UserService,
      private dialogService: DialogWindowService,
@@ -29,6 +30,7 @@ export class ProfilePageComponent {
     let userId;
     this.activatedRoute.paramMap.subscribe(params => { 
       userId = params.get('id');
+      this.temp = params.get('id'); //delete later
     })
     this.userService.getModel(userId).subscribe((response) => {
       this.model = response;
