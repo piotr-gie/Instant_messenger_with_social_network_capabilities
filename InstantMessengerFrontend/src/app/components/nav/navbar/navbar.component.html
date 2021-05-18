@@ -1,26 +1,40 @@
-<mat-toolbar *ngIf="authService.loggedIn" color="primary" class="navbar">
-  <div>
-    <span>Instant Messenger<mat-icon class="align-icon m-l-5">forum</mat-icon></span>
-    <app-search></app-search>
+<mat-toolbar *ngIf="authService.loggedIn" class="navbar">
+  <div class="nav-group">
+    <span>Instant Messenger<mat-icon class="align-icon m-l-5">forum</mat-icon></span>  
+    <div class="nav-avatar m-l-25"
+      [ngClass]="this.user?.gender === genderType.female ? 'nav-female-avatar' : 'nav-male-avatar'"
+    >
+    </div> 
+    <span class="m-l-10">{{this.user?.firstName}}</span>
+    <app-search class="m-l-25"></app-search>   
   </div>
-  
   <div>
-    <span>
+    <span class="nav-group">       
+     
       <button mat-button class="align-icon nav-button" routerLink="/home">
-        <mat-icon class="m-r-5">home</mat-icon>Home
+        <mat-icon class="m-r-10">home</mat-icon>Home
       </button>    
       <button mat-button class="align-icon nav-button" routerLink="/users">
-        <mat-icon class="m-r-5">people</mat-icon>Users
-      </button>   
-    </span>
-    <span>
+        <mat-icon class="m-r-10">people</mat-icon>Users
+      </button>  
       <button mat-button class="align-icon nav-button" routerLink="/profile/1">
-        <mat-icon class="m-r-5">account_box</mat-icon>Profile
-      </button>     
-    </span>
-    <span>
+        <mat-icon class="m-r-10">account_box</mat-icon>Profile
+      </button>   
+      <div
+        (click)="toggleChatExpand()"
+       
+        class="chat-box-panel"
+        [ngClass]="this.chatTriggered ? 'chat-expanded' : 'chat-hidden'" 
+      >
+        <mat-icon class="chat-box-button" *ngIf="!this.chatExpanded">chat</mat-icon>
+        <app-contact-list
+         class="w-100"
+         *ngIf="this.chatExpanded"
+         (hideEmit)="toggleChatExpand(true)"
+        ></app-contact-list>
+      </div>  
       <button mat-button (click)="logout()" class="align-icon nav-button" routerLink="">
-        <mat-icon class="m-r-5">logout</mat-icon>Logout
+        <mat-icon class="m-r-10">logout</mat-icon>Logout
       </button>     
     </span>
   </div>

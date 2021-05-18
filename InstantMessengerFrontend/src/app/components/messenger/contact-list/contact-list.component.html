@@ -1,0 +1,40 @@
+<div
+  (click)="hidePanel()"
+  matRipple
+  class="hide-button"
+>
+<mat-icon class="hide-button-icon align-icon">expand_less</mat-icon>
+</div>   
+<mat-card *ngIf="!selectedUser" class="contact-list-box">
+  <div class="title-box">
+    <span class="title">
+      Instant Messenger
+    </span>
+    <app-search class="m-l-25"></app-search>
+  </div>
+  <mat-divider></mat-divider>   
+  <mat-list>
+    <div *ngFor="let contact of contacts">
+      <div (click)="selectUser(contact.user)">  
+        <mat-list-item>         
+          <div mat-card-avatar class="user-image"
+            [ngClass]="this.contact.user.gender === genderType.female ? 'female-avatar' : 'male-avatar'"    
+          ></div>
+          <span>
+            <h2 class="m-l-10"> {{contact.user.firstName + " " + contact.user.lastName}}</h2>
+          </span>
+          <span>
+            <p class="timestamp m-l-10">{{ contact.date?.toString() }}</p>
+          </span>         
+        </mat-list-item> 
+      </div> 
+      <mat-divider></mat-divider>    
+    </div>
+  </mat-list>
+</mat-card>
+<app-chat-box
+  *ngIf="selectedUser"
+  [user]='selectedUser'
+  (closeEmit)="selectUser(null)"
+>
+</app-chat-box>

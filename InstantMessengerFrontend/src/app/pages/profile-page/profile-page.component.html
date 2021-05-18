@@ -1,17 +1,13 @@
 <div class="test-box">
-  <app-chat-box  
-  *ngIf="model?.id != 1"
-   class="m-l-10"
-   [user]="this.model"></app-chat-box>
   <mat-card class="profile-container m-r-10">
     <div class="avatar-container">
       <div *ngIf="!avatar" class="avatar"
         [ngClass]="this.model.gender === genderType.female ? 'female-avatar' : 'male-avatar'"
       ></div>
       <div class="m-t-10">
-        <button mat-raised-button><mat-icon>person_add</mat-icon></button>
-        <button mat-raised-button class="m-l-10"><mat-icon>chat</mat-icon></button>
-        <button mat-raised-button class="m-l-10" (click)="openEditDialog()"><mat-icon>settings</mat-icon></button>
+        <button *ngIf="model?.id != 1" mat-raised-button><mat-icon>person_add</mat-icon></button>
+        <button *ngIf="model?.id != 1" mat-raised-button class="m-l-10" (click)="openConversation()"><mat-icon>chat</mat-icon></button>
+        <button *ngIf="model?.id == 1"mat-raised-button class="m-l-10" (click)="openEditDialog()"><mat-icon>settings</mat-icon></button>
       </div> 
       <h2 class="m-t-25">
         Photos

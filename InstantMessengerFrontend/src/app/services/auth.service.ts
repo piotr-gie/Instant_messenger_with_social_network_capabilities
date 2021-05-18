@@ -16,9 +16,8 @@ currentUser$ = this.currentUserSource.asObservable()
  constructor(http: HttpClient) {
       super(http);
       this.controllerPath = "user";
-    this.login(null);
+      
   }
-
   login(user: User): Observable<User> {
     // return this.postModel(user).pipe(
     //   map((respose: User) => {
@@ -57,11 +56,11 @@ currentUser$ = this.currentUserSource.asObservable()
     this.currentUserSource.next(user);
   }
 
-  getCurrentUserId(): number {
+  getCurrentUser(): any {
     // let id;
     // this.currentUser$.subscribe((response) => {
     //   id = response.id;
     // })
-   return 1; //TODO
+   return this.currentUserSource; //TODO
   }
 }

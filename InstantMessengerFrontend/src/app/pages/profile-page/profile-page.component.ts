@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { EditProfileDialogComponent } from 'src/app/components/dialog/edit-profile-dialog/edit-profile-dialog.component';
 import { GenderType } from 'src/app/enums/gender-type.enum';
 import { User } from 'src/app/models/user';
+import { ChatBoxService } from 'src/app/services/chat-box.service';
 import { DialogWindowService } from 'src/app/services/dialog-window.service';
 import { UserService } from 'src/app/services/user.service';
 
@@ -17,9 +18,10 @@ export class ProfilePageComponent {
   avatar: File;
 
   constructor(private userService: UserService,
-     private dialogService: DialogWindowService,
-      private activatedRoute: ActivatedRoute) {
-   }
+    private dialogService: DialogWindowService,
+    private activatedRoute: ActivatedRoute,
+    private chatBoxSerice: ChatBoxService
+    ) {}
   
   ngOnInit() {
     this.initializeUserProfile();  
@@ -42,5 +44,9 @@ export class ProfilePageComponent {
         this.model = data;
       }
     });  
+  }
+
+  openConversation() {
+    this.chatBoxSerice.openChatBox(this.model.id);
   }
 }
