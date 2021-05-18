@@ -1,8 +1,10 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
+import { Subscription } from 'rxjs';
 import { GenderType } from 'src/app/enums/gender-type.enum';
 import { User } from 'src/app/models/user';
 import { AuthService } from 'src/app/services/auth.service';
+import { ChatBoxService } from 'src/app/services/chat-box.service';
 
 @Component({
   selector: 'app-navbar',
@@ -15,19 +17,26 @@ export class NavbarComponent implements OnInit {
   authService: AuthService;
   chatTriggered: boolean = false;
   chatExpanded: boolean = false;
-  expandTime: number = 200;
+  chatExpandTime: number = 200;
   avatar: File;
+
+  subscriptions: Subscription [] = [];
 
   genderType = GenderType;
 
   constructor(
     authService: AuthService,
-    private toastrService: ToastrService) {
+    private toastrService: ToastrService, private chatBoxService: ChatBoxService) {
     this.authService = authService
    }
 
   ngOnInit() {
     this.initUser(); 
+    this.subscriptions.push(this.chatBoxService.isChatBox.subscribe(response => {
+      if(response.open == true && this.chatExpanded === false) {
+        this.toggleChatExpand(false);
+      }
+    }))
   }
 
   initUser() {
@@ -43,11 +52,11 @@ export class NavbarComponent implements OnInit {
 
   }
 
-  toggleExpand(isHidding: boolean) {
+  toggleChatExpand(isHidding: boolean) {
     if(!this.chatExpanded || isHidding) {
       this.chatTriggered = !this.chatTriggered;
       setTimeout(() => { this.chatExpanded= !this.chatExpanded
-      }, (this.chatExpanded ? 1 : 0) * this.expandTime);  
+      }, (this.chatExpanded ? 1 : 0) * this.chatExpandTime);  
     }   
   }
 

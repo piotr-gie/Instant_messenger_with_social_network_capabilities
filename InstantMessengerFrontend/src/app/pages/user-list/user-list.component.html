@@ -16,7 +16,7 @@
         <button (click)="showUserProfile(user.id)" type="button" mat-mini-fab color="primary" class="upload-btn">
           <mat-icon>person</mat-icon>
         </button>
-        <button type="button" mat-mini-fab color="primary" class="upload-btn m-l-10">
+        <button (click)="openConversation(user.id)" type="button" mat-mini-fab color="primary" class="upload-btn m-l-10">
           <mat-icon>message</mat-icon>
         </button>
       </div>

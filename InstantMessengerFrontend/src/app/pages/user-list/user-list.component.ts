@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { GenderType } from 'src/app/enums/gender-type.enum';
 import { User } from 'src/app/models/user';
 import { AuthService } from 'src/app/services/auth.service';
+import { ChatBoxService } from 'src/app/services/chat-box.service';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
@@ -19,7 +20,8 @@ export class UserListComponent implements OnInit {
   constructor(
      private userService: UserService,
      private router: Router,
-     private authService: AuthService) { }
+     private authService: AuthService,
+     private chatBoxSerice: ChatBoxService) {}
 
   ngOnInit() {
     this.initializeUserList();
@@ -33,6 +35,10 @@ export class UserListComponent implements OnInit {
 
   showUserProfile(id: number) {
     this.router.navigate(['/profile', id])
+  }
+
+  openConversation(userId: number) {
+    this.chatBoxSerice.openChatBox(userId);
   }
 
 }

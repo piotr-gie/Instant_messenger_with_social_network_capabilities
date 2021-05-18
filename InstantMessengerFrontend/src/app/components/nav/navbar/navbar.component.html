@@ -10,10 +10,6 @@
   </div>
   <div>
     <span class="nav-group">       
-      <!-- <div *ngIf="!avatar" class="nav-avatar"
-        [ngClass]="this.user.gender === genderType.female ? 'nav-female-avatar' : 'nav-male-avatar'"
-      >
-      </div>  -->
      
       <button mat-button class="align-icon nav-button" routerLink="/home">
         <mat-icon class="m-r-10">home</mat-icon>Home
@@ -25,7 +21,7 @@
         <mat-icon class="m-r-10">account_box</mat-icon>Profile
       </button>   
       <div
-        (click)="toggleExpand()"
+        (click)="toggleChatExpand()"
        
         class="chat-box-panel"
         [ngClass]="this.chatTriggered ? 'chat-expanded' : 'chat-hidden'" 
@@ -34,7 +30,7 @@
         <app-contact-list
          class="w-100"
          *ngIf="this.chatExpanded"
-         (hideEmit)="toggleExpand(true)"
+         (hideEmit)="toggleChatExpand(true)"
         ></app-contact-list>
       </div>  
       <button mat-button (click)="logout()" class="align-icon nav-button" routerLink="">
