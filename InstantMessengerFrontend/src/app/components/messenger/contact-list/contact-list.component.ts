@@ -1,11 +1,11 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { GenderType } from 'src/app/enums/gender-type.enum';
-import { ContactHelper } from 'src/app/helpers/contactHelper';
-import { User } from 'src/app/models/user';
-import { ChatBoxService } from 'src/app/services/chat-box.service';
+import { ContactHelper } from 'src/app/models/helpers/contactHelper';
+import { ChatBoxService } from 'src/app/services/functional/chat-box.service';
 import { FriendshipService } from 'src/app/services/fetch/friendship.service';
 import { MessageService } from 'src/app/services/fetch/message.service';
 import { UserService } from 'src/app/services/fetch/user.service';
+import { User } from 'src/app/models/fetch/user';
 
 @Component({
   selector: 'app-contact-list',

@@ -1,9 +1,9 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable, OnInit } from '@angular/core';
-import { User } from '../../models/user';
+import { Injectable } from '@angular/core';
 import { BaseService } from './base.service';
 import { map } from 'rxjs/operators';
 import { Observable, ReplaySubject } from 'rxjs';
+import { User } from 'src/app/models/fetch/user';
 
 @Injectable({
   providedIn: 'root'

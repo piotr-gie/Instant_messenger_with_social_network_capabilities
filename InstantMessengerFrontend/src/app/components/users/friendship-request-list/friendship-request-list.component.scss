@@ -1,0 +1,28 @@
+@import  "./src/styles.scss";
+
+.user-image {
+    background-size: cover;
+    width: 100px;
+    height: 100px;
+}
+
+.request-card {
+    height: 100px;
+    width: 400px;
+    display: flex;
+    flex-direction: row;
+    margin: 5px;
+}
+
+.actions-box {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.card-box {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}

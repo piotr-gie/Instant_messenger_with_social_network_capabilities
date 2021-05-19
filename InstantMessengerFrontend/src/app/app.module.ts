@@ -25,6 +25,9 @@ import { UserListComponent } from './pages/user-list/user-list.component';
 import { SearchPageComponent } from './pages/search-page/search-page.component';
 import { ToastrModule } from 'ngx-toastr';
 import { ContactListComponent } from './components/messenger/contact-list/contact-list.component';
+import { FriendshipRequestListComponent } from './components/users/friendship-request-list/friendship-request-list.component';
+import { UserCardComponent } from './components/users/user-card/user-card.component';
+
 
 @NgModule({
   declarations: [	
@@ -44,7 +47,9 @@ import { ContactListComponent } from './components/messenger/contact-list/contac
     SearchComponent,
     UserListComponent,
     SearchPageComponent,
-    ContactListComponent
+    ContactListComponent,
+    FriendshipRequestListComponent,
+    UserCardComponent
 
    ],
   imports: [

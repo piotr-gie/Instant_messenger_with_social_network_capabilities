@@ -2,7 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { GenderType } from 'src/app/enums/gender-type.enum';
-import { User } from 'src/app/models/user';
+import { User } from 'src/app/models/fetch/user';
 import { UserService } from 'src/app/services/fetch/user.service';
 
 @Component({

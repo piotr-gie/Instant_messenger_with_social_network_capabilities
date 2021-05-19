@@ -1,7 +1,7 @@
 
 import { Component, Input, OnInit } from '@angular/core';
 import { TextBoxType } from 'src/app/enums/message-box-type.enum';
-import { Message } from 'src/app/models/message';
+import { Message } from 'src/app/models/fetch/message';
 import { AuthService } from 'src/app/services/fetch/auth.service';
 
 @Component({
@@ -34,6 +34,4 @@ export class MessageComponent implements OnInit{
     this.isMouseEnetered = false
     this.isDateShown = false
   }
-  
-
 }

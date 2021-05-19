@@ -1,5 +1,5 @@
 <div>
-  <mat-card class="chat-box-container">
+  <mat-card class="chat-box-box">
     <mat-card-header class="header">
       <div mat-card-avatar class="user-image"
         [ngClass]="this.user.gender === genderType.female ? 'female-avatar' : 'male-avatar'"    
@@ -17,7 +17,7 @@
         </div>
       </div>
     </mat-card-content>
-    <mat-card-actions class="inputs-container">
+    <mat-card-actions class="inputs-box">
       <app-rich-text-box
         [minHeight]="54"
         [maxHeight]="120"

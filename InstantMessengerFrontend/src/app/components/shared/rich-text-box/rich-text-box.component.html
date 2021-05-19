@@ -3,7 +3,7 @@
     <div [ngClass]="{
       'sent' : textBoxType === textBoxTypeEnum.sent,
       'recived' : textBoxType === textBoxTypeEnum.recived
-    }" class="editor-container">
+    }" class="editor-box">
       <app-file-uploader
         [ngClass]="isEditorFormNotEmpty() || isReadOnly ? 'hidden-uploader' : 'm-r-5'"
         (fileSelectedEmit)="addFileToUpload($event)"
@@ -16,7 +16,7 @@
           'recived-border' : textBoxType === textBoxTypeEnum.recived
         }"
         >
-        <div class="files-container">    
+        <div class="files-box">    
           <mat-chip-list>
             <div *ngFor="let file of uploadedFiles">
               <mat-chip

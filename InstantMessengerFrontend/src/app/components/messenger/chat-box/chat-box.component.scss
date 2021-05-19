@@ -1,6 +1,6 @@
 @import  "./src/styles.scss";
 
-.chat-box-container {
+.chat-box-box {
     display: flex;
     flex-direction: column;
     height: 846px;
@@ -19,7 +19,7 @@
     background-color: white;
 }
 
-.inputs-container {
+.inputs-box {
    margin-right: 16px;   
 }
 

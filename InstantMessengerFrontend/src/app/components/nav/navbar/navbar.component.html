@@ -1,4 +1,4 @@
-<mat-toolbar *ngIf="authService.loggedIn" class="navbar">
+<mat-toolbar class="navbar">
   <div class="nav-group">
     <span>Instant Messenger<mat-icon class="align-icon m-l-5">forum</mat-icon></span>  
     <div class="nav-avatar m-l-25"
@@ -21,8 +21,7 @@
         <mat-icon class="m-r-10">account_box</mat-icon>Profile
       </button>   
       <div
-        (click)="toggleChatExpand()"
-       
+        (click)="toggleChatExpand(false)"  
         class="chat-box-panel"
         [ngClass]="this.chatTriggered ? 'chat-expanded' : 'chat-hidden'" 
       >
