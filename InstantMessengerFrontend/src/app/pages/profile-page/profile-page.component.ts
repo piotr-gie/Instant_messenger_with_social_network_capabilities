@@ -5,7 +5,7 @@ import { GenderType } from 'src/app/enums/gender-type.enum';
 import { User } from 'src/app/models/user';
 import { ChatBoxService } from 'src/app/services/chat-box.service';
 import { DialogWindowService } from 'src/app/services/dialog-window.service';
-import { UserService } from 'src/app/services/user.service';
+import { UserService } from 'src/app/services/fetch/user.service';
 
 @Component({
   selector: 'app-profile-page',

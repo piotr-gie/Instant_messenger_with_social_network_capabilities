@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { GenderType } from 'src/app/enums/gender-type.enum';
 import { User } from 'src/app/models/user';
-import { UserService } from 'src/app/services/user.service';
+import { UserService } from 'src/app/services/fetch/user.service';
 
 @Component({
   selector: 'app-edit-profile-dialog',

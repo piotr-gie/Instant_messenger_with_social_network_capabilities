@@ -3,7 +3,7 @@ import { ToastrService } from 'ngx-toastr';
 import { Subscription } from 'rxjs';
 import { GenderType } from 'src/app/enums/gender-type.enum';
 import { User } from 'src/app/models/user';
-import { AuthService } from 'src/app/services/auth.service';
+import { AuthService } from 'src/app/services/fetch/auth.service';
 import { ChatBoxService } from 'src/app/services/chat-box.service';
 
 @Component({
