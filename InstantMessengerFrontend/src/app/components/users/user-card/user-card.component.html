@@ -1,0 +1,23 @@
+<mat-card class="user-card">
+  <div *ngIf="!avatar" class="avatar"
+    [ngClass]="this.model.gender === genderType.female ? 'female-avatar' : 'male-avatar'"
+  >
+  </div>
+    <div *ngIf="avatar" class="avatar">
+      <img [src]="avatar">
+    </div> 
+  <div class="card-box w-100">
+    <div class="m-l-25">
+      <h2>{{model.firstName + " " + model.lastName}}</h2>
+      <h2>{{model.country}}</h2>
+    </div>
+    <div class="actions-box">
+      <button (click)="showUserProfile(model.id)" mat-mini-fab color="primary">
+        <mat-icon>person</mat-icon>
+      </button>
+      <button (click)="openConversation(model.id)" mat-mini-fab color="primary" class="m-l-10">
+        <mat-icon>message</mat-icon>
+      </button>
+    </div>
+  </div> 
+</mat-card>

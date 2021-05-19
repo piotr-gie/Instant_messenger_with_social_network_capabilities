@@ -1,7 +1,7 @@
 import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { TextBoxType } from 'src/app/enums/message-box-type.enum';
-import { MessageHelper } from 'src/app/helpers/messageHelper';
+import { MessageHelper } from 'src/app/models/helpers/messageHelper';
 
 @Component({
   selector: 'app-rich-text-box',

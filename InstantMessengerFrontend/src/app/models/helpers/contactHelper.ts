@@ -1,4 +1,4 @@
-import { User } from "../models/user";
+import { User } from "../fetch/user";
 
 export interface ContactHelper {
     user: User;

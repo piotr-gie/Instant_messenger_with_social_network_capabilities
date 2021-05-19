@@ -1,10 +1,10 @@
 @import  "./src/styles.scss";
 
-.chat-box-container {
+.chat-box-box {
     display: flex;
     flex-direction: column;
     height: 846px;
-    background-color: white;
+    background-color: $secondary;
     padding-right: 0px;
 }
 
@@ -16,10 +16,10 @@
     height: 630px;
     overflow-y: auto;
     overflow-x: hidden;
-    background-color: white;
+    background-color: $secondary;
 }
 
-.inputs-container {
+.inputs-box {
    margin-right: 16px;   
 }
 

@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { GenderType } from 'src/app/enums/gender-type.enum';
-import { User } from 'src/app/models/user';
-import { AuthService } from 'src/app/services/auth.service';
-import { ChatBoxService } from 'src/app/services/chat-box.service';
-import { UserService } from 'src/app/services/user.service';
+import { AuthService } from 'src/app/services/fetch/auth.service';
+import { UserService } from 'src/app/services/fetch/user.service';
+import { User } from 'src/app/models/fetch/user';
+import { Friendship } from 'src/app/models/helpers/friendship';
+import { FriendshipService } from 'src/app/services/fetch/friendship.service';
 
 @Component({
   selector: 'app-user-list',
@@ -13,18 +12,15 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class UserListComponent implements OnInit {
   users: User [] = [];
-
-  genderType = GenderType;
-  avatar: File;
-
+  friends: Friendship [] = [];
   constructor(
      private userService: UserService,
-     private router: Router,
-     private authService: AuthService,
-     private chatBoxSerice: ChatBoxService) {}
+     private authService: AuthService, 
+     private friendshipSerivce: FriendshipService) {}
 
   ngOnInit() {
     this.initializeUserList();
+    this.initializeFriendships();
   }
 
   initializeUserList() {
@@ -33,12 +29,9 @@ export class UserListComponent implements OnInit {
     })
   }
 
-  showUserProfile(id: number) {
-    this.router.navigate(['/profile', id])
+  initializeFriendships() {
+    this.friendshipSerivce.getAllFriends(1).subscribe((response) => {
+      this.friends = response.filter(friend => friend.accepted === true);
+    })
   }
-
-  openConversation(userId: number) {
-    this.chatBoxSerice.openChatBox(userId);
-  }
-
 }

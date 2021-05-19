@@ -1,12 +1,12 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { GenderType } from 'src/app/enums/gender-type.enum';
 import { TextBoxType } from 'src/app/enums/message-box-type.enum';
-import { MessageHelper } from 'src/app/helpers/messageHelper';
-import { Message } from 'src/app/models/message';
-import { User } from 'src/app/models/user';
-import { AuthService } from 'src/app/services/auth.service';
-import { MessageService } from 'src/app/services/message.service';
-import { UserService } from 'src/app/services/user.service';
+import { Message } from 'src/app/models/fetch/message';
+import { User } from 'src/app/models/fetch/user';
+import { MessageHelper } from 'src/app/models/helpers/messageHelper';
+import { AuthService } from 'src/app/services/fetch/auth.service';
+import { MessageService } from 'src/app/services/fetch/message.service';
+import { UserService } from 'src/app/services/fetch/user.service';
 
 @Component({
   selector: 'app-chat-box',

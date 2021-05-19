@@ -4,12 +4,12 @@
     display: flex;
     justify-content: space-between;
     top: 0;
-    z-index: 1;
+    z-index: 10;
     margin-bottom: 15px;
     background-color: $primary;
     color: $secondary;
     position: sticky;
-    height: 60px;
+    height: 70px;
 }
 
 .nav-group {
@@ -30,11 +30,11 @@
     justify-content: center;
     transition: all .2s linear;
     border-radius: 5px;
+    margin: 5px;
 } 
 
 .chat-hidden {
-    height: 20px;
-    background-color: $dark;
+    height: 20px;  
 }
 
 .chat-expanded {
@@ -67,6 +67,10 @@
 
 .nav-female-avatar {
     background-image: url('https://kaufmanlegalgroup.com/wp-content/uploads/2020/06/female-silhouette.png');
+}
+
+.mat-fab {
+    margin: 5px !important; 
 }
 
 

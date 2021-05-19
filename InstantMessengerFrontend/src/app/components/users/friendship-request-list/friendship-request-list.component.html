@@ -1,0 +1,28 @@
+<div>
+  <div *ngFor="let request of friendshipsRequests">
+    <mat-card class="request-card">
+      <div mat-card-avatar class="user-image"
+        [ngClass]="request.user.gender === genderType.female ? 'female-avatar' : 'male-avatar'"    
+      ></div>
+      <div class="card-box w-100">
+        <div>
+          <h2 class="m-l-10"> {{request.user.firstName + " " + request.user.lastName}}</h2>
+        </div>     
+        <div class="actions-box">
+          <button type="button" mat-mini-fab color="primary" class="upload-btn">
+            <mat-icon (click)="showUserProfile(request.user.id)">person</mat-icon>
+          </button>
+          <button (click)="acceptRequest(request.user.id)" type="button" mat-mini-fab color="primary" class="upload-btn  m-l-10">
+            <mat-icon>check</mat-icon>
+          </button>
+          <button (click)="declineRequest(request.user.id)" type="button" mat-mini-fab color="warn" class="upload-btn m-l-10">
+            <mat-icon>clear</mat-icon>
+          </button>
+        </div>
+      </div>
+    </mat-card>
+  </div>
+  <div *ngIf="friendshipsRequests.length === 0">
+    <p class="m-l-5">No friendship requests at the moment...</p>
+  </div>
+</div>

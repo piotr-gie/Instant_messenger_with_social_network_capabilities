@@ -1,6 +1,6 @@
 @import  "./src/styles.scss";
 
-.editor-container {
+.editor-box {
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
@@ -38,7 +38,7 @@
     display: none;
 }
 
-.files-container {
+.files-box {
     padding: 3px;
     margin: 3px;
 }

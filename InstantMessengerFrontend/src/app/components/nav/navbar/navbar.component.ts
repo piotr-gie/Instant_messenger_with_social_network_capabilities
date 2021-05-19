@@ -2,9 +2,9 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { Subscription } from 'rxjs';
 import { GenderType } from 'src/app/enums/gender-type.enum';
-import { User } from 'src/app/models/user';
-import { AuthService } from 'src/app/services/auth.service';
-import { ChatBoxService } from 'src/app/services/chat-box.service';
+import { User } from 'src/app/models/fetch/user';
+import { AuthService } from 'src/app/services/fetch/auth.service';
+import { ChatBoxService } from 'src/app/services/functional/chat-box.service';
 
 @Component({
   selector: 'app-navbar',
