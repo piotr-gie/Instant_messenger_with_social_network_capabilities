@@ -1,28 +1,27 @@
-<mat-toolbar class="navbar">
+<mat-toolbar class="navbar shadow">
   <div class="nav-group">
     <span>Instant Messenger<mat-icon class="align-icon m-l-5">forum</mat-icon></span>  
-    <div class="nav-avatar m-l-25"
+    <div class="nav-avatar m-l-25 shadow"
       [ngClass]="this.user?.gender === genderType.female ? 'nav-female-avatar' : 'nav-male-avatar'"
     >
     </div> 
     <span class="m-l-10">{{this.user?.firstName}}</span>
-    <app-search class="m-l-25"></app-search>   
+    <app-search class="m-l-25 shadow"></app-search>   
   </div>
   <div>
     <span class="nav-group">       
-     
-      <button mat-button class="align-icon nav-button" routerLink="/home">
-        <mat-icon class="m-r-10">home</mat-icon>Home
+      <button mat-fab color="primary" class="m-r-10" routerLink="/home">
+        <mat-icon>home</mat-icon>
       </button>    
-      <button mat-button class="align-icon nav-button" routerLink="/users">
-        <mat-icon class="m-r-10">people</mat-icon>Users
+      <button mat-fab color="primary" class="m-r-10" routerLink="/users">
+        <mat-icon>people</mat-icon>
       </button>  
-      <button mat-button class="align-icon nav-button" routerLink="/profile/1">
-        <mat-icon class="m-r-10">account_box</mat-icon>Profile
+      <button  mat-fab color="primary" class="m-r-10" routerLink="/profile/1">
+        <mat-icon>account_box</mat-icon>
       </button>   
       <div
         (click)="toggleChatExpand(false)"  
-        class="chat-box-panel"
+        class="chat-box-panel shadow"
         [ngClass]="this.chatTriggered ? 'chat-expanded' : 'chat-hidden'" 
       >
         <mat-icon class="chat-box-button" *ngIf="!this.chatExpanded">chat</mat-icon>
@@ -32,8 +31,8 @@
          (hideEmit)="toggleChatExpand(true)"
         ></app-contact-list>
       </div>  
-      <button mat-button (click)="logout()" class="align-icon nav-button" routerLink="">
-        <mat-icon class="m-r-10">logout</mat-icon>Logout
+      <button type="button" (click)="logout()" mat-fab color="primary" class="m-l-10" routerLink="">
+        <mat-icon>logout</mat-icon>
       </button>     
     </span>
   </div>
