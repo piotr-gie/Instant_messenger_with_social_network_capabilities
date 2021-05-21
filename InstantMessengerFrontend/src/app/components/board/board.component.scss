@@ -4,11 +4,44 @@
     width: 500px;
 }
 
-.post-list-container .mat-card {
+.post-list-container .posts {
     padding-bottom: 0;
+}
+
+.post-list-container .postey-machiney-container{
+    padding: 5px;
 }
 
 .user-image{
     background-size: cover;
 }
 
+.post-list-container .make-post{
+    background: $dark;
+    border-radius: 10px 10px 10px 10px;
+    width: 100%;
+}
+
+.post-list-container .make-post .postey-machiney{
+    min-width: 96%;
+    max-width: 96%;
+    height: 20px;
+    font: inherit;
+    font-size: large;
+    font-weight: 500;
+    background: transparent;
+    border: none;
+    outline: none; 
+    vertical-align: bottom;
+    text-align: inherit;
+    box-sizing: content-box;
+    margin-left: 5px;
+    padding: 0.4em;
+    resize: none;
+    transition-property: height;
+    transition-duration: 0.5s;
+}
+
+.post-list-container .make-post .postey-machiney:focus{
+    height: 100px;
+}

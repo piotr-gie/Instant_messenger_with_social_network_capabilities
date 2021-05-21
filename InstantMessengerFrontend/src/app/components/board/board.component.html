@@ -1,5 +1,18 @@
 <div class="post-list-container m-l-25 m-r-25">
-  <mat-card class="m-b-10" *ngFor="let post of posts">
+
+  <mat-card class="m-b-10 postey-machiney-container">
+    <div class="make-post">
+      <textarea matInput class="postey-machiney" autocomplete="off" placeholder="Say something cringy!" 
+        [(ngModel)]="content"></textarea>
+      <span *ngIf="!!content" class="buttons">
+        <mat-divider [inset]="true"></mat-divider>
+        <button mat-button (click)="createPost()">Post</button>
+        <button mat-button>Attachment</button>
+      </span>
+    </div>
+  </mat-card>
+
+  <mat-card class="m-b-10 posts" *ngFor="let post of posts">
     <mat-card-header>
       <!-- <div *ngIf="! filter"> -->
         <div mat-card-avatar *ngIf="!filter && users[post.posterId-1].avatar" class="user-image" style="background-image: url({{users[post.posterId-1].avatar}});"></div>
@@ -29,7 +42,7 @@
     <div>
       <mat-divider [inset]="true"></mat-divider>
       <span>
-        <button mat-button>Like?</button>
+        <button mat-button>Like</button>
         <button mat-button>Comment</button>
       </span>
     </div>

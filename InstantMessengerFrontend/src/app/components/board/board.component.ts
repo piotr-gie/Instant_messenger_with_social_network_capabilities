@@ -13,9 +13,11 @@ import { Post } from 'src/app/models/post';
 export class BoardComponent implements OnInit {
   @Input() filter: any;
   posts: Post [] = [];
+  post: Post;
   user: User;
   users: User [] = [];
   genderType = GenderType;
+  content: string;
 
   constructor(private userService: UserService, private boardService: BoardService) { }
 
@@ -54,6 +56,26 @@ export class BoardComponent implements OnInit {
         this.users = response;
       })
     }
+  }
+
+  createPost(){
+    let newPost = this.post;
+    newPost = {
+      content: this.content,
+      posterId: 1,                  //change later
+      // attachment?: Attachment,
+      // date?: Date,
+    }
+
+    this.boardService.postModel(newPost).subscribe((response) => {
+      console.log(response)
+    });
+
+    this.content = "";
+
+    this.posts.push(newPost);       //delete later
+
+    this.ngOnInit();
   }
 
 }
