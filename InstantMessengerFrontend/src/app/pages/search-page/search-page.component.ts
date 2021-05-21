@@ -21,7 +21,7 @@ export class SearchPageComponent implements OnInit {
   constructor(private userService: UserService, 
     private router: Router, 
     private activatedRoute: ActivatedRoute) { 
-      activatedRoute.params.subscribe(val => this.updateSearchResults())
+      activatedRoute.params.subscribe(val => this.ngOnInit()/*this.updateSearchResults()*/)
     }
 
   ngOnInit(): void {
@@ -45,5 +45,9 @@ export class SearchPageComponent implements OnInit {
     .subscribe(us => userList.push(us));
 
     this.usersSearchList = userList;
+  }
+
+  showUserProfile(id: number) {
+    this.router.navigate(['/profile', id])
   }
 }

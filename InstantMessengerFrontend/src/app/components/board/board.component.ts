@@ -23,7 +23,6 @@ export class BoardComponent implements OnInit {
   }
 
   initializeBoardPosts(){
-    console.log(this.filter); //delete later
     this.boardService.getModels().subscribe((response) => {
       this.posts = response;
     })
@@ -54,7 +53,6 @@ export class BoardComponent implements OnInit {
         this.models = response;
       })
     }
-    console.log(this.posts)
   }
 
 }

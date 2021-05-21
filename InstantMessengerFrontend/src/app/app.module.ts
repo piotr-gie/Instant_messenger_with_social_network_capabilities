@@ -25,6 +25,7 @@ import { UserListComponent } from './pages/user-list/user-list.component';
 import { SearchPageComponent } from './pages/search-page/search-page.component';
 import { ToastrModule } from 'ngx-toastr';
 import { BoardComponent } from './components/board/board.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [	
@@ -61,6 +62,7 @@ import { BoardComponent } from './components/board/board.component';
       positionClass: 'toast-bottom-right',
       preventDuplicates: true,
     }), 
+    FormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
