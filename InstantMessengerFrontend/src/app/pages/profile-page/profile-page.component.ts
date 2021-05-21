@@ -20,6 +20,7 @@ export class ProfilePageComponent {
   constructor(private userService: UserService,
      private dialogService: DialogWindowService,
       private activatedRoute: ActivatedRoute) {
+        activatedRoute.params.subscribe(val => this.ngOnInit())
    }
   
   ngOnInit() {
@@ -30,7 +31,7 @@ export class ProfilePageComponent {
     let userId;
     this.activatedRoute.paramMap.subscribe(params => { 
       userId = params.get('id');
-      this.temp = params.get('id'); //delete later
+      this.temp = params.get('id'); //delete later (posts filtering)
     })
     this.userService.getModel(userId).subscribe((response) => {
       this.model = response;

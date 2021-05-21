@@ -1,6 +1,14 @@
 @import  "./src/styles.scss";
 
 .post-list-container {
-    width: 600px;
-    height: 1500px;
+    width: 500px;
 }
+
+.post-list-container .mat-card {
+    padding-bottom: 0;
+}
+
+.user-image{
+    background-size: cover;
+}
+

@@ -13,8 +13,9 @@ import { Post } from 'src/app/models/post';
 export class BoardComponent implements OnInit {
   @Input() filter: any;
   posts: Post [] = [];
-  model: User;
-  models: User [] = [];
+  user: User;
+  users: User [] = [];
+  genderType = GenderType;
 
   constructor(private userService: UserService, private boardService: BoardService) { }
 
@@ -35,10 +36,10 @@ export class BoardComponent implements OnInit {
     }
     this.posts[1] = {
       content: "Im a sssnek dude",
-      posterId: 1
+      posterId: 3
     }
     this.posts[2] = {
-      content: "Im a sssnek dude",
+      content: "Mamma mia de la bondziorno margerita insigne roma spaghetti",
       posterId: 2
     }
     // ^
@@ -46,11 +47,11 @@ export class BoardComponent implements OnInit {
     //delete later
     if(!! this.filter){
       this.userService.getModel(this.filter).subscribe((response) => {
-        this.model = response;
+        this.user = response;
       })
     } else {
       this.userService.getModels().subscribe((response) => {
-        this.models = response;
+        this.users = response;
       })
     }
   }

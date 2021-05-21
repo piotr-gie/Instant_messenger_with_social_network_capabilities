@@ -21,7 +21,7 @@ export class SearchPageComponent implements OnInit {
   constructor(private userService: UserService, 
     private router: Router, 
     private activatedRoute: ActivatedRoute) { 
-      activatedRoute.params.subscribe(val => this.ngOnInit()/*this.updateSearchResults()*/)
+      activatedRoute.params.subscribe(val => this.ngOnInit())
     }
 
   ngOnInit(): void {

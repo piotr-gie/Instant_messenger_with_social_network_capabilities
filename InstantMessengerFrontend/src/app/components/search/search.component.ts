@@ -58,7 +58,6 @@ export class SearchComponent implements OnInit {
       let userList: User [] = [];
       const sauce = from(this.users);
 
-      console.log(this.input)
       sauce.pipe(filter(user => user.firstName.includes(this.input) || user.lastName.includes(this.input)))
       .subscribe(us => userList.push(us));
 
