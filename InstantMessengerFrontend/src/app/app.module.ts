@@ -7,7 +7,7 @@ import { NavbarComponent } from './components/nav/navbar/navbar.component';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MaterialModule } from './material.module';
 import { LoginComponent } from './components/login/login.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { RegisterComponent } from './components/register/register.component';
 import { RichTextBoxComponent } from './components/shared/rich-text-box/rich-text-box.component';
@@ -60,6 +60,7 @@ import { UserCardComponent } from './components/users/user-card/user-card.compon
     MatToolbarModule,
     ReactiveFormsModule,
     HttpClientModule,
+    FormsModule,
     QuillModule.forRoot(),
     ToastrModule.forRoot({
       timeOut: 3000,
