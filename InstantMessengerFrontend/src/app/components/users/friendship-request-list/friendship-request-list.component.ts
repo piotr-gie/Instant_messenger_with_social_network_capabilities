@@ -26,7 +26,6 @@ export class FriendshipRequestListComponent implements OnInit {
   initializeFriendships() {
     this.friendshipService.getAllFriends(1).subscribe((response) => {
       this.friendshipsRequests = response.filter(friend => friend.accepted === false)
-      console.log(this.friendshipsRequests);
     })
   }
 

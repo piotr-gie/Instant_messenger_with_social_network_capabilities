@@ -16,13 +16,13 @@
               <div *ngIf="!searchValue$" matSuffix mat-icon-button style="font-size: smaller;" aria-label="Search">
                 <mat-icon>search_user</mat-icon>
               </div>
-              <button mat-button *ngIf="searchValue$" matSuffix mat-icon-button aria-label="Clear" (click)="searchValue=''">
+              <button mat-button *ngIf="searchValue$" matSuffix mat-icon-button aria-label="Clear" (click)="clearSearchInput()">
                 <mat-icon>close</mat-icon>
               </button>
             </mat-form-field>
             <div class="checkboxes-box m-b-25">
-              <mat-checkbox [(ngModel)]="isMyCountry">My country</mat-checkbox>
-              <mat-checkbox [(ngModel)]="isMyCity">My city</mat-checkbox>
+              <mat-checkbox (click)="search(searchValue$.getValue())" [(ngModel)]="isMyCountry">My country</mat-checkbox>
+              <mat-checkbox (click)="search(searchValue$.getValue())" [(ngModel)]="isMyCity">My city</mat-checkbox>
               <mat-radio-group [(ngModel)]="searchedGender">
                 <mat-radio-button #buttonM (click)="checkGenderState($event, buttonM)" [value]='genderType.male'>Male</mat-radio-button>
                 <mat-radio-button #buttonF (click)="checkGenderState($event, buttonF)" [value]='genderType.female' class="m-l-10">Female</mat-radio-button>
@@ -45,13 +45,13 @@
               <div *ngIf="!searchValue$" matSuffix mat-icon-button style="font-size: smaller;" aria-label="Search">
                 <mat-icon>search_user</mat-icon>
               </div>
-              <button mat-button *ngIf="searchValue$" matSuffix mat-icon-button aria-label="Clear" (click)="searchValue=''">
+              <button mat-button *ngIf="searchValue$" matSuffix mat-icon-button aria-label="Clear" (click)="clearSearchInput()">
                 <mat-icon>close</mat-icon>
               </button>
             </mat-form-field>
             <div class="checkboxes-box m-b-25">
-              <mat-checkbox [(ngModel)]="isMyCountry">My country</mat-checkbox>
-              <mat-checkbox [(ngModel)]="isMyCity">My city</mat-checkbox>
+              <mat-checkbox (click)="search(searchValue$.getValue())" [(ngModel)]="isMyCountry">My country</mat-checkbox>
+              <mat-checkbox (click)="search(searchValue$.getValue())" [(ngModel)]="isMyCity">My city</mat-checkbox>
               <mat-radio-group [(ngModel)]="searchedGender">
                 <mat-radio-button #buttonM (click)="checkGenderState($event, buttonM)" [value]='genderType.male'>Male</mat-radio-button>
                 <mat-radio-button #buttonF (click)="checkGenderState($event, buttonF)" [value]='genderType.female' class="m-l-10">Female</mat-radio-button>

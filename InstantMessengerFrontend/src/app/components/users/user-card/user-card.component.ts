@@ -2,6 +2,8 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { GenderType } from 'src/app/enums/gender-type.enum';
 import { User } from 'src/app/models/fetch/user';
+import { AuthService } from 'src/app/services/fetch/auth.service';
+import { FriendshipService } from 'src/app/services/fetch/friendship.service';
 import { ChatBoxService } from 'src/app/services/functional/chat-box.service';
 
 @Component({
@@ -11,14 +13,19 @@ import { ChatBoxService } from 'src/app/services/functional/chat-box.service';
 })
 export class UserCardComponent implements OnInit {
   @Input() model: User;
+  mutalFriends: number;
 
   genderType = GenderType;
   avatar: File;
 
-  constructor(private chatBoxSerice: ChatBoxService,
+  constructor(
+    private chatBoxSerice: ChatBoxService,
+    private friendshipService: FriendshipService,
+    private authService: AuthService,
     private router: Router) { }
 
   ngOnInit() {
+    this.getMutalFriendsCount();
   }
 
   showUserProfile(id: number) {
@@ -27,6 +34,21 @@ export class UserCardComponent implements OnInit {
 
   openConversation(userId: number) {
     this.chatBoxSerice.openChatBox(userId);
+  }
+
+  getMutalFriendsCount() {
+    const currentUser = this.authService.getCurrentUser();
+    let loggedUserFriends = [];
+    this.friendshipService.getAllFriends(currentUser.id).subscribe((response) => {
+      loggedUserFriends = response;
+      this.friendshipService.getAllFriends(this.model.id).subscribe((response) => {
+        this.mutalFriends = response.filter(
+          friendship => loggedUserFriends.find(
+            loggedFriendship => loggedFriendship.user.id === friendship.user.id)).length;
+      })
+    })
+    
+
   }
 
 }

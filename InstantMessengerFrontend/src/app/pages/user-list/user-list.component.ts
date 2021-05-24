@@ -64,12 +64,17 @@ export class UserListComponent implements OnInit {
         this.searchedGender = elem.value
         elem.checked = true;
       }
+    this.search(this.searchValue$.getValue());
   }
 
   tabChange() {
     this.isUsersTab = !this.isUsersTab;
     this.userList = (this.isUsersTab) ? this.users : this.friends;
     this.filteredList = this.userList;
+    this.clearSearchInput();
+  }
+
+  clearSearchInput() {
     this.searchValue$.next('');
   }
 
@@ -89,10 +94,21 @@ export class UserListComponent implements OnInit {
   }
   private filterUser(user: User) { 
     const search = this.searchValue$.getValue(); 
+    let currentUser = this.authService.getCurrentUser();
+   
+    const myCountryFilter = (this.isMyCountry) ? user.country === currentUser.country : true;
+    const myCityFilter = (this.isMyCity) ? user.city === currentUser.city : true;
+    const genderFilter = (this.searchedGender) ? user.gender === this.searchedGender : true;
 
-    return (user.firstName.toLocaleLowerCase().match(search) ||
-    (user.firstName + ' ' + user.lastName)?.toLocaleLowerCase().match(search) || 
-    user.city?.toLocaleLowerCase().match(search) ||
-    user.country?.toLocaleLowerCase().match(search))  
+    let filterResult = (((user.firstName + ' ' + user.lastName)?.toLocaleLowerCase().match(search) || 
+      user.city?.toLocaleLowerCase().match(search) ||
+      user.country?.toLocaleLowerCase().match(search)) &&
+      myCountryFilter &&
+      myCityFilter &&
+      genderFilter
+    );
+
+    return filterResult;
+  
   }
 }

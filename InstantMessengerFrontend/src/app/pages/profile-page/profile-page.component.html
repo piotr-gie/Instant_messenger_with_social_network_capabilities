@@ -1,14 +1,14 @@
-<div class="test-box">
-  <mat-card class="profile-box m-r-10">
+<div class="profile-box">
+  <mat-card class="profile-box m-r-10 shadow">
     <div class="avatar-box">
-      <div *ngIf="!avatar" class="avatar"
+      <div *ngIf="!avatar" class="avatar shadow"
         [ngClass]="this.model.gender === genderType.female ? 'female-avatar' : 'male-avatar'"
       ></div>
       <div class="m-t-10">   
-        <button *ngIf="model?.id != 1" mat-raised-button (click)="openConversation()"><mat-icon>chat</mat-icon></button>
+        <button *ngIf="model?.id != 1" mat-raised-button color="primary" (click)="openConversation()"><mat-icon>chat</mat-icon></button>
         <button *ngIf="model?.id == 1"mat-raised-button class="m-l-10" (click)="openEditDialog()"><mat-icon>settings</mat-icon></button>
         <button *ngIf="model?.id != 1 && isFriend === false" class="m-l-10" mat-raised-button><mat-icon>person_add</mat-icon></button>
-        <button *ngIf="model?.id != 1 && isFriend === true" class="m-l-10" mat-raised-button color="warn"><mat-icon>cancel</mat-icon></button>
+        <button *ngIf="model?.id != 1 && isFriend === true" class="m-l-10" mat-raised-button color="warn"><mat-icon>person_remove</mat-icon></button>
       </div> 
       <h2 class="m-t-25">
         Photos
