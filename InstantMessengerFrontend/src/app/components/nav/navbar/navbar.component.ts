@@ -40,9 +40,7 @@ export class NavbarComponent implements OnInit {
   }
 
   initUser() {
-    this.authService.getCurrentUser().subscribe((response) => {
-     this.user = response;
-    })
+    this.user = this.authService.getCurrentUser();
   }
 
   logout() {

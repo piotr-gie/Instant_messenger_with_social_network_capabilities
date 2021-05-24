@@ -17,7 +17,7 @@
 }
 
 .tabs-box {
-    width: 650px;
+    width: 670px;
 }
 
 .friend-req-box {
@@ -30,4 +30,27 @@
     align-content: center;
     margin: 10px;
     height: 50px;  
+}
+
+.search-field {
+    width: 400px;
+    align-self: center;
+}
+
+.filtering-box {
+    display: flex;
+    flex-direction: column;
+}
+
+.checkboxes-box {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
+.scroll-content {
+    height: 60vh;
+    overflow: scroll;
+    overflow-x: hidden;
+    
 }

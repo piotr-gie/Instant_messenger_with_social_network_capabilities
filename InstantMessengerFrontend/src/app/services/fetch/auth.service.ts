@@ -61,6 +61,7 @@ currentUser$ = this.currentUserSource.asObservable()
     // this.currentUser$.subscribe((response) => {
     //   id = response.id;
     // })
-   return this.currentUserSource; //TODO
+    let user = { firstName: "John", lastName: "Smith", id: 1, country: "Germany", city: "Berlin", gender: "male"};
+    return user; //TODO
   }
 }

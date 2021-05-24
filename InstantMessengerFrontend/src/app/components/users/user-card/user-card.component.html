@@ -1,15 +1,21 @@
-<mat-card class="user-card">
-  <div *ngIf="!avatar" class="avatar"
+<mat-card class="user-card shadow">
+  <div *ngIf="!avatar" class="avatar shadow"
     [ngClass]="this.model.gender === genderType.female ? 'female-avatar' : 'male-avatar'"
   >
   </div>
-    <div *ngIf="avatar" class="avatar">
+    <div *ngIf="avatar" class="avatar shadow">
       <img [src]="avatar">
     </div> 
   <div class="card-box w-100">
     <div class="m-l-25">
-      <h2>{{model.firstName + " " + model.lastName}}</h2>
-      <h2>{{model.country}}</h2>
+      <span class="flex-horizontal">
+        <h2>{{model.firstName + " " + model.lastName}}</h2>
+        <h3 class="m-l-25 m-t-5 colored"><mat-icon class="align-icon m-r-5">face</mat-icon>{{"Mutal friends:" + " " + mutalFriends}}</h3>
+      </span>  
+      <span class="flex-horizontal">
+        <h2>{{model.country}}</h2>
+        <h3 class="m-l-25 m-t-5"><mat-icon class="align-icon m-r-5 m-b-5">location_city</mat-icon>{{model.city}}</h3>
+      </span>  
     </div>
     <div class="actions-box">
       <button (click)="showUserProfile(model.id)" mat-mini-fab color="primary">

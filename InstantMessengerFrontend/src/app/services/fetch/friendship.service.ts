@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { User } from 'src/app/models/fetch/user';
+import { Friendship } from 'src/app/models/helpers/friendship';
 import { BaseService } from './base.service';
 
 @Injectable({
@@ -14,16 +15,16 @@ export class FriendshipService extends BaseService<User> {
     this.controllerPath = "friends"
   }
 
-  getAllFriends(userId: number): Observable<any[]> {
-    return this.http.get<User[]>(this.baseUrl + this.controllerPath, {
+  getAllFriends(userId: number): Observable<Friendship[]> {
+    return this.http.get<Friendship[]>(this.baseUrl + this.controllerPath, {
       params: {
         id : userId.toString()
       }
     })
   }
 
-  addFriendship(senderId: number, reciverId: number): Observable<any> {
-    return this.http.post<any>(this.baseUrl + this.controllerPath, {}, {
+  addFriendship(senderId: number, reciverId: number): Observable<Friendship> {
+    return this.http.post<Friendship>(this.baseUrl + this.controllerPath, {}, {
       params: {
         id1 : senderId.toString(),
         id2 : reciverId.toString()
@@ -31,8 +32,8 @@ export class FriendshipService extends BaseService<User> {
     })
   } 
 
-  acceptFriendship(senderId: number, reciverId: number): Observable<any> {
-    return this.http.put<any>(this.baseUrl + this.controllerPath + "/accept", {}, {
+  acceptFriendship(senderId: number, reciverId: number): Observable<Friendship> {
+    return this.http.put<Friendship>(this.baseUrl + this.controllerPath + "/accept", {}, {
       params: {
         id1 : senderId.toString(),
         id2 : reciverId.toString()
@@ -40,8 +41,8 @@ export class FriendshipService extends BaseService<User> {
     })
   } 
 
-  deleteFriendship(senderId: number, reciverId: number): Observable<any> {
-    return this.http.delete<any>(this.baseUrl + this.controllerPath, {
+  deleteFriendship(senderId: number, reciverId: number): Observable<Friendship> {
+    return this.http.delete<Friendship>(this.baseUrl + this.controllerPath, {
       params: {
         id1 : senderId.toString(),
         id2 : reciverId.toString()
