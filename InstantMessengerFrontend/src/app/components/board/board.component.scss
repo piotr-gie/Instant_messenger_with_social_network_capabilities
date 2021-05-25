@@ -14,9 +14,11 @@
 
 .user-image{
     background-size: cover;
+    width: 40px;
 }
 
 .post-list-container .make-post{
+    display: inline-block;
     background: $dark;
     border-radius: 15px 15px 15px 15px;
     width: 100%;
@@ -25,7 +27,7 @@
 .post-list-container .make-post .postey-machiney{
     min-width: 96%;
     max-width: 96%;
-    height: 20px;
+    height: 80px;
     font: inherit;
     font-size: large;
     font-weight: 500;
@@ -40,10 +42,11 @@
     resize: none;
     transition-property: height;
     transition-duration: 0.2s;
+    animation: commentIn 0.2s;
 }
 
-.post-list-container .make-post .postey-machiney:focus{
-    height: 100px;
+.post-list-container .make-post .postey-machiney:placeholder-shown{
+    height: 20px;
 }
 
 .post-list-container .make-post .buttons {
@@ -59,6 +62,17 @@
     }
     to {
         height: 35px;
+        opacity: 1;
+    }
+  }
+
+  @keyframes commentIn {
+    from {
+        height: 0px;
+        opacity: 0;
+    }
+    to {
+        height: 20px;
         opacity: 1;
     }
   }

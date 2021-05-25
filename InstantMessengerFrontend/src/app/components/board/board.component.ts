@@ -1,16 +1,18 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, SimpleChanges } from '@angular/core';
 import { GenderType } from 'src/app/enums/gender-type.enum';
 import { User } from 'src/app/models/fetch/user';
 import { UserService } from 'src/app/services/fetch/user.service';
 import { BoardService } from 'src/app/services/fetch/board.service';
 import { Post } from 'src/app/models/fetch/post';
+import { AuthService } from 'src/app/services/fetch/auth.service';
+import { OnChanges } from '@angular/core';
 
 @Component({
   selector: 'app-board',
   templateUrl: './board.component.html',
   styleUrls: ['./board.component.scss']
 })
-export class BoardComponent implements OnInit {
+export class BoardComponent implements OnInit, OnChanges {
   @Input() filter: any;
   posts: Post [] = [];
   post: Post;
@@ -18,29 +20,31 @@ export class BoardComponent implements OnInit {
   users: User [] = [];
   genderType = GenderType;
   content: string;
+  commentContent: string;
+  commentId: number;
+  currentUser: User;
 
-  constructor(private userService: UserService, private boardService: BoardService) { }
+  constructor(private userService: UserService, private boardService: BoardService, private authService: AuthService) { }
 
   ngOnInit(): void {
     this.initializeBoardPosts();
-  }
+    this.currentUser = this.authService.getCurrentUser();
 
-  initializeBoardPosts(){
-    this.boardService.getModels().subscribe((response) => {
-      this.posts = response;
-    })
     //delete later 
     // |
     // v
     this.posts[0] = {
+      id: 0,
       content: "Im a sssnek",
       posterId: 1
     }
     this.posts[1] = {
+      id: 1,
       content: "Im a sssnek dude",
       posterId: 3
     }
     this.posts[2] = {
+      id: 2,
       content: "Mamma mia de la bondziorno margerita insigne roma spaghetti",
       posterId: 2,
       comments: [{
@@ -53,25 +57,35 @@ export class BoardComponent implements OnInit {
       }
       ]
     }
+    if(!! this.filter)
+      this.posts = this.posts.filter(e => e.posterId === Number(this.filter));
     // ^
     // |
     //delete later
-    if(!! this.filter){
-      this.userService.getModel(this.filter).subscribe((response) => {
-        this.user = response;
-      })
-    } else {
-      this.userService.getModels().subscribe((response) => {
-        this.users = response;
-      })
-    }
+  }
+
+  ngOnChanges(changes: SimpleChanges){
+    this.ngOnInit();
+  }
+
+  initializeBoardPosts(){
+    this.boardService.getModels().subscribe((response) => {
+      this.posts = response;
+    })
+
+    if(!! this.filter)
+      this.posts = this.posts.filter(e => e.posterId === Number(this.filter));
+
+    this.userService.getModels().subscribe((response) => {
+      this.users = response;
+    })
   }
 
   createPost(){
     let newPost = this.post;
     newPost = {
       content: this.content,
-      posterId: 1,                  //change later
+      posterId: this.currentUser.id,                  //change later
       // attachment?: Attachment,
       // date?: Date,
     }
@@ -84,7 +98,39 @@ export class BoardComponent implements OnInit {
 
     this.posts.push(newPost);       //delete later
 
-    this.ngOnInit();
+    this.initializeBoardPosts();
+  }
+
+  createComment(postId: number){
+    let newComment = this.posts.find(e => e.id === postId);
+    if (!! newComment.comments){
+      newComment.comments.push({
+        content: this.commentContent,
+        posterId: this.currentUser.id,                  //change later
+        // attachment?: Attachment,
+        // date?: Date,
+      })
+    }
+    else {
+      newComment.comments = [{
+        content: this.commentContent,
+        posterId: this.currentUser.id,                  //change later
+        // attachment?: Attachment,
+        // date?: Date,
+      }]
+    }
+
+    this.boardService.postModel(newComment).subscribe((response) => {
+      console.log(response)
+    });
+
+    this.commentContent = "";
+    
+    this.posts[this.posts.indexOf(this.posts.find(e => e.id === postId))] = newComment;       //delete later
+
+    this.initializeBoardPosts();
+
+    this.commentId = null;
   }
 
 }
