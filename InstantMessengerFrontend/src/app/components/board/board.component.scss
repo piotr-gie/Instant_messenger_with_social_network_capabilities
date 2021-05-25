@@ -1,0 +1,78 @@
+@import  "./src/styles.scss";
+
+.post-list-container {
+    width: 500px;
+}
+
+.post-list-container .posts {
+    padding-bottom: 0;
+}
+
+.post-list-container .postey-machiney-container{
+    padding: 5px;
+}
+
+.user-image{
+    background-size: cover;
+    width: 40px;
+}
+
+.post-list-container .make-post{
+    display: inline-block;
+    background: $dark;
+    border-radius: 15px 15px 15px 15px;
+    width: 100%;
+}
+
+.post-list-container .make-post .postey-machiney{
+    min-width: 96%;
+    max-width: 96%;
+    height: 80px;
+    font: inherit;
+    font-size: large;
+    font-weight: 500;
+    background: transparent;
+    border: none;
+    outline: none; 
+    vertical-align: bottom;
+    text-align: inherit;
+    box-sizing: content-box;
+    margin-left: 5px;
+    padding: 0.4em;
+    resize: none;
+    transition-property: height;
+    transition-duration: 0.2s;
+    animation: commentIn 0.2s;
+}
+
+.post-list-container .make-post .postey-machiney:placeholder-shown{
+    height: 20px;
+}
+
+.post-list-container .make-post .buttons {
+    display: block;
+    height: 35px;
+    animation: buttonsIn 0.2s;
+}
+
+@keyframes buttonsIn {
+    from {
+        height: 0px;
+        opacity: 0;
+    }
+    to {
+        height: 35px;
+        opacity: 1;
+    }
+  }
+
+  @keyframes commentIn {
+    from {
+        height: 0px;
+        opacity: 0;
+    }
+    to {
+        height: 20px;
+        opacity: 1;
+    }
+  }

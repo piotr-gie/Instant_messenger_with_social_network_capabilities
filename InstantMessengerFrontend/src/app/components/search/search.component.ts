@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, HostListener, ElementRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { GenderType } from 'src/app/enums/gender-type.enum';
 import { UserService } from 'src/app/services/fetch/user.service';
@@ -22,7 +22,17 @@ export class SearchComponent implements OnInit {
   genderType = GenderType;
   avatar: File;
 
-  constructor(private userService: UserService, private router: Router) { }
+  constructor(private userService: UserService, private router: Router, private elementRef: ElementRef) {
+    this.input = "";
+  }
+
+  @HostListener('document:click', ['$event.target'])
+  clickedOut(targetElement) {
+    const clickedInside = this.elementRef.nativeElement.contains(targetElement);
+    
+    if(!clickedInside)
+      this.show = clickedInside;
+  }
 
   ngOnInit(): void {
     this.initializeUserList();
@@ -43,13 +53,18 @@ export class SearchComponent implements OnInit {
   }
 
   search($event){
-    this.input = $event.target.value;
-    let userList: User [] = [];
-    const sauce = from(this.users);
+    if ($event.key != "Enter") {
+      console.log(this.show)
+      // this.input = $event.target.value;
+      let userList: User [] = [];
+      const sauce = from(this.users);
 
-    sauce.pipe(filter(user => user.firstName.includes(this.input) || user.lastName.includes(this.input)))
-    .subscribe(us => userList.push(us));
+      sauce.pipe(filter(user => user.firstName.toLowerCase().includes(this.input.toLowerCase()) || 
+        user.lastName.toLowerCase().includes(this.input.toLowerCase()) || 
+        (user.firstName.toLowerCase() + " " + user.lastName.toLowerCase()).includes(this.input.toLowerCase())))
+      .subscribe(us => userList.push(us));
 
-    this.usersSearchList = userList;
+      this.usersSearchList = userList;
+    }
   }
 }

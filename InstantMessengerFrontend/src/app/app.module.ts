@@ -24,6 +24,7 @@ import { SearchComponent } from './components/search/search.component';
 import { UserListComponent } from './pages/user-list/user-list.component';
 import { SearchPageComponent } from './pages/search-page/search-page.component';
 import { ToastrModule } from 'ngx-toastr';
+import { BoardComponent } from './components/board/board.component';
 import { ContactListComponent } from './components/messenger/contact-list/contact-list.component';
 import { FriendshipRequestListComponent } from './components/users/friendship-request-list/friendship-request-list.component';
 import { UserCardComponent } from './components/users/user-card/user-card.component';
@@ -47,6 +48,7 @@ import { UserCardComponent } from './components/users/user-card/user-card.compon
     SearchComponent,
     UserListComponent,
     SearchPageComponent,
+    BoardComponent,
     ContactListComponent,
     FriendshipRequestListComponent,
     UserCardComponent
@@ -67,6 +69,7 @@ import { UserCardComponent } from './components/users/user-card/user-card.compon
       positionClass: 'toast-bottom-right',
       preventDuplicates: true,
     }), 
+    FormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

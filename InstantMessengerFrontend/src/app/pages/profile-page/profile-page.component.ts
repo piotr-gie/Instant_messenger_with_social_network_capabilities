@@ -19,6 +19,7 @@ export class ProfilePageComponent {
   isFriend: boolean;
   genderType = GenderType;
   avatar: File;
+  temp: any; //delete later
 
   constructor(
     private userService: UserService,
@@ -27,7 +28,9 @@ export class ProfilePageComponent {
     private chatBoxSerice: ChatBoxService,
     private friendshipService: FriendshipService,
     private toastrService: ToastrService
-    ) {}
+    ) {
+      activatedRoute.params.subscribe(val => this.ngOnInit())
+    }
   
   ngOnInit() {
     this.initializeUserProfile();  
@@ -37,6 +40,7 @@ export class ProfilePageComponent {
     let userId;
     this.activatedRoute.paramMap.subscribe(params => { 
       userId = params.get('id');
+      this.temp = params.get('id'); //delete later (posts filtering)
     })
     this.userService.getModel(userId).subscribe((response) => {
       this.model = response;
