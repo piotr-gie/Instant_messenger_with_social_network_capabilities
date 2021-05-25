@@ -45,6 +45,26 @@
         <button mat-button>Like</button>
         <button mat-button>Comment</button>
       </span>
+
+      <mat-divider [inset]="true" *ngIf="!!post.comments"></mat-divider>
+      
+      <div *ngIf="!!post.comments">
+        <div *ngFor="let comment of post.comments">
+          <mat-card-header class="m-t-10">
+            <div mat-card-avatar *ngIf="!filter && users[comment.posterId-1].avatar" class="user-image" style="background-image: url({{users[comment.posterId-1].avatar}});"></div>
+            <div mat-card-avatar *ngIf="!filter && !users[comment.posterId-1].avatar" class="user-image"
+            [ngClass]="users[comment.posterId-1].gender === genderType.female ? 'female-avatar' : 'male-avatar'"></div>
+            <mat-card-title *ngIf="! filter" style="font-size: medium;">
+                {{users[comment.posterId-1].firstName}} {{users[comment.posterId-1].lastName}}
+            </mat-card-title>
+            <mat-card-subtitle style="color: black; font-size: medium;">
+                {{comment.content}}
+            </mat-card-subtitle>
+          </mat-card-header>
+          <mat-divider [inset]="true"></mat-divider>
+        </div>
+      </div>
+      
     </div>
   </mat-card>
 </div>

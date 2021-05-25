@@ -18,7 +18,7 @@
 
 .post-list-container .make-post{
     background: $dark;
-    border-radius: 10px 10px 10px 10px;
+    border-radius: 15px 15px 15px 15px;
     width: 100%;
 }
 
@@ -39,9 +39,26 @@
     padding: 0.4em;
     resize: none;
     transition-property: height;
-    transition-duration: 0.5s;
+    transition-duration: 0.2s;
 }
 
 .post-list-container .make-post .postey-machiney:focus{
     height: 100px;
 }
+
+.post-list-container .make-post .buttons {
+    display: block;
+    height: 35px;
+    animation: buttonsIn 0.2s;
+}
+
+@keyframes buttonsIn {
+    from {
+        height: 0px;
+        opacity: 0;
+    }
+    to {
+        height: 35px;
+        opacity: 1;
+    }
+  }

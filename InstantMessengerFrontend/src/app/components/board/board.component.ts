@@ -42,7 +42,16 @@ export class BoardComponent implements OnInit {
     }
     this.posts[2] = {
       content: "Mamma mia de la bondziorno margerita insigne roma spaghetti",
-      posterId: 2
+      posterId: 2,
+      comments: [{
+        content: "To by nic nie dało i tak",
+        posterId: 3
+      },
+      {
+        content: "Jeszcze jak!",
+        posterId: 1
+      }
+      ]
     }
     // ^
     // |
