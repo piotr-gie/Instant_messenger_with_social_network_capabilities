@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Post } from '../models/post'
+import { Post } from '../../models/fetch/post'
 import { BaseService } from './base.service';
 
 @Injectable({

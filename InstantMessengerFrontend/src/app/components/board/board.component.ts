@@ -1,9 +1,9 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { GenderType } from 'src/app/enums/gender-type.enum';
-import { User } from 'src/app/models/user';
-import { UserService } from 'src/app/services/user.service';
-import { BoardService } from 'src/app/services/board.service';
-import { Post } from 'src/app/models/post';
+import { User } from 'src/app/models/fetch/user';
+import { UserService } from 'src/app/services/fetch/user.service';
+import { BoardService } from 'src/app/services/fetch/board.service';
+import { Post } from 'src/app/models/fetch/post';
 
 @Component({
   selector: 'app-board',
