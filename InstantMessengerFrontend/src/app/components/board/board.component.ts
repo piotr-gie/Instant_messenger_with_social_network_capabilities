@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, SimpleChanges } from '@angular/core';
+import { Component, OnInit, Input, SimpleChanges, HostListener, ElementRef } from '@angular/core';
 import { GenderType } from 'src/app/enums/gender-type.enum';
 import { User } from 'src/app/models/fetch/user';
 import { UserService } from 'src/app/services/fetch/user.service';
@@ -24,7 +24,15 @@ export class BoardComponent implements OnInit, OnChanges {
   commentId: number;
   currentUser: User;
 
-  constructor(private userService: UserService, private boardService: BoardService, private authService: AuthService) { }
+  constructor(private userService: UserService, private boardService: BoardService, private authService: AuthService, private elementRef: ElementRef) { }
+
+  @HostListener('document:click', ['$event.target'])
+  clickedOut(targetElement) {
+    const clickedInside = this.elementRef.nativeElement.contains(targetElement);
+    
+    if(!clickedInside)
+      this.commentId = null;
+  }
 
   ngOnInit(): void {
     this.initializeBoardPosts();
