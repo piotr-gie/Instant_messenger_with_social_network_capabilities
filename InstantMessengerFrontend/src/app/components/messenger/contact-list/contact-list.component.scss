@@ -1,0 +1,52 @@
+@import  "./src/styles.scss";
+
+.title-box {
+    display: flex;
+    flex-direction: column;
+    height: 100px;
+}
+
+.title {
+    font-size: x-large;
+    color: $primary;
+}
+
+.contact-list-box {
+    height: 846px;
+}
+
+.user-image {
+    background-size: cover;
+    width: 55px;
+    height: 55px;
+}
+
+.hide-button {
+    height: 20px;
+    margin: 7px;
+    padding: 7px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    text-align: center;
+    justify-content: center;
+    border-radius: 5px;
+}
+
+.hide-button-icon {
+    font-size: 28px;
+
+}
+
+.timestamp {
+    font-size: 12px;
+}
+
+.mat-list-item {
+    height: 60px !important;
+}
+
+.search {
+   width: 300px;
+}
+
+

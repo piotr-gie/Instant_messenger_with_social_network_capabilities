@@ -1,26 +1,77 @@
-<div *ngFor="let user of users">
-  <mat-card class="user-card">
-    <div *ngIf="!avatar" class="avatar"
-      [ngClass]="this.user.gender === genderType.female ? 'female-avatar' : 'male-avatar'"
-    >
+<div class="page-box">
+  <div class="header">
+  </div>
+  <div class="page-content"> 
+    <div class="tabs-box">
+      <mat-tab-group (selectedTabChange)="tabChange()" mat-align-tabs="center" animationDuration="0ms">
+        <mat-tab>
+          <ng-template mat-tab-label>
+            <mat-icon class="aligin-icon m-r-5">face</mat-icon>
+              Friends
+          </ng-template>  
+          <div class="filtering-box">        
+            <mat-form-field class="search-field m-t-25 m-b-10">
+              <mat-label>Serach user</mat-label>
+              <input matInput type="text" (input)="search($event.target.value)">
+              <div *ngIf="!searchValue$" matSuffix mat-icon-button style="font-size: smaller;" aria-label="Search">
+                <mat-icon>search_user</mat-icon>
+              </div>
+              <button mat-button *ngIf="searchValue$" matSuffix mat-icon-button aria-label="Clear" (click)="clearSearchInput()">
+                <mat-icon>close</mat-icon>
+              </button>
+            </mat-form-field>
+            <div class="checkboxes-box m-b-25">
+              <mat-checkbox (click)="search(searchValue$.getValue())" [(ngModel)]="isMyCountry">My country</mat-checkbox>
+              <mat-checkbox (click)="search(searchValue$.getValue())" [(ngModel)]="isMyCity">My city</mat-checkbox>
+              <mat-radio-group [(ngModel)]="searchedGender">
+                <mat-radio-button #buttonM (click)="checkGenderState($event, buttonM)" [value]='genderType.male'>Male</mat-radio-button>
+                <mat-radio-button #buttonF (click)="checkGenderState($event, buttonF)" [value]='genderType.female' class="m-l-10">Female</mat-radio-button>
+              </mat-radio-group>
+            </div>        
+          </div>   
+          <div *ngFor="let friend of filteredList">
+            <app-user-card [model]="friend"></app-user-card>
+          </div>       
+        </mat-tab>
+        <mat-tab>
+          <ng-template mat-tab-label>
+            <mat-icon class="aligin-icon m-r-5">people</mat-icon>
+              Users
+          </ng-template>
+          <div class="filtering-box">        
+            <mat-form-field class="search-field m-t-25 m-b-10">
+              <mat-label>Serach user</mat-label>
+              <input matInput type="text" (input)="search($event.target.value)">
+              <div *ngIf="!searchValue$" matSuffix mat-icon-button style="font-size: smaller;" aria-label="Search">
+                <mat-icon>search_user</mat-icon>
+              </div>
+              <button mat-button *ngIf="searchValue$" matSuffix mat-icon-button aria-label="Clear" (click)="clearSearchInput()">
+                <mat-icon>close</mat-icon>
+              </button>
+            </mat-form-field>
+            <div class="checkboxes-box m-b-25">
+              <mat-checkbox (click)="search(searchValue$.getValue())" [(ngModel)]="isMyCountry">My country</mat-checkbox>
+              <mat-checkbox (click)="search(searchValue$.getValue())" [(ngModel)]="isMyCity">My city</mat-checkbox>
+              <mat-radio-group [(ngModel)]="searchedGender">
+                <mat-radio-button #buttonM (click)="checkGenderState($event, buttonM)" [value]='genderType.male'>Male</mat-radio-button>
+                <mat-radio-button #buttonF (click)="checkGenderState($event, buttonF)" [value]='genderType.female' class="m-l-10">Female</mat-radio-button>
+              </mat-radio-group>
+            </div>        
+          </div>  
+          <div class="scroll-content">
+            <div  *ngFor="let user of filteredList">
+              <app-user-card [model]="user"></app-user-card>
+            </div>      
+          </div>          
+        </mat-tab>
+      </mat-tab-group>
     </div>
-      <div *ngIf="avatar" class="avatar">
-        <img [src]="avatar">
-      </div> 
-    <div class="card-container w-100">
-      <div class="m-l-25">
-        <h2>{{user.firstName + " " + user.lastName}}</h2>
-        <h2>{{user.country}}</h2>
-      </div>
-      <div class="actions-container">
-        <button (click)="showUserProfile(user.id)" type="button" mat-mini-fab color="primary" class="upload-btn">
-          <mat-icon>person</mat-icon>
-        </button>
-        <button type="button" mat-mini-fab color="primary" class="upload-btn m-l-10">
-          <mat-icon>message</mat-icon>
-        </button>
-      </div>
-    </div> 
-  </mat-card>
+    <div class="friend-req-box">
+      <h1 class="m-l-5"><mat-icon class="align-icon m-b-5 m-r-5">person_add</mat-icon>Friendship requests</h1>
+      <app-friendship-request-list></app-friendship-request-list>
+    </div>
+  </div>
 </div>
+
+
 

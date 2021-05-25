@@ -7,12 +7,12 @@
         <div *ngIf="avatar" class="avatar">
           <img [src]="avatar">
         </div> 
-      <div class="card-container w-100">
+      <div class="card-box w-100">
         <div class="m-l-25">
           <h2>{{user.firstName + " " + user.lastName}}</h2>
           <h2>{{user.country}}</h2>
         </div>
-        <div class="actions-container">
+        <div class="actions-box">
           <button (click)="showUserProfile(user.id)" type="button" mat-mini-fab color="primary" class="upload-btn">
             <mat-icon>person</mat-icon>
           </button>

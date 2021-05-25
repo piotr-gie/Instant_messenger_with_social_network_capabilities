@@ -11,9 +11,11 @@ import { MatListModule } from '@angular/material/list';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatRadioModule } from '@angular/material/radio';
-import {MatDatepickerModule} from '@angular/material/datepicker';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
-
+import { MatRippleModule } from '@angular/material/core';
+import { MatTabsModule } from '@angular/material/tabs';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 const material = [
     MatToolbarModule,
@@ -31,7 +33,10 @@ const material = [
     MatRadioModule,
     MatDatepickerModule,
     MatNativeDateModule,  
-    MatToolbarModule
+    MatToolbarModule,
+    MatRippleModule,
+    MatTabsModule,
+    MatCheckboxModule
 ]
 
 @NgModule({

@@ -7,7 +7,7 @@ import { NavbarComponent } from './components/nav/navbar/navbar.component';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MaterialModule } from './material.module';
 import { LoginComponent } from './components/login/login.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { RegisterComponent } from './components/register/register.component';
 import { RichTextBoxComponent } from './components/shared/rich-text-box/rich-text-box.component';
@@ -25,7 +25,10 @@ import { UserListComponent } from './pages/user-list/user-list.component';
 import { SearchPageComponent } from './pages/search-page/search-page.component';
 import { ToastrModule } from 'ngx-toastr';
 import { BoardComponent } from './components/board/board.component';
-import { FormsModule } from '@angular/forms';
+import { ContactListComponent } from './components/messenger/contact-list/contact-list.component';
+import { FriendshipRequestListComponent } from './components/users/friendship-request-list/friendship-request-list.component';
+import { UserCardComponent } from './components/users/user-card/user-card.component';
+
 
 @NgModule({
   declarations: [	
@@ -45,7 +48,10 @@ import { FormsModule } from '@angular/forms';
     SearchComponent,
     UserListComponent,
     SearchPageComponent,
-    BoardComponent
+    BoardComponent,
+    ContactListComponent,
+    FriendshipRequestListComponent,
+    UserCardComponent
 
    ],
   imports: [
@@ -56,6 +62,7 @@ import { FormsModule } from '@angular/forms';
     MatToolbarModule,
     ReactiveFormsModule,
     HttpClientModule,
+    FormsModule,
     QuillModule.forRoot(),
     ToastrModule.forRoot({
       timeOut: 3000,

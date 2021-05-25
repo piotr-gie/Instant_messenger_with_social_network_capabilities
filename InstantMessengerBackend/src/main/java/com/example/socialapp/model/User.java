@@ -1,8 +1,11 @@
 package com.example.socialapp.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import javax.sql.rowset.serial.SerialBlob;
 import java.text.SimpleDateFormat;
+import java.util.Set;
 
 @Table(name = "users")
 @Entity
@@ -26,6 +29,14 @@ public class User {
     private String phone;
     private String aboutMe;
     private SerialBlob profileImage;
+
+    @OneToMany(mappedBy = "user1")
+    @JsonIgnore
+    private Set<Friendship> friends;
+
+    @OneToMany(mappedBy = "user2")
+    @JsonIgnore
+    private Set<Friendship> friendOf;
 
     public int getId() {
         return id;

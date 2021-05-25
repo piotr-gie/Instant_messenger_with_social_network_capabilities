@@ -1,8 +1,8 @@
 
 import { Component, Input, OnInit } from '@angular/core';
 import { TextBoxType } from 'src/app/enums/message-box-type.enum';
-import { Message } from 'src/app/models/message';
-import { AuthService } from 'src/app/services/auth.service';
+import { Message } from 'src/app/models/fetch/message';
+import { AuthService } from 'src/app/services/fetch/auth.service';
 
 @Component({
   selector: 'app-message',
@@ -21,7 +21,7 @@ export class MessageComponent implements OnInit{
 
   ngOnInit(): void {
 
-    this.textBoxType = (this.model.senderId === this.authService.getCurrentUserId()) ?
+    this.textBoxType = (this.model.senderId === this.authService.getCurrentUser().id) ?
       this.textBoxTypeEnum.sent : this.textBoxTypeEnum.recived;
   }
 
@@ -34,6 +34,4 @@ export class MessageComponent implements OnInit{
     this.isMouseEnetered = false
     this.isDateShown = false
   }
-  
-
 }

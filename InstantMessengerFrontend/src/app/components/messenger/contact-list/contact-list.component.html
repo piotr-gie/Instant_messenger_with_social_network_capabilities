@@ -1,0 +1,49 @@
+<div
+  (click)="hidePanel()"
+  matRipple
+  class="hide-button"
+>
+<mat-icon class="hide-button-icon align-icon">expand_less</mat-icon>
+</div>   
+<mat-card *ngIf="!selectedUser" class="contact-list-box">
+  <div class="title-box m-b-25">
+    <span class="title">
+      Instant Messenger
+    </span>
+    <mat-form-field class="search">
+      <mat-label>Serach user</mat-label>
+      <input matInput type="text" (input)="search($event.target.value)">
+      <div *ngIf="!searchValue$" matSuffix mat-icon-button style="font-size: smaller;" aria-label="Search">
+        <mat-icon>search_user</mat-icon>
+      </div>
+      <button mat-button *ngIf="searchValue$" matSuffix mat-icon-button aria-label="Clear" (click)="searchValue$.next('')">
+        <mat-icon>close</mat-icon>
+      </button>
+    </mat-form-field>
+  </div>
+  <mat-divider></mat-divider>   
+  <mat-list>
+    <div *ngFor="let contact of filteredContacts">
+      <div (click)="selectUser(contact.user)">  
+        <mat-list-item>         
+          <div mat-card-avatar class="user-image"
+            [ngClass]="this.contact.user.gender === genderType.female ? 'female-avatar' : 'male-avatar'"    
+          ></div>
+          <span>
+            <h2 class="m-l-10"> {{contact.user.firstName + " " + contact.user.lastName}}</h2>
+          </span>
+          <span>
+            <p class="timestamp m-l-10">{{ contact.date?.toString() }}</p>
+          </span>         
+        </mat-list-item> 
+      </div> 
+      <mat-divider></mat-divider>    
+    </div>
+  </mat-list>
+</mat-card>
+<app-chat-box
+  *ngIf="selectedUser"
+  [user]='selectedUser'
+  (closeEmit)="selectUser(null)"
+>
+</app-chat-box>

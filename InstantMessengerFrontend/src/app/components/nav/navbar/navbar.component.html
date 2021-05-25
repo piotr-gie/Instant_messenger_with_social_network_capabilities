@@ -1,26 +1,38 @@
-<mat-toolbar *ngIf="authService.loggedIn" color="primary" class="navbar">
-  <div>
-    <span>Instant Messenger<mat-icon class="align-icon m-l-5">forum</mat-icon></span>
-    <app-search></app-search>
+<mat-toolbar class="navbar shadow">
+  <div class="nav-group">
+    <span>Instant Messenger<mat-icon class="align-icon m-l-5">forum</mat-icon></span>  
+    <div class="nav-avatar m-l-25 shadow"
+      [ngClass]="this.user?.gender === genderType.female ? 'nav-female-avatar' : 'nav-male-avatar'"
+    >
+    </div> 
+    <span class="m-l-10">{{this.user?.firstName}}</span>
+    <app-search class="m-l-25 shadow"></app-search>   
   </div>
-  
   <div>
-    <span>
-      <button mat-button class="align-icon nav-button" routerLink="/home">
-        <mat-icon class="m-r-5">home</mat-icon>Home
+    <span class="nav-group">       
+      <button mat-fab color="primary" class="m-r-10" routerLink="/home">
+        <mat-icon>home</mat-icon>
       </button>    
-      <button mat-button class="align-icon nav-button" routerLink="/users">
-        <mat-icon class="m-r-5">people</mat-icon>Users
+      <button mat-fab color="primary" class="m-r-10" routerLink="/users">
+        <mat-icon>people</mat-icon>
+      </button>  
+      <button  mat-fab color="primary" class="m-r-10" routerLink="/profile/1">
+        <mat-icon>account_box</mat-icon>
       </button>   
-    </span>
-    <span>
-      <button mat-button class="align-icon nav-button" routerLink="/profile/1">
-        <mat-icon class="m-r-5">account_box</mat-icon>Profile
-      </button>     
-    </span>
-    <span>
-      <button mat-button (click)="logout()" class="align-icon nav-button" routerLink="">
-        <mat-icon class="m-r-5">logout</mat-icon>Logout
+      <div
+        (click)="toggleChatExpand(false)"  
+        class="chat-box-panel shadow"
+        [ngClass]="this.chatTriggered ? 'chat-expanded' : 'chat-hidden'" 
+      >
+        <mat-icon class="chat-box-button" *ngIf="!this.chatExpanded">chat</mat-icon>
+        <app-contact-list
+         class="w-100"
+         *ngIf="this.chatExpanded"
+         (hideEmit)="toggleChatExpand(true)"
+        ></app-contact-list>
+      </div>  
+      <button type="button" (click)="logout()" mat-fab color="primary" class="m-l-10" routerLink="">
+        <mat-icon>logout</mat-icon>
       </button>     
     </span>
   </div>

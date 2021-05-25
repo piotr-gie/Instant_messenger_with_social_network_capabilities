@@ -1,9 +1,9 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable, OnInit } from '@angular/core';
-import { User } from '../models/user';
+import { Injectable } from '@angular/core';
 import { BaseService } from './base.service';
 import { map } from 'rxjs/operators';
 import { Observable, ReplaySubject } from 'rxjs';
+import { User } from 'src/app/models/fetch/user';
 
 @Injectable({
   providedIn: 'root'
@@ -16,9 +16,8 @@ currentUser$ = this.currentUserSource.asObservable()
  constructor(http: HttpClient) {
       super(http);
       this.controllerPath = "user";
-    this.login(null);
+      
   }
-
   login(user: User): Observable<User> {
     // return this.postModel(user).pipe(
     //   map((respose: User) => {
@@ -57,11 +56,12 @@ currentUser$ = this.currentUserSource.asObservable()
     this.currentUserSource.next(user);
   }
 
-  getCurrentUserId(): number {
+  getCurrentUser(): any {
     // let id;
     // this.currentUser$.subscribe((response) => {
     //   id = response.id;
     // })
-   return 1; //TODO
+    let user = { firstName: "John", lastName: "Smith", id: 1, country: "Germany", city: "Berlin", gender: "male"};
+    return user; //TODO
   }
 }

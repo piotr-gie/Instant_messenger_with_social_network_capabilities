@@ -1,8 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { AuthService } from 'src/app/services/fetch/auth.service';
+import { UserService } from 'src/app/services/fetch/user.service';
+import { User } from 'src/app/models/fetch/user';
+import { FriendshipService } from 'src/app/services/fetch/friendship.service';
 import { GenderType } from 'src/app/enums/gender-type.enum';
-import { User } from 'src/app/models/user';
-import { UserService } from 'src/app/services/user.service';
+import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
+import { BehaviorSubject } from 'rxjs';
 
 @Component({
   selector: 'app-user-list',
@@ -11,24 +14,101 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class UserListComponent implements OnInit {
   users: User [] = [];
+  friends: User [] = [];
+  userList: User [] = [];
+  filteredList: User [] = [];
+  isUsersTab: boolean;
+
+  searchValue$ = new BehaviorSubject<string>('');
+  isMyCity: boolean;
+  isMyCountry: boolean;
+  searchedGender: GenderType;
 
   genderType = GenderType;
-  avatar: File;
+  
 
-  constructor(private userService: UserService, private router: Router) { }
+  constructor(
+     private userService: UserService,
+     private authService: AuthService, 
+     private friendshipSerivce: FriendshipService) {}
 
   ngOnInit() {
     this.initializeUserList();
+    this.initializeFriendships();
   }
 
   initializeUserList() {
     this.userService.getModels().subscribe((response) => {
-      this.users = response;
+      this.users = response.filter(user => user.id !== this.authService.getCurrentUser().id);
     })
   }
 
-  showUserProfile(id: number) {
-    this.router.navigate(['/profile', id])
+  initializeFriendships() {
+    this.friendshipSerivce.getAllFriends(1).subscribe((response) => {
+      let friendships = response.filter(friend => friend.accepted === true);
+      friendships.forEach(f => {
+        this.friends.push(f.user);
+      })
+      this.userList = this.friends
+      this.filteredList = this.userList;
+    })
+   
   }
 
+  checkGenderState(event, elem) {
+    event.preventDefault();
+      if (this.searchedGender && this.searchedGender === elem.value) {
+        elem.checked = false;
+        this.searchedGender = null
+      } else {
+        this.searchedGender = elem.value
+        elem.checked = true;
+      }
+    this.search(this.searchValue$.getValue());
+  }
+
+  tabChange() {
+    this.isUsersTab = !this.isUsersTab;
+    this.userList = (this.isUsersTab) ? this.users : this.friends;
+    this.filteredList = this.userList;
+    this.clearSearchInput();
+  }
+
+  clearSearchInput() {
+    this.searchValue$.next('');
+  }
+
+  search(value: string) {
+    this.searchValue$.next(value);
+    this.searchValue$.pipe(
+      debounceTime(400),
+      distinctUntilChanged()
+    ).subscribe(() => {
+      
+      this.filteredList = (this.isUsersTab) ? this.users.filter((user) => {
+        return this.filterUser(user)   
+      }) :  this.friends.filter((friend) => {
+        return this.filterUser(friend)  
+      });
+    })
+  }
+  private filterUser(user: User) { 
+    const search = this.searchValue$.getValue(); 
+    let currentUser = this.authService.getCurrentUser();
+   
+    const myCountryFilter = (this.isMyCountry) ? user.country === currentUser.country : true;
+    const myCityFilter = (this.isMyCity) ? user.city === currentUser.city : true;
+    const genderFilter = (this.searchedGender) ? user.gender === this.searchedGender : true;
+
+    let filterResult = (((user.firstName + ' ' + user.lastName)?.toLocaleLowerCase().match(search) || 
+      user.city?.toLocaleLowerCase().match(search) ||
+      user.country?.toLocaleLowerCase().match(search)) &&
+      myCountryFilter &&
+      myCityFilter &&
+      genderFilter
+    );
+
+    return filterResult;
+  
+  }
 }

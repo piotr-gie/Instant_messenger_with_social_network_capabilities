@@ -1,20 +1,23 @@
 <div>
-  <mat-card class="chat-box-container">
-    <mat-card-header>
-      <div mat-card-avatar class="user-image"></div>
-      <mat-card-title class="title">{{ user.firstName + " " + user.lastName }}</mat-card-title>    
+  <mat-card class="chat-box-box">
+    <mat-card-header class="header">
+      <div mat-card-avatar class="user-image"
+        [ngClass]="this.user.gender === genderType.female ? 'female-avatar' : 'male-avatar'"    
+      ></div>
+      <mat-card-title class="title">{{ user.firstName + " " + user.lastName }}  </mat-card-title>      
+      <button (click)="close()" mat-button><mat-icon>close</mat-icon></button>
     </mat-card-header>
     <div class="separator m-t-5"></div>
     <mat-card-content>
       <div class="chat-content">
-        <div *ngFor="let message of messages ">
+        <div *ngFor="let message of messages">
           <app-message
            [model]="message"
           ></app-message>
         </div>
       </div>
     </mat-card-content>
-    <mat-card-actions class="inputs-container">
+    <mat-card-actions class="inputs-box">
       <app-rich-text-box
         [minHeight]="54"
         [maxHeight]="120"

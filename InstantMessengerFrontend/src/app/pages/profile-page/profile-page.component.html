@@ -1,39 +1,36 @@
-<div class="test-box">
-  <app-chat-box  
-  *ngIf="model?.id != 1"
-   class="m-l-10"
-   [user]="this.model"></app-chat-box>
-  <!-- <app-board [filter]="this.model.id"></app-board> -->
-  <app-board [filter]="this.temp"></app-board>
-  <mat-card class="profile-container m-r-10">
-    <div class="avatar-container">
-      <div *ngIf="!avatar" class="avatar"
+<div class="profile-box">
+  <mat-card class="profile-box m-r-10 shadow">
+    <div class="avatar-box">
+      <div *ngIf="!avatar" class="avatar shadow"
         [ngClass]="this.model.gender === genderType.female ? 'female-avatar' : 'male-avatar'"
       ></div>
-      <div class="m-t-10">
-        <button mat-raised-button><mat-icon>person_add</mat-icon></button>
-        <button mat-raised-button class="m-l-10"><mat-icon>chat</mat-icon></button>
-        <button mat-raised-button class="m-l-10" (click)="openEditDialog()"><mat-icon>settings</mat-icon></button>
+      <div class="m-t-10">   
+        <button *ngIf="model?.id != 1" mat-raised-button color="primary" (click)="openConversation()"><mat-icon>chat</mat-icon></button>
+        <button *ngIf="model?.id == 1"mat-raised-button class="m-l-10" (click)="openEditDialog()"><mat-icon>settings</mat-icon></button>
+        <button *ngIf="model?.id != 1 && isFriend === false" class="m-l-10" mat-raised-button><mat-icon>person_add</mat-icon></button>
+        <button *ngIf="model?.id != 1 && isFriend === true" class="m-l-10" mat-raised-button color="warn"><mat-icon>person_remove</mat-icon></button>
       </div> 
       <h2 class="m-t-25">
         Photos
       </h2>
-      <div class="photo-container">
+      <div class="photo-box">
         <div class="photo-preview"></div>
         <div class="photo-preview"></div>
         <div class="photo-preview"></div>
       </div>
-      <div class="photo-container">
+      <div class="photo-box">
         <div class="photo-preview"></div>
         <div class="photo-preview"></div>
         <div class="photo-preview"></div>
       </div>
-
     </div>  
-    <div class="data-list-container" style="position: relative;">
+    <div class="data-list-box" style="position: relative;">
       <mat-list class="data-list">
-        <mat-list-item>
-          <h2> {{model?.firstName + " " + model?.lastName}}</h2>
+        <mat-list-item> 
+        <div class="header-box">
+          <h2 class="name-header"> {{model?.firstName + " " + model?.lastName}}</h2>
+          <p *ngIf="isFriend" class="is-friend-label"><mat-icon class="align-icon m-r-5">face</mat-icon>Friend</p>
+        </div>     
         </mat-list-item>
         <mat-divider></mat-divider>
         <mat-list-item>
@@ -79,7 +76,7 @@
         </mat-list-item>
         <mat-divider></mat-divider>     
       </mat-list>
-      <div class="presentation-container">
+      <div class="presentation-box">
         <h2>Presentation</h2>
         <p class="m-t-25">
           {{model.presentation}}
