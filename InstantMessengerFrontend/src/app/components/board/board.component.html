@@ -40,11 +40,11 @@
       <div *ngIf="!!post.comments">
         <div *ngFor="let comment of post.comments">
           <mat-card-header class="m-t-10">
-            <div mat-card-avatar *ngIf="users[comment.posterId-1].avatar" class="user-image" style="background-image: url({{users[comment.posterId-1]?.avatar}});"></div>
-            <div mat-card-avatar *ngIf="!users[comment.posterId-1].avatar" class="user-image"
-            [ngClass]="users[comment.posterId-1].gender === genderType.female ? 'female-avatar' : 'male-avatar'"></div>
+            <div mat-card-avatar *ngIf="users[comment.posterId-1]?.avatar" class="user-image" style="background-image: url({{users[comment.posterId-1]?.avatar}});"></div>
+            <div mat-card-avatar *ngIf="!users[comment.posterId-1]?.avatar" class="user-image"
+            [ngClass]="users[comment.posterId-1]?.gender === genderType?.female ? 'female-avatar' : 'male-avatar'"></div>
             <mat-card-title style="font-size: medium;">
-                {{users[comment.posterId-1].firstName}} {{users[comment.posterId-1].lastName}}
+                {{users[comment.posterId-1]?.firstName}} {{users[comment.posterId-1]?.lastName}}
             </mat-card-title>
             <mat-card-subtitle style="color: black; font-size: medium;">
                 {{comment.content}}
@@ -55,9 +55,9 @@
       </div>
 
       <div *ngIf="post.id === commentId" class="m-b-10 postey-machiney-container">
-        <div mat-card-avatar style="display: inline-block; vertical-align: top;" *ngIf="users[currentUser.id].avatar" class="user-image" style="background-image: url({{users[currentUser.id]?.avatar}});"></div>
-        <div mat-card-avatar style="display: inline-block; vertical-align: top;" *ngIf="!users[currentUser.id].avatar" class="user-image"
-          [ngClass]="users[currentUser.id].gender === genderType.female ? 'female-avatar' : 'male-avatar'"></div>
+        <div mat-card-avatar style="display: inline-block; vertical-align: top;" *ngIf="users[currentUser.id]?.avatar" class="user-image" style="background-image: url({{users[currentUser.id]?.avatar}});"></div>
+        <div mat-card-avatar style="display: inline-block; vertical-align: top;" *ngIf="!users[currentUser.id]?.avatar" class="user-image"
+          [ngClass]="users[currentUser.id]?.gender === genderType?.female ? 'female-avatar' : 'male-avatar'"></div>
         
         <div class="make-post m-t-5 m-b-5 m-l-5" style="width: 90%;">
           <textarea matInput class="postey-machiney" autocomplete="off" placeholder="Comment" 

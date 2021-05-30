@@ -23,7 +23,10 @@ export class EditProfileDialogComponent implements OnInit {
    }
 
   ngOnInit() {
-    this.buildUserForm();
+    this.selectedGender = this.model.gender === this.genderType.male ? 
+      this.genderType.male :
+      this.genderType.female;
+    this.buildUserForm();   
   }
 
   submitUserForm() {
@@ -39,7 +42,7 @@ export class EditProfileDialogComponent implements OnInit {
       country: [this.model.country],
       city: [this.model.city],
       birthday: [this.model.birthday],
-      gender: [this.model.gender],
+      gender: [this.selectedGender],
       phone: [this.model.phone],
       mail: [this.model.mail],
       presentation: [this.model.presentation],
