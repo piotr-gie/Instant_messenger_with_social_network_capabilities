@@ -12,11 +12,11 @@
           <div class="filtering-box">        
             <mat-form-field class="search-field m-t-25 m-b-10">
               <mat-label>Serach user</mat-label>
-              <input matInput type="text" (input)="search($event.target.value)">
-              <div *ngIf="!searchValue$" matSuffix mat-icon-button style="font-size: smaller;" aria-label="Search">
+              <input matInput type="text" [value]="searchValue$.value" (input)="search($event.target.value)">
+              <div *ngIf="searchValue$.value === ''" matSuffix mat-icon-button style="font-size: smaller;" aria-label="Search">
                 <mat-icon>search_user</mat-icon>
               </div>
-              <button mat-button *ngIf="searchValue$" matSuffix mat-icon-button aria-label="Clear" (click)="clearSearchInput()">
+              <button mat-button *ngIf="searchValue$.value !== ''" matSuffix mat-icon-button aria-label="Clear" (click)="clearSearchInput()">
                 <mat-icon>close</mat-icon>
               </button>
             </mat-form-field>
@@ -41,11 +41,11 @@
           <div class="filtering-box">        
             <mat-form-field class="search-field m-t-25 m-b-10">
               <mat-label>Serach user</mat-label>
-              <input matInput type="text" (input)="search($event.target.value)">
-              <div *ngIf="!searchValue$" matSuffix mat-icon-button style="font-size: smaller;" aria-label="Search">
+              <input matInput type="text" [value]="searchValue$.value" (input)="search($event.target.value)">
+              <div *ngIf="searchValue$.value === ''" matSuffix mat-icon-button style="font-size: smaller;" aria-label="Search">
                 <mat-icon>search_user</mat-icon>
               </div>
-              <button mat-button *ngIf="searchValue$" matSuffix mat-icon-button aria-label="Clear" (click)="clearSearchInput()">
+              <button mat-button *ngIf="searchValue$.value !== ''" matSuffix mat-icon-button aria-label="Clear" (click)="clearSearchInput()">
                 <mat-icon>close</mat-icon>
               </button>
             </mat-form-field>

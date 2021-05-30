@@ -4,7 +4,6 @@ import { ContactHelper } from 'src/app/models/helpers/contactHelper';
 import { ChatBoxService } from 'src/app/services/functional/chat-box.service';
 import { FriendshipService } from 'src/app/services/fetch/friendship.service';
 import { MessageService } from 'src/app/services/fetch/message.service';
-import { UserService } from 'src/app/services/fetch/user.service';
 import { User } from 'src/app/models/fetch/user';
 import { BehaviorSubject } from 'rxjs';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
@@ -64,16 +63,18 @@ export class ContactListComponent implements OnInit {
     this.selectedUser = user;
   }
 
-  search(value: string) {
-    const search = this.searchValue$.getValue(); 
+  clearSearchInput() {
+    this.searchValue$.next('');
+  }
 
+  search(value: string) {
     this.searchValue$.next(value);
     this.searchValue$.pipe(
       debounceTime(400),
       distinctUntilChanged()
     ).subscribe(() => {     
       this.filteredContacts = this.contacts.filter((contact) => {
-        return (contact.user.firstName + ' ' + contact.user.lastName)?.toLocaleLowerCase().match(search);
+        return (contact.user.firstName + ' ' + contact.user.lastName)?.toLocaleLowerCase().match(this.searchValue$.value);
       }) 
     })
   }
