@@ -1,7 +1,7 @@
 <div>
   <div *ngFor="let request of friendshipsRequests">
-    <mat-card class="request-card">
-      <div mat-card-avatar class="user-image"
+    <div class="request-card">
+      <div mat-card-avatar class="user-image shadow"
         [ngClass]="request.user.gender === genderType.female ? 'female-avatar' : 'male-avatar'"    
       ></div>
       <div class="card-box w-100">
@@ -20,7 +20,8 @@
           </button>
         </div>
       </div>
-    </mat-card>
+    </div>
+    <mat-divider></mat-divider>
   </div>
   <div *ngIf="friendshipsRequests.length === 0">
     <p class="m-l-5">No friendship requests at the moment...</p>
