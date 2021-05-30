@@ -36,13 +36,17 @@ export class ContactListComponent implements OnInit {
     if(this.selectedUser) {
       this.selectUser(this.selectedUser);
     }
+    else this.selectedUser = null;
+    console.log(this.selectedUser);
   }
 
   initializeContactList() {
     this.friendshipService.getAllFriends(1).subscribe((response) => {
       this.friends = response.filter(friend => friend.accepted === true);
       this.chatBoxService.selectedUserId.subscribe((id) => {
-        this.selectedUser = response.find(friend => friend.user.id === id).user; 
+        if (id !== null) {
+          this.selectedUser = response.find(friend => friend.user.id === id).user;
+        }     
       })   
       response.forEach((friend) => {
         this.messageService.getAllMessagesInConversationByUsers(1, friend.user.id).subscribe((response) => {

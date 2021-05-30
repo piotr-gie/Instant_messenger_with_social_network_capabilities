@@ -6,7 +6,7 @@
       <mat-card class="profile-box m-r-10 shadow">
         <div class="avatar-box">
           <div *ngIf="!avatar" class="avatar shadow"
-            [ngClass]="this.model.gender === genderType.female ? 'female-avatar' : 'male-avatar'"
+            [ngClass]="this.model?.gender === genderType.female ? 'female-avatar' : 'male-avatar'"
           ></div>
           <div class="m-t-10">   
             <button *ngIf="model?.id != 1" mat-raised-button color="primary" (click)="openConversation()"><mat-icon>chat</mat-icon></button>
@@ -40,42 +40,42 @@
             <mat-list-item>
               <span class="data-span"> Country:  </span>
               <span>
-                {{model.country}}
+                {{model?.country}}
               </span>
             </mat-list-item>
             <mat-divider></mat-divider>
             <mat-list-item>
               <span class="data-span"> City:  </span>
               <span>
-                {{model.city}}
+                {{model?.city}}
               </span>
             </mat-list-item>
             <mat-divider></mat-divider>
             <mat-list-item>
               <span class="data-span"> Birthday:  </span>
               <span>
-                {{model.birthday?.toLocaleDateString()}}
+                {{model?.birthday?.toLocaleDateString()}}
               </span>
             </mat-list-item>
             <mat-divider></mat-divider>
             <mat-list-item>
               <span class="data-span"> Gender:  </span>
               <span>
-                {{model.gender}}
+                {{model?.gender}}
               </span>
             </mat-list-item>
             <mat-divider></mat-divider>
             <mat-list-item>
               <span class="data-span"> Mobile:  </span>
               <span>
-                {{model.phone}}
+                {{model?.phone}}
               </span>
             </mat-list-item>
             <mat-divider></mat-divider>
             <mat-list-item>
               <span class="data-span"> Email:  </span>
               <span>
-                {{model.mail}}
+                {{model?.mail}}
               </span>
             </mat-list-item>
             <mat-divider></mat-divider>     
@@ -83,7 +83,7 @@
           <div class="presentation-box">
             <h2>Presentation</h2>
             <p class="m-t-25">
-              {{model.presentation}}
+              {{model?.presentation}}
             </p>
           </div>    
         </div>  
