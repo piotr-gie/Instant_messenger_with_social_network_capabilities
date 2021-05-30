@@ -54,7 +54,6 @@ export class SearchComponent implements OnInit {
 
   search($event){
     if ($event.key != "Enter") {
-      console.log(this.show)
       // this.input = $event.target.value;
       let userList: User [] = [];
       const sauce = from(this.users);

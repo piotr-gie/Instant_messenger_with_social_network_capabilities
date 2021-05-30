@@ -77,16 +77,16 @@ export class BoardComponent implements OnInit, OnChanges {
   }
 
   initializeBoardPosts(){
-    this.boardService.getModels().subscribe((response) => {
-      this.posts = response;
-    })
+    // this.boardService.getModels().subscribe((response) => { //TODO: uncomment after BE implementation 
+    //   this.posts = response;
+    // })
 
     if(!! this.filter)
       this.posts = this.posts.filter(e => e.posterId === Number(this.filter));
 
-    this.userService.getModels().subscribe((response) => {
-      this.users = response;
-    })
+    // this.userService.getModels().subscribe((response) => { //TODO: uncomment after BE implementation 
+    //   this.users = response;
+    // })
   }
 
   createPost(){
@@ -99,7 +99,7 @@ export class BoardComponent implements OnInit, OnChanges {
     }
 
     this.boardService.postModel(newPost).subscribe((response) => {
-      console.log(response)
+
     });
 
     this.content = "";
@@ -128,9 +128,9 @@ export class BoardComponent implements OnInit, OnChanges {
       }]
     }
 
-    this.boardService.postModel(newComment).subscribe((response) => {
-      console.log(response)
-    });
+    // this.boardService.postModel(newComment).subscribe((response) => { //TODO: uncomment after BE implementation 
+   
+    // });
 
     this.commentContent = "";
     

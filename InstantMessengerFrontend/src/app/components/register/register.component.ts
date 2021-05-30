@@ -1,7 +1,6 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
-import { AuthService } from 'src/app/services/fetch/auth.service';
 import { UserService } from 'src/app/services/fetch/user.service';
 
 @Component({
@@ -27,7 +26,6 @@ export class RegisterComponent implements OnInit {
 
   submitRegisterForm() {
     // this.authService.register(this.registerForm.value).subscribe(response => {  
-    // console.log(response) })
     // //this.authService.setCurrentUser(this.registerForm.value); //TODO
     this.closeRegisterForm();
     this.userService.postModel(this.registerForm.value).subscribe((response) => {
