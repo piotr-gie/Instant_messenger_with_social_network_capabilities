@@ -6,6 +6,8 @@ import { BoardService } from 'src/app/services/fetch/board.service';
 import { Post } from 'src/app/models/fetch/post';
 import { AuthService } from 'src/app/services/fetch/auth.service';
 import { OnChanges } from '@angular/core';
+import { EditPostDialogComponent } from '../../dialog/edit-post-dialog/edit-post-dialog.component';
+import { DialogWindowService } from 'src/app/services/functional/dialog-window.service';
 
 @Component({
   selector: 'app-board',
@@ -24,7 +26,12 @@ export class BoardComponent implements OnInit, OnChanges {
   commentId: number;
   currentUser: User;
 
-  constructor(private userService: UserService, private boardService: BoardService, private authService: AuthService, private elementRef: ElementRef) { }
+  constructor(
+    private userService: UserService,
+    private boardService: BoardService,
+    private authService: AuthService,
+    private elementRef: ElementRef,
+    private dialogService: DialogWindowService) { }
 
   @HostListener('document:click', ['$event.target'])
   clickedOut(targetElement) {
@@ -72,6 +79,16 @@ export class BoardComponent implements OnInit, OnChanges {
     //delete later
   }
 
+  openEditDialog() {
+    this.dialogService.openDialogWindow(EditPostDialogComponent, this.post, (data) => { 
+      if(data != null)  {
+        this.post = data;
+        console.log(this.post)
+        this.submitPost();
+      }
+    });  
+  }
+
   ngOnChanges(changes: SimpleChanges){
     this.ngOnInit();
   }
@@ -89,10 +106,14 @@ export class BoardComponent implements OnInit, OnChanges {
     })
   }
 
-  createPost(){
+  createPost() {
+    
+  }
+
+  submitPost(){
     let newPost = this.post;
     newPost = {
-      content: this.content,
+      content: this.post.content,
       posterId: this.currentUser.id,                  //change later
       // attachment?: Attachment,
       // date?: Date,

@@ -24,10 +24,12 @@ import { SearchComponent } from './components/search/search.component';
 import { UserListComponent } from './pages/user-list/user-list.component';
 import { SearchPageComponent } from './pages/search-page/search-page.component';
 import { ToastrModule } from 'ngx-toastr';
-import { BoardComponent } from './components/board/board.component';
+import { BoardComponent } from './components/posts/board/board.component';
 import { ContactListComponent } from './components/messenger/contact-list/contact-list.component';
 import { FriendshipRequestListComponent } from './components/users/friendship-request-list/friendship-request-list.component';
 import { UserCardComponent } from './components/users/user-card/user-card.component';
+import { EditPostDialogComponent } from './components/dialog/edit-post-dialog/edit-post-dialog.component';
+import { RichPostComponent } from './components/posts/rich-post/rich-post.component';
 
 
 @NgModule({
@@ -51,7 +53,9 @@ import { UserCardComponent } from './components/users/user-card/user-card.compon
     BoardComponent,
     ContactListComponent,
     FriendshipRequestListComponent,
-    UserCardComponent
+    UserCardComponent,
+    EditPostDialogComponent,
+    RichPostComponent
 
    ],
   imports: [

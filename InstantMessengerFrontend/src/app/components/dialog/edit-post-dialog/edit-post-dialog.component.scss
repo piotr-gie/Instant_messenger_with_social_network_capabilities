@@ -1,0 +1,12 @@
+@import  "./src/styles.scss";
+
+.x {
+    width: 500px;
+    // height: 700px;
+    display: flex;
+    flex-direction: column;
+}
+
+.submit-button {
+    width: 90%;
+}

@@ -1,12 +1,13 @@
 <div class="post-list-container m-l-25 m-r-25">
 
   <mat-card class="m-b-10 postey-machiney-container" *ngIf="!filter || filter == currentUser.id">
+    <button mat-raised-button color="primary" class="post-button" (click)="openEditDialog()">New post</button>
     <div class="make-post">
       <textarea matInput class="postey-machiney" autocomplete="off" placeholder="Say something cringy!" 
         [(ngModel)]="content"></textarea>
       <span *ngIf="!!content" class="buttons">
         <mat-divider [inset]="true"></mat-divider>
-        <button mat-button (click)="createPost()">Post</button>
+        <button mat-button (click)="submitPost()">Post</button>
         <button mat-button>Attachment</button>
       </span>
     </div>
@@ -25,8 +26,13 @@
       <!-- idk how attachments will look like so its #todo -->
     </div>
 
-    <mat-card-content>
-      <h2>{{post.content}}</h2>
+    <mat-card-content class="m-t-10">
+      <!-- <h2>{{post.content}}</h2> -->
+      <app-rich-post
+        [isReadOnly]="true"
+        [content]="post.content"
+      >
+      </app-rich-post>
     </mat-card-content>
 
     <div>
