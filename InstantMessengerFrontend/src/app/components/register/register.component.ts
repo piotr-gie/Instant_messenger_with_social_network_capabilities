@@ -27,7 +27,6 @@ export class RegisterComponent implements OnInit {
 
   submitRegisterForm() {
     // this.authService.register(this.registerForm.value).subscribe(response => {  
-    // console.log(response) })
     // //this.authService.setCurrentUser(this.registerForm.value); //TODO
     this.closeRegisterForm();
     this.userService.postModel(this.registerForm.value).subscribe((response) => {

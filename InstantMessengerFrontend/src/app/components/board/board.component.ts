@@ -99,7 +99,7 @@ export class BoardComponent implements OnInit, OnChanges {
     }
 
     this.boardService.postModel(newPost).subscribe((response) => {
-      console.log(response)
+
     });
 
     this.content = "";
@@ -129,7 +129,7 @@ export class BoardComponent implements OnInit, OnChanges {
     }
 
     // this.boardService.postModel(newComment).subscribe((response) => { //TODO: uncomment after BE implementation 
-    //   console.log(response)
+   
     // });
 
     this.commentContent = "";

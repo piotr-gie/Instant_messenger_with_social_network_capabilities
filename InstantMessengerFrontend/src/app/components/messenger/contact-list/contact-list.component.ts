@@ -37,7 +37,6 @@ export class ContactListComponent implements OnInit {
       this.selectUser(this.selectedUser);
     }
     else this.selectedUser = null;
-    console.log(this.selectedUser);
   }
 
   initializeContactList() {
