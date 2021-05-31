@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "messages")
@@ -19,8 +20,8 @@ public class Message {
 
 //    private int receiverId;
 
-    @Transient
-    private Attachment attachment;
+    @OneToMany(mappedBy = "message", cascade = CascadeType.PERSIST)
+    private List<Attachment> attachments;
 
     private LocalDateTime date;
 
@@ -53,12 +54,12 @@ public class Message {
         this.senderId = senderId;
     }
 
-    public Attachment getAttachment() {
-        return attachment;
+    public List<Attachment> getAttachments() {
+        return attachments;
     }
 
-    public void setAttachment(Attachment attachment) {
-        this.attachment = attachment;
+    public void setAttachments(List<Attachment> attachments) {
+        this.attachments = attachments;
     }
 
     public Conversation getConversation() {
@@ -76,4 +77,6 @@ public class Message {
     public void setDate(LocalDateTime date) {
         this.date = date;
     }
+
+
 }

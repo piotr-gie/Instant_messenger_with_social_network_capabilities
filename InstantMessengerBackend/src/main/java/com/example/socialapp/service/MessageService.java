@@ -5,10 +5,10 @@ import com.example.socialapp.model.Message;
 import com.example.socialapp.model.MessageRepository;
 import org.springframework.stereotype.Service;
 
+import javax.sql.rowset.serial.SerialException;
+import java.io.IOException;
 import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.List;
-import java.util.Set;
 
 @Service
 public class MessageService {
@@ -24,6 +24,7 @@ public class MessageService {
         // TODO:  check user authentication
         message.setSenderId(senderId);
         Conversation conversation = conversationService.findOrCreateByUsersIds(senderId, receiverId);
+
         message.setConversation(conversation);
         message.setDate(LocalDateTime.now());
 
