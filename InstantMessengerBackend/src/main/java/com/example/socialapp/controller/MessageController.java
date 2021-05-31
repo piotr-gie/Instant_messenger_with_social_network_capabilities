@@ -3,6 +3,7 @@ package com.example.socialapp.controller;
 import com.example.socialapp.model.Message;
 import com.example.socialapp.service.MessageService;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -21,8 +22,8 @@ public class MessageController {
     }
 
     @PostMapping
-    public ResponseEntity<Message> sendMessage(@RequestBody Message message,
-                                               @RequestParam int senderId, @RequestParam int receiverId){
+    public ResponseEntity<Message> sendMessage(@RequestBody Message message, @RequestParam int senderId,
+                                               @RequestParam int receiverId){
         return ResponseEntity.ok(messageService.sendMessage(
                 message,
                 senderId,
