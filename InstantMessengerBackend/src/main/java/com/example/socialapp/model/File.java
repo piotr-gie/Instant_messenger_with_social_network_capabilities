@@ -5,8 +5,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "attachments")
-public class Attachment {
+@Table(name = "files")
+public class File {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -24,14 +24,18 @@ public class Attachment {
     @JsonIgnore
     private Message message;
 
-    public Attachment() {
+    public File() {
     }
 
-    public Attachment(byte[] fileContent, int size, String name, Message message) {
+    public File(byte[] fileContent, int size, String name, Message message) {
+        this(fileContent, size, name);
+        this.message = message;
+    }
+
+    public File(byte[] fileContent, int size, String name) {
         this.fileContent = fileContent;
         this.size = size;
         this.name = name;
-        this.message = message;
     }
 
     public int getId() {
