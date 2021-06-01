@@ -7,6 +7,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 import java.util.Map;
@@ -22,12 +23,10 @@ public class MessageController {
     }
 
     @PostMapping
-    public ResponseEntity<Message> sendMessage(@RequestBody Message message, @RequestParam int senderId,
-                                               @RequestParam int receiverId){
+    public ResponseEntity<Message> sendMessage(@RequestParam String content, @RequestParam int senderId,
+                                               @RequestParam int receiverId, @RequestParam("files") MultipartFile[] files){
         return ResponseEntity.ok(messageService.sendMessage(
-                message,
-                senderId,
-                receiverId));
+                content, senderId, receiverId, files));
     }
 
 //    @PostMapping(value = "/test")
