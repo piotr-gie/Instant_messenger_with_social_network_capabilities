@@ -22,6 +22,22 @@ body {
     
 }
 
+.page-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.page-content {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.header {
+    height: 50px;
+}
+
 .align-icon {
     display: inline-flex;
     vertical-align: middle;
