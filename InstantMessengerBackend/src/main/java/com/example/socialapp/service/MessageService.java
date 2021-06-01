@@ -1,34 +1,48 @@
 package com.example.socialapp.service;
 
 import com.example.socialapp.model.Conversation;
+import com.example.socialapp.model.File;
 import com.example.socialapp.model.Message;
 import com.example.socialapp.model.MessageRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.sql.rowset.serial.SerialException;
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.util.Arrays;
 import java.util.List;
 
 @Service
 public class MessageService {
     private MessageRepository messageRepository;
     private ConversationService conversationService;
+    private FileService fileService;
 
-    public MessageService(MessageRepository messageRepository, ConversationService conversationService) {
+
+    public MessageService(MessageRepository messageRepository, ConversationService conversationService, FileService fileService) {
         this.messageRepository = messageRepository;
         this.conversationService = conversationService;
+        this.fileService = fileService;
     }
 
-    public Message sendMessage(Message message, int senderId, int receiverId){
+    public Message sendMessage(String content, int senderId, int receiverId, MultipartFile [] files){
         // TODO:  check user authentication
-        message.setSenderId(senderId);
         Conversation conversation = conversationService.findOrCreateByUsersIds(senderId, receiverId);
 
-        message.setConversation(conversation);
-        message.setDate(LocalDateTime.now());
+        Message m = new Message(content, senderId, conversation);
 
-        return messageRepository.save(message);
+        Arrays.stream(files).forEach( x-> {
+            try {
+                File f = fileService.convertToFileObject(x);
+                f.setMessage(m);
+                m.setOneAttachment(f);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+
+        return messageRepository.save(m);
 
     }
 

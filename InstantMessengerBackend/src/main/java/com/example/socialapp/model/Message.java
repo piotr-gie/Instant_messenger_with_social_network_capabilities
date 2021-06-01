@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.Date;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -21,14 +21,24 @@ public class Message {
 //    private int receiverId;
 
     @OneToMany(mappedBy = "message", cascade = CascadeType.PERSIST)
-    private List<Attachment> attachments;
+    private List<File> files = new ArrayList<>();
 
     private LocalDateTime date;
 
     @JoinColumn(name = "conversation")
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST)
     @JsonIgnore
     private Conversation conversation;
+
+    public Message() {
+    }
+
+    public Message(String content, int senderId, Conversation conversation) {
+        this.content = content;
+        this.senderId = senderId;
+        this.conversation = conversation;
+        this.date = LocalDateTime.now();
+    }
 
     public int getId() {
         return id;
@@ -54,12 +64,12 @@ public class Message {
         this.senderId = senderId;
     }
 
-    public List<Attachment> getAttachments() {
-        return attachments;
+    public List<File> getAttachments() {
+        return files;
     }
 
-    public void setAttachments(List<Attachment> attachments) {
-        this.attachments = attachments;
+    public void setAttachments(List<File> files) {
+        this.files = files;
     }
 
     public Conversation getConversation() {
@@ -76,6 +86,10 @@ public class Message {
 
     public void setDate(LocalDateTime date) {
         this.date = date;
+    }
+
+    public void setOneAttachment(File file){
+        this.files.add(file);
     }
 
 
