@@ -1,5 +1,6 @@
 package com.example.socialapp.service;
 
+import com.example.socialapp.config.UserDetailsImpl;
 import com.example.socialapp.model.User;
 import com.example.socialapp.model.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,13 +38,7 @@ public class UserService implements UserDetailsService {
     }
 
     public User updateById(User user) {
-        userRepository.updateById(user.getFirstName(), user.getLastName(),
-                user.getMail(), user.getPassword(),
-                user.getAboutMe(), user.getPhone(),
-                user.getBirthday(), user.getCity(),
-                user.getGender(), user.getProfileImage(),
-                user.isActive(),user.getRoles(),
-                user.getId());
+        userRepository.save(user);
         return user;
     }
 
@@ -63,17 +58,9 @@ public class UserService implements UserDetailsService {
 
         user.orElseThrow(() -> new UsernameNotFoundException("Not found: " + mail));
 
-        CustomUserDetails userDetails = new CustomUserDetails(user.get());
+        UserDetailsImpl userDetails = new UserDetailsImpl(user.get());
 
         return userDetails;
     }
-
-//    public User authentication(String mail, String password) {
-//        User user = userRepository.getByMail(mail);
-//        if(user.getPassword().equals(ShaHashing.encrypted(password)))
-//            return user;
-//        else
-//            return null;
-//    }
 
 }

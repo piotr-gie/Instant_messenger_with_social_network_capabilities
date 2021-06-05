@@ -20,7 +20,15 @@ public class User {
     private String mail;
     private String password;
     private boolean active;
-    private String roles;
+
+    @ManyToMany
+    @JoinTable(
+            name = "users_roles",
+            joinColumns = @JoinColumn(
+                    name = "user_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(
+                    name = "role_id", referencedColumnName = "id"))
+    private Set<Role> roles;
 
     private String country;
     private String city;
@@ -143,11 +151,11 @@ public class User {
         this.active = active;
     }
 
-    public String getRoles() {
+    public Set<Role> getRoles() {
         return roles;
     }
 
-    public void setRoles(String roles) {
+    public void setRoles(Set<Role> roles) {
         this.roles = roles;
     }
 }

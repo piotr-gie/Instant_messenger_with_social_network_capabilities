@@ -1,10 +1,14 @@
 package com.example.socialapp.config;
 
+import com.example.socialapp.model.Role;
 import com.example.socialapp.model.User;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Set;
 
 public class UserDetailsImpl implements UserDetails {
     User user;
@@ -15,7 +19,12 @@ public class UserDetailsImpl implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return user.getRoles();
+        Collection<GrantedAuthority> authorities = new ArrayList<>();
+        Set<Role> roles = user.getRoles();
+        for (Role r: roles) {
+            authorities.add(new SimpleGrantedAuthority(r.getName()));
+        };
+        return authorities;
     }
 
     @Override
@@ -40,7 +49,7 @@ public class UserDetailsImpl implements UserDetails {
 
     @Override
     public boolean isCredentialsNonExpired() {
-        return false;
+        return user.isActive();
     }
 
     @Override
