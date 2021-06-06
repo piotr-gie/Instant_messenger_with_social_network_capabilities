@@ -24,7 +24,7 @@ public class MessageController {
 
     @PostMapping
     public ResponseEntity<Message> sendMessage(@RequestParam String content, @RequestParam int senderId,
-                                               @RequestParam int receiverId, @RequestParam("files") MultipartFile[] files){
+                                               @RequestParam int receiverId, @RequestParam(value = "files", required = false) MultipartFile[] files){
         return ResponseEntity.ok(messageService.sendMessage(
                 content, senderId, receiverId, files));
     }

@@ -77,5 +77,9 @@ public class File {
     public void setName(String name) {
         this.name = name;
     }
+
+    public String getWebkitRelativePath(){
+        return "";
+    }
 }
 
