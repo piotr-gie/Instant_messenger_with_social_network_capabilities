@@ -24,12 +24,30 @@ public class File {
     @JsonIgnore
     private Message message;
 
+    public Post getPost() {
+        return post;
+    }
+
+    public void setPost(Post post) {
+        this.post = post;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "post")
+    @JsonIgnore
+    private Post post;
+
     public File() {
     }
 
     public File(byte[] fileContent, int size, String name, Message message) {
         this(fileContent, size, name);
         this.message = message;
+    }
+
+    public File(byte[] fileContent, int size, String name, Post post) {
+        this(fileContent, size, name);
+        this.post = post;
     }
 
     public File(byte[] fileContent, int size, String name) {

@@ -68,6 +68,7 @@ public class UserService implements UserDetailsService {
         return userDetails;
     }
 
+
 //    public User authentication(String mail, String password) {
 //        User user = userRepository.getByMail(mail);
 //        if(user.getPassword().equals(ShaHashing.encrypted(password)))

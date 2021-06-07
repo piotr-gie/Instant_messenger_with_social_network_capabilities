@@ -21,7 +21,6 @@ public class FileService {
         this.messageRepository = messageRepository;
     }
 
-
     public File saveAttachment(MultipartFile file, int messageId) throws IOException {
         String fileName = StringUtils.cleanPath(file.getOriginalFilename());
         return fileRepository.save(

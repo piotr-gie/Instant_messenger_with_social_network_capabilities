@@ -38,6 +38,18 @@ public class User {
     @JsonIgnore
     private Set<Friendship> friendOf;
 
+    public Board getBoard() {
+        return board;
+    }
+
+    public void setBoard(Board board) {
+        this.board = board;
+    }
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "board" , referencedColumnName = "id")
+    private Board board;
+
     public int getId() {
         return id;
     }
