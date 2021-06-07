@@ -1,10 +1,11 @@
 <mat-toolbar class="navbar shadow">
   <div class="nav-group">
     <span>Instant Messenger<mat-icon class="align-icon m-l-5">forum</mat-icon></span>  
-    <div class="nav-avatar m-l-25 shadow"
-      [ngClass]="this.user?.gender === genderType.female ? 'nav-female-avatar' : 'nav-male-avatar'"
-    >
-    </div> 
+    <app-user-avatar class="m-l-25 avatar-margin"
+        [user]="this.user"
+        [isNav]="true"
+      >
+    </app-user-avatar>
     <span class="m-l-10">{{this.user?.firstName}}</span>
     <app-search class="m-l-25 shadow"></app-search>   
   </div>

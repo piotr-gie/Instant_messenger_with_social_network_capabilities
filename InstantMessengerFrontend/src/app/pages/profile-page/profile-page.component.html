@@ -5,9 +5,11 @@
       <app-board [filter]="this.temp"></app-board>
       <mat-card class="profile-box m-r-10 shadow">
         <div class="avatar-box">
-          <div *ngIf="!avatar" class="avatar shadow"
-            [ngClass]="this.model?.gender === genderType.female ? 'female-avatar' : 'male-avatar'"
-          ></div>
+          <app-user-avatar class="m-t-25"
+            [user]="this.model"
+            [size]='250'
+            >
+          </app-user-avatar>
           <div class="m-t-10">   
             <button *ngIf="model?.id != 1" mat-raised-button color="primary" (click)="openConversation()"><mat-icon>chat</mat-icon></button>
             <button *ngIf="model?.id == 1"mat-raised-button class="m-l-10" (click)="openEditDialog()"><mat-icon>settings</mat-icon></button>
