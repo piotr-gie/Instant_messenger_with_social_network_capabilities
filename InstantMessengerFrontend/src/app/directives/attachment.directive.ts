@@ -30,9 +30,10 @@ export class AttachmentDirective {
   }
 
   private downloadFile() {
+    console.log(this.attachedFile);
     if(!this.preventDownload) {
       const fileToDowload = this.attachedFile;
-      saveAs(new Blob([fileToDowload], {type: ''}), fileToDowload.name); 
+      saveAs(new Blob([fileToDowload]), fileToDowload.name); 
     }     
   }
 }

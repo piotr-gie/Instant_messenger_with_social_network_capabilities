@@ -14,12 +14,8 @@ export class MessageService extends BaseService<Message> {
     this.controllerPath = "message"
   }
 
-  sendMessage(message: Message, senderId: number, receiverId: number): Observable<Message> {
-    return this.http.post<Message>(this.baseUrl + this.controllerPath, message, {
-      params: {
-        senderId : senderId.toString(),
-        receiverId : receiverId.toString(),
-      }
+  sendMessage(content: string, senderId: number, receiverId: number, formData: FormData): Observable<Message> {
+    return this.http.post<Message>(this.baseUrl + this.controllerPath, formData, { 
     })
   }
 
@@ -29,6 +25,7 @@ export class MessageService extends BaseService<Message> {
         senderId : senderId.toString(),
         receiverId : receiverId.toString(),
       }
+      
     })
   }
 

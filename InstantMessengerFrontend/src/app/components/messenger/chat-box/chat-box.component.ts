@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { GenderType } from 'src/app/enums/gender-type.enum';
 import { TextBoxType } from 'src/app/enums/message-box-type.enum';
 import { Message } from 'src/app/models/fetch/message';
@@ -23,46 +24,63 @@ export class ChatBoxComponent implements OnInit{
 
   genderType = GenderType;
   textBoxTypeEnum = TextBoxType
+  uploadForm: FormGroup;
 
   constructor(
     private messageService: MessageService,
     private authService: AuthService,
-    private userSerivce: UserService) {}
+    private userSerivce: UserService,
+    private formBuilder: FormBuilder) {}
 
   ngOnInit(): void {
-    this.userSerivce.getModels().subscribe((response) => {
-      this.friends = response;
-    })
-
-    this.messageService.getAllMessagesInConversationByUsers(1, this.user.id).subscribe((response) => {
-      this.messages = response;
-    });
+    this.initConversation();
+    this.initFriends();
+    this.buildUploadForm();
   }
 
-  sendMessage(messageHelper: MessageHelper) {
+  sendMessage(message: Message) {
+    const formData = new FormData();
 
-    let message = {
-      content: messageHelper.content,
-      senderId: this.authService.getCurrentUser().id,
-      attachment: { files: messageHelper.files }, 
-      date: new Date()
+    formData.append('content', message.content)
+    formData.append('senderId', (this.authService.getCurrentUser().id).toString())
+    formData.append('receiverId', this.user.id.toString())
+
+    for(let i = 0; i < message.attachments.length; i ++) {
+      formData.append('files', message.attachments[i], message.attachments[i].name);
     }
 
-    this.messages.push(message);
-    
-    this.messageService.sendMessage(
-      {
-        content: messageHelper.content,
-        senderId: this.authService.getCurrentUser().id,
-        attachment: null, 
-        date: new Date()
-      }, this.authService.getCurrentUser().id, this.user.id).subscribe((response) => {
-        
-      })
+    console.log(formData.getAll('files'));
+     
+
+    this.messageService.sendMessage(message.content,
+       this.authService.getCurrentUser().id, this.user.id, formData).subscribe((response) => {
+         
+          this.initConversation();
+
+       }); 
   }
 
   close() {
     this.closeEmit.emit();
   }
 
+  private initFriends() {
+    this.userSerivce.getModels().subscribe((response) => {
+      this.friends = response;
+    })
+  }
+
+  private initConversation() {
+    this.messageService.getAllMessagesInConversationByUsers(1, this.user.id).subscribe((response) => {
+      this.messages = response;
+    });
+  }
+
+  private buildUploadForm() {
+    this.uploadForm = this.formBuilder.group({
+      file0: [''],
+      file1: [''],
+      file2: ['']
+    });
+  }
 }
