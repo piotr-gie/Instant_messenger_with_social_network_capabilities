@@ -28,6 +28,7 @@ import { BoardComponent } from './components/board/board.component';
 import { ContactListComponent } from './components/messenger/contact-list/contact-list.component';
 import { FriendshipRequestListComponent } from './components/users/friendship-request-list/friendship-request-list.component';
 import { UserCardComponent } from './components/users/user-card/user-card.component';
+import { UserAvatarComponent } from './components/shared/user-avatar/user-avatar.component';
 
 
 @NgModule({
@@ -51,7 +52,8 @@ import { UserCardComponent } from './components/users/user-card/user-card.compon
     BoardComponent,
     ContactListComponent,
     FriendshipRequestListComponent,
-    UserCardComponent
+    UserCardComponent,
+    UserAvatarComponent
 
    ],
   imports: [
