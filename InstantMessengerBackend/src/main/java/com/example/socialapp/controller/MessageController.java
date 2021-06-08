@@ -29,12 +29,6 @@ public class MessageController {
                 content, senderId, receiverId, files));
     }
 
-//    @PostMapping(value = "/test")
-//    public ResponseEntity<Message> sendMessage(@RequestBody Message message){
-//
-//        return ResponseEntity.ok(message);
-//    }
-
     @GetMapping
     public ResponseEntity<List<Message>> getAllMessagesInConversationByUsers(
             @RequestParam int senderId, @RequestParam int receiverId){
