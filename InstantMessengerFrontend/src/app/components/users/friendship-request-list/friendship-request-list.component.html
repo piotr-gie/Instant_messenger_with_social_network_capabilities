@@ -1,9 +1,11 @@
 <div>
   <div *ngFor="let request of friendshipsRequests">
     <div class="request-card">
-      <div mat-card-avatar class="user-image shadow"
-        [ngClass]="request.user.gender === genderType.female ? 'female-avatar' : 'male-avatar'"    
-      ></div>
+      <app-user-avatar
+        [user]="request.user"
+        [isRound]="true"
+      >
+      </app-user-avatar>
       <div class="card-box w-100">
         <div>
           <h2 class="m-l-10"> {{request.user.firstName + " " + request.user.lastName}}</h2>
