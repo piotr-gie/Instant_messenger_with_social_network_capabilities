@@ -9,7 +9,10 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.DelegatingPasswordEncoder;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.UserDetailsManager;
@@ -18,6 +21,7 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
+import javax.sql.DataSource;
 import java.util.Arrays;
 
 @Configuration
@@ -27,13 +31,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private final RestAuthenticationSuccessHandler authenticationSuccessHandler;
     private final RestAuthenticationFailureHandler authenticationFailureHandler;
     private final String secret;
+    private final DataSource dataSource;
 
     public SecurityConfig(RestAuthenticationSuccessHandler authenticationSuccessHandler,
                           RestAuthenticationFailureHandler authenticationFailureHandler,
-                          @Value("${jwt.secret}") String secret) {
+                          @Value("${jwt.secret}") String secret, DataSource dataSource) {
         this.authenticationSuccessHandler = authenticationSuccessHandler;
         this.authenticationFailureHandler = authenticationFailureHandler;
         this.secret = secret;
+        this.dataSource = dataSource;
     }
 
     @Override
@@ -63,16 +69,22 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(AuthenticationManagerBuilder builder) throws Exception {
-        builder.inMemoryAuthentication()
-                .withUser("user")
-                .password("{noop}user")
-                .roles("USER");
+        builder.jdbcAuthentication()
+                .dataSource(dataSource)
+                .usersByUsernameQuery("select mail,password,active "
+                        + "from users "
+                        + "where mail = ?").
+                authoritiesByUsernameQuery("select users.mail, users.roles, roles.name "
+                        + "from users "
+                        + "inner join users_roles ON users_roles.user_id = users.id "
+                        + "inner join roles ON roles.id = users_roles.role_id "
+                        + " where mail = ?");
+        ;
     }
 
-    @Bean
-    public PasswordEncoder getPasswordEncoder() {
-        return NoOpPasswordEncoder.getInstance();
-    }
-
+//    @Bean
+//    public static PasswordEncoder passwordEncoder() {
+//        return new BCryptPasswordEncoder();
+//    }
 
 }

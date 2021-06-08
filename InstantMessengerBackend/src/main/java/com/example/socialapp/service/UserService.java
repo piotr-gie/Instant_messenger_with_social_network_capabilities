@@ -10,20 +10,25 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import com.example.socialapp.model.*;
 
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 
 @Service
 public class UserService implements UserDetailsService {
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private RoleRepository roleRepository;
 
     public UserService(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
 
     public User add(User user) {
+        Set<Role> roles = new HashSet<>();
+        // Adding all users to USER role
+        roles.add(roleRepository.getOne(1));
+        user.setRoles(roles);
         return userRepository.save(user);
     }
 
