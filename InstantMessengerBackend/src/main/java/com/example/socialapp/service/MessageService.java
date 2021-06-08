@@ -32,6 +32,10 @@ public class MessageService {
 
         Message m = new Message(content, senderId, conversation);
 
+        if(files == null || files[0].isEmpty()){
+            return messageRepository.save(m);
+        }
+
         Arrays.stream(files).forEach( x-> {
             try {
                 File f = fileService.convertToFileObject(x);

@@ -26,9 +26,13 @@
     <div *ngFor="let contact of filteredContacts">
       <div (click)="selectUser(contact.user)">  
         <mat-list-item>         
-          <div mat-card-avatar class="user-image"
-            [ngClass]="this.contact.user.gender === genderType.female ? 'female-avatar' : 'male-avatar'"    
-          ></div>
+          <app-user-avatar
+            [user]="this.contact.user"
+            [size]="55"
+            [isRound]="true"
+            [isShadowless]="true"
+          >
+          </app-user-avatar>
           <span>
             <h2 class="m-l-10"> {{contact.user.firstName + " " + contact.user.lastName}}</h2>
           </span>

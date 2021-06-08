@@ -1,12 +1,10 @@
 <div [formGroup]="userForm" (ngSubmit)="!userForm.valid" class="user-form">
   <div class="user-form-column">
-    <div *ngIf="!avatar" class="avatar"
-      [ngClass]="this.selectedGender === genderType.female ? 'female-avatar' : 'male-avatar'"
-     >
-    </div>
-    <div *ngIf="avatar" class="avatar">
-      <img [src]="avatar">
-    </div>  
+    <app-user-avatar
+        [user]="this.model"
+        [size]='150'
+      >
+    </app-user-avatar>
     <div>
       <input type="file" multiple class="avatar-input"
         (change)="onAvatarChange($event)" #avatarUpload>
