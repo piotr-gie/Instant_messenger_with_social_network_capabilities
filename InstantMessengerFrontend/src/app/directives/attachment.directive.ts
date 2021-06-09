@@ -1,17 +1,19 @@
+
 import { ElementRef, HostListener, Input } from '@angular/core';
 import { Directive } from '@angular/core';
 import { saveAs } from 'file-saver';
+import { AttachmentService } from '../services/fetch/attachment.service';
 
 @Directive({
   selector: '[attachment]'
 })
 export class AttachmentDirective {
-  @Input() attachedFile: File;
+  @Input() attachedFile: any;
   @Input() preventDownload: boolean;
 
   highlightColor = 'darkgrey';
 
-  constructor(private el: ElementRef) {}
+  constructor(private el: ElementRef, private attachmentService: AttachmentService) {}
 
   @HostListener('mouseenter') onMouseEnter() {
     this.highlight(this.highlightColor);
@@ -30,10 +32,11 @@ export class AttachmentDirective {
   }
 
   private downloadFile() {
-    console.log(this.attachedFile);
     if(!this.preventDownload) {
-      const fileToDowload = this.attachedFile;
-      saveAs(new Blob([fileToDowload]), fileToDowload.name); 
+      this.attachmentService.getAttachment(this.attachedFile.id).subscribe(response => {
+        let blob:any = new Blob([response], { type: 'text/json; charset=utf-8' });
+			  saveAs(blob, this.attachedFile.name);
+      });
     }     
   }
 }

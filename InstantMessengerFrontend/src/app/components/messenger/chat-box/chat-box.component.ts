@@ -20,7 +20,6 @@ export class ChatBoxComponent implements OnInit{
   @Input() user: User;
   @Input() friends: User [] = [];
   messages: Message [] = [];
-  firstAndLastName = "John Smith"
 
   genderType = GenderType;
   textBoxTypeEnum = TextBoxType
@@ -29,13 +28,11 @@ export class ChatBoxComponent implements OnInit{
   constructor(
     private messageService: MessageService,
     private authService: AuthService,
-    private userSerivce: UserService,
-    private formBuilder: FormBuilder) {}
+    private userSerivce: UserService) {}
 
   ngOnInit(): void {
     this.initConversation();
     this.initFriends();
-    this.buildUploadForm();
   }
 
   sendMessage(message: Message) {
@@ -47,27 +44,11 @@ export class ChatBoxComponent implements OnInit{
 
     for(let i = 0; i < message.attachments.length; i ++) {
       formData.append('files', message.attachments[i], message.attachments[i].name);
-    }
-
-    console.log(formData.getAll('files'));
-     
-
-    this.messageService.sendMessage(message.content,
-       this.authService.getCurrentUser().id, this.user.id, formData).subscribe((response) => {
-         
-          this.initConversation();
-
-       }); 
-  }
-
-  close() {
-    this.closeEmit.emit();
-  }
-
-  private initFriends() {
-    this.userSerivce.getModels().subscribe((response) => {
-      this.friends = response;
-    })
+    } 
+    
+    this.messageService.sendMessage(formData).subscribe(() => {   
+      this.initConversation();
+    }); 
   }
 
   private initConversation() {
@@ -76,11 +57,13 @@ export class ChatBoxComponent implements OnInit{
     });
   }
 
-  private buildUploadForm() {
-    this.uploadForm = this.formBuilder.group({
-      file0: [''],
-      file1: [''],
-      file2: ['']
-    });
+  private initFriends() {
+    this.userSerivce.getModels().subscribe((response) => {
+      this.friends = response;
+    })
   }
+
+  close() {
+    this.closeEmit.emit();
+  }  
 }
