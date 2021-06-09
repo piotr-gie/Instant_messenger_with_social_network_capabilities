@@ -1,6 +1,6 @@
-<mat-card class="register-card">
+<mat-card class="register-card shadow">
   <span>
-    <h1 class="m-b-25">Register</h1>
+    <h1 class="m-b-25"><mat-icon class="align-icon m-r-5">app_registration</mat-icon>Register</h1>
   </span>
   <div [formGroup]="registerForm" (ngSubmit)="!registerForm.valid" class="register-form">
     <mat-form-field appearance="outline" class="form-element">
@@ -71,7 +71,7 @@
   <button
     mat-raised-button
     color="warn"
-    class="form-element m-b-10"
+    class="form-element"
     (click)="closeRegisterForm()" 
     >Cancel
   </button> 

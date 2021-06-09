@@ -1,11 +1,8 @@
 <mat-card class="user-card shadow">
-  <div *ngIf="!avatar" class="avatar shadow"
-    [ngClass]="this.model.gender === genderType.female ? 'female-avatar' : 'male-avatar'"
+  <app-user-avatar
+    [user]='this.model'
   >
-  </div>
-    <div *ngIf="avatar" class="avatar shadow">
-      <img [src]="avatar">
-    </div> 
+  </app-user-avatar>
   <div class="card-box w-100">
     <div class="m-l-25">
       <span class="flex-horizontal">

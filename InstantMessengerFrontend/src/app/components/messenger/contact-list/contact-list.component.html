@@ -12,11 +12,11 @@
     </span>
     <mat-form-field class="search">
       <mat-label>Serach user</mat-label>
-      <input matInput type="text" (input)="search($event.target.value)">
-      <div *ngIf="!searchValue$" matSuffix mat-icon-button style="font-size: smaller;" aria-label="Search">
+      <input matInput type="text" [value]="searchValue$.value" (input)="search($event.target.value)">
+      <div *ngIf="searchValue$.value === ''" matSuffix mat-icon-button style="font-size: smaller;" aria-label="Search">
         <mat-icon>search_user</mat-icon>
       </div>
-      <button mat-button *ngIf="searchValue$" matSuffix mat-icon-button aria-label="Clear" (click)="searchValue$.next('')">
+      <button mat-button *ngIf="searchValue$.value !== ''" matSuffix mat-icon-button aria-label="Clear" (click)="clearSearchInput()">
         <mat-icon>close</mat-icon>
       </button>
     </mat-form-field>
@@ -26,14 +26,18 @@
     <div *ngFor="let contact of filteredContacts">
       <div (click)="selectUser(contact.user)">  
         <mat-list-item>         
-          <div mat-card-avatar class="user-image"
-            [ngClass]="this.contact.user.gender === genderType.female ? 'female-avatar' : 'male-avatar'"    
-          ></div>
+          <app-user-avatar
+            [user]="this.contact.user"
+            [size]="55"
+            [isRound]="true"
+            [isShadowless]="true"
+          >
+          </app-user-avatar>
           <span>
             <h2 class="m-l-10"> {{contact.user.firstName + " " + contact.user.lastName}}</h2>
           </span>
           <span>
-            <p class="timestamp m-l-10">{{ contact.date?.toString() }}</p>
+            <p class="timestamp m-l-25 m-t-10">{{ contact.date?.toString() }}</p>
           </span>         
         </mat-list-item> 
       </div> 

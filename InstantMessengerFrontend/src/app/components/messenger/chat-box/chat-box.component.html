@@ -1,10 +1,14 @@
 <div>
   <mat-card class="chat-box-box">
     <mat-card-header class="header">
-      <div mat-card-avatar class="user-image"
-        [ngClass]="this.user.gender === genderType.female ? 'female-avatar' : 'male-avatar'"    
-      ></div>
-      <mat-card-title class="title">{{ user.firstName + " " + user.lastName }}  </mat-card-title>      
+      <app-user-avatar mat-card-avatar 
+        [user]="this.user"
+        [size]="40"
+        [isRound]="true"
+        [isShadowless]="true"
+      >
+      </app-user-avatar>
+      <mat-card-title class="title">{{ user.firstName + " " + user.lastName }} </mat-card-title>      
       <button (click)="close()" mat-button><mat-icon>close</mat-icon></button>
     </mat-card-header>
     <div class="separator m-t-5"></div>

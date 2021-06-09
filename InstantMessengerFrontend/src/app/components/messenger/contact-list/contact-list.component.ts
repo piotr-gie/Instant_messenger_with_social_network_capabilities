@@ -4,7 +4,6 @@ import { ContactHelper } from 'src/app/models/helpers/contactHelper';
 import { ChatBoxService } from 'src/app/services/functional/chat-box.service';
 import { FriendshipService } from 'src/app/services/fetch/friendship.service';
 import { MessageService } from 'src/app/services/fetch/message.service';
-import { UserService } from 'src/app/services/fetch/user.service';
 import { User } from 'src/app/models/fetch/user';
 import { BehaviorSubject } from 'rxjs';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
@@ -37,13 +36,16 @@ export class ContactListComponent implements OnInit {
     if(this.selectedUser) {
       this.selectUser(this.selectedUser);
     }
+    else this.selectedUser = null;
   }
 
   initializeContactList() {
     this.friendshipService.getAllFriends(1).subscribe((response) => {
       this.friends = response.filter(friend => friend.accepted === true);
       this.chatBoxService.selectedUserId.subscribe((id) => {
-        this.selectedUser = response.find(friend => friend.user.id === id).user; 
+        if (id !== null) {
+          this.selectedUser = response.find(friend => friend.user.id === id).user;
+        }     
       })   
       response.forEach((friend) => {
         this.messageService.getAllMessagesInConversationByUsers(1, friend.user.id).subscribe((response) => {
@@ -64,16 +66,18 @@ export class ContactListComponent implements OnInit {
     this.selectedUser = user;
   }
 
-  search(value: string) {
-    const search = this.searchValue$.getValue(); 
+  clearSearchInput() {
+    this.searchValue$.next('');
+  }
 
+  search(value: string) {
     this.searchValue$.next(value);
     this.searchValue$.pipe(
       debounceTime(400),
       distinctUntilChanged()
     ).subscribe(() => {     
       this.filteredContacts = this.contacts.filter((contact) => {
-        return (contact.user.firstName + ' ' + contact.user.lastName)?.toLocaleLowerCase().match(search);
+        return (contact.user.firstName + ' ' + contact.user.lastName)?.toLocaleLowerCase().match(this.searchValue$.value);
       }) 
     })
   }

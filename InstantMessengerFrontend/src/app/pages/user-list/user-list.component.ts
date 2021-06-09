@@ -17,7 +17,7 @@ export class UserListComponent implements OnInit {
   friends: User [] = [];
   userList: User [] = [];
   filteredList: User [] = [];
-  isUsersTab: boolean;
+  isFriendsTab: boolean;
 
   searchValue$ = new BehaviorSubject<string>('');
   isMyCity: boolean;
@@ -49,7 +49,7 @@ export class UserListComponent implements OnInit {
       friendships.forEach(f => {
         this.friends.push(f.user);
       })
-      this.userList = this.friends
+      this.userList = this.users
       this.filteredList = this.userList;
     })
    
@@ -68,8 +68,8 @@ export class UserListComponent implements OnInit {
   }
 
   tabChange() {
-    this.isUsersTab = !this.isUsersTab;
-    this.userList = (this.isUsersTab) ? this.users : this.friends;
+    this.isFriendsTab = !this.isFriendsTab;
+    this.userList = (this.isFriendsTab) ? this.friends : this.users;
     this.filteredList = this.userList;
     this.clearSearchInput();
   }
@@ -85,10 +85,10 @@ export class UserListComponent implements OnInit {
       distinctUntilChanged()
     ).subscribe(() => {
       
-      this.filteredList = (this.isUsersTab) ? this.users.filter((user) => {
-        return this.filterUser(user)   
-      }) :  this.friends.filter((friend) => {
-        return this.filterUser(friend)  
+      this.filteredList = (this.isFriendsTab) ? this.friends.filter((friend) => {
+        return this.filterUser(friend)   
+      }) :  this.users.filter((user) => {
+        return this.filterUser(user)  
       });
     })
   }

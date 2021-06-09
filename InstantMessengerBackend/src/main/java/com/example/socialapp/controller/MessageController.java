@@ -3,9 +3,11 @@ package com.example.socialapp.controller;
 import com.example.socialapp.model.Message;
 import com.example.socialapp.service.MessageService;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 import java.util.Map;
@@ -21,19 +23,11 @@ public class MessageController {
     }
 
     @PostMapping
-    public ResponseEntity<Message> sendMessage(@RequestBody Message message,
-                                               @RequestParam int senderId, @RequestParam int receiverId){
+    public ResponseEntity<Message> sendMessage(@RequestParam String content, @RequestParam int senderId,
+                                               @RequestParam int receiverId, @RequestParam(value = "files", required = false) MultipartFile[] files){
         return ResponseEntity.ok(messageService.sendMessage(
-                message,
-                senderId,
-                receiverId));
+                content, senderId, receiverId, files));
     }
-
-//    @PostMapping(value = "/test")
-//    public ResponseEntity<Message> sendMessage(@RequestBody Message message){
-//
-//        return ResponseEntity.ok(message);
-//    }
 
     @GetMapping
     public ResponseEntity<List<Message>> getAllMessagesInConversationByUsers(

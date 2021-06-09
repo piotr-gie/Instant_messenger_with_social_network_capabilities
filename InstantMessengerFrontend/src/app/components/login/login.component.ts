@@ -29,7 +29,7 @@ export class LoginComponent implements OnInit {
   submitLoginForm() {
     // this.authService.login(null).subscribe(respone => {
     // }, error => {
-    //   console.log(error);
+    
     // })
 
     this.authService.login(null).subscribe((response) => {
@@ -45,7 +45,6 @@ export class LoginComponent implements OnInit {
     this.authService.currentUser$.subscribe(user => {
       this.authService.loggedIn = !!user;
     }, error => {
-      console.log(error);
     })
   }
 

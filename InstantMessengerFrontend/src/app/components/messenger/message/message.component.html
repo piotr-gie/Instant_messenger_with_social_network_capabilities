@@ -13,7 +13,7 @@
       [isReadOnly]="true"
       [content]="model.content"
       [textBoxType]="textBoxType"
-      [uploadedFiles]="model.attachment?.files"
+      [uploadedFiles]="model?.attachments"
     ></app-rich-text-box>    
     <div *ngIf="isDateShown && isMouseEnetered" class="date"
     >

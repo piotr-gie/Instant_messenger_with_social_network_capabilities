@@ -1,89 +1,95 @@
-<div class="profile-box">
-  <app-board [filter]="this.temp"></app-board>
-  <mat-card class="profile-box m-r-10 shadow">
-    <div class="avatar-box">
-      <div *ngIf="!avatar" class="avatar shadow"
-        [ngClass]="this.model.gender === genderType.female ? 'female-avatar' : 'male-avatar'"
-      ></div>
-      <div class="m-t-10">   
-        <button *ngIf="model?.id != 1" mat-raised-button color="primary" (click)="openConversation()"><mat-icon>chat</mat-icon></button>
-        <button *ngIf="model?.id == 1"mat-raised-button class="m-l-10" (click)="openEditDialog()"><mat-icon>settings</mat-icon></button>
-        <button *ngIf="model?.id != 1 && isFriend === false" class="m-l-10" mat-raised-button><mat-icon>person_add</mat-icon></button>
-        <button *ngIf="model?.id != 1 && isFriend === true" class="m-l-10" mat-raised-button color="warn"><mat-icon>person_remove</mat-icon></button>
-      </div> 
-      <h2 class="m-t-25">
-        Photos
-      </h2>
-      <div class="photo-box">
-        <div class="photo-preview"></div>
-        <div class="photo-preview"></div>
-        <div class="photo-preview"></div>
-      </div>
-      <div class="photo-box">
-        <div class="photo-preview"></div>
-        <div class="photo-preview"></div>
-        <div class="photo-preview"></div>
-      </div>
-    </div>  
-    <div class="data-list-box" style="position: relative;">
-      <mat-list class="data-list">
-        <mat-list-item> 
-        <div class="header-box">
-          <h2 class="name-header"> {{model?.firstName + " " + model?.lastName}}</h2>
-          <p *ngIf="isFriend" class="is-friend-label"><mat-icon class="align-icon m-r-5">face</mat-icon>Friend</p>
-        </div>     
-        </mat-list-item>
-        <mat-divider></mat-divider>
-        <mat-list-item>
-          <span class="data-span"> Country:  </span>
-          <span>
-            {{model.country}}
-          </span>
-        </mat-list-item>
-        <mat-divider></mat-divider>
-        <mat-list-item>
-          <span class="data-span"> City:  </span>
-          <span>
-            {{model.city}}
-          </span>
-        </mat-list-item>
-        <mat-divider></mat-divider>
-        <mat-list-item>
-          <span class="data-span"> Birthday:  </span>
-          <span>
-            {{model.birthday?.toLocaleDateString()}}
-          </span>
-        </mat-list-item>
-        <mat-divider></mat-divider>
-        <mat-list-item>
-          <span class="data-span"> Gender:  </span>
-          <span>
-            {{model.gender}}
-          </span>
-        </mat-list-item>
-        <mat-divider></mat-divider>
-        <mat-list-item>
-          <span class="data-span"> Mobile:  </span>
-          <span>
-            {{model.phone}}
-          </span>
-        </mat-list-item>
-        <mat-divider></mat-divider>
-        <mat-list-item>
-          <span class="data-span"> Email:  </span>
-          <span>
-            {{model.mail}}
-          </span>
-        </mat-list-item>
-        <mat-divider></mat-divider>     
-      </mat-list>
-      <div class="presentation-box">
-        <h2>Presentation</h2>
-        <p class="m-t-25">
-          {{model.presentation}}
-        </p>
-      </div>    
-    </div>  
-  </mat-card>
-  
+<div class="page-box">
+  <div class="header"></div>
+  <div class="page-content"> 
+    <div class="profile-box">
+      <app-board [filter]="this.temp"></app-board>
+      <mat-card class="profile-box m-r-10 shadow">
+        <div class="avatar-box">
+          <app-user-avatar class="m-t-25"
+            [user]="this.model"
+            [size]='250'
+            >
+          </app-user-avatar>
+          <div class="m-t-10">   
+            <button *ngIf="model?.id != 1" mat-raised-button color="primary" (click)="openConversation()"><mat-icon>chat</mat-icon></button>
+            <button *ngIf="model?.id == 1"mat-raised-button class="m-l-10" (click)="openEditDialog()"><mat-icon>settings</mat-icon></button>
+            <button *ngIf="model?.id != 1 && isFriend === false" class="m-l-10" mat-raised-button><mat-icon>person_add</mat-icon></button>
+            <button *ngIf="model?.id != 1 && isFriend === true" class="m-l-10" mat-raised-button color="warn"><mat-icon>person_remove</mat-icon></button>
+          </div> 
+          <h2 class="m-t-25">
+            Photos
+          </h2>
+          <div class="photo-box">
+            <div class="photo-preview"></div>
+            <div class="photo-preview"></div>
+            <div class="photo-preview"></div>
+          </div>
+          <div class="photo-box">
+            <div class="photo-preview"></div>
+            <div class="photo-preview"></div>
+            <div class="photo-preview"></div>
+          </div>
+        </div>  
+        <div class="data-list-box" style="position: relative;">
+          <mat-list class="data-list">
+            <mat-list-item> 
+            <div class="header-box">
+              <h2 class="name-header"> {{model?.firstName + " " + model?.lastName}}</h2>
+              <p *ngIf="isFriend" class="is-friend-label"><mat-icon class="align-icon m-r-5">face</mat-icon>Friend</p>
+            </div>     
+            </mat-list-item>
+            <mat-divider></mat-divider>
+            <mat-list-item>
+              <span class="data-span"> Country:  </span>
+              <span>
+                {{model?.country}}
+              </span>
+            </mat-list-item>
+            <mat-divider></mat-divider>
+            <mat-list-item>
+              <span class="data-span"> City:  </span>
+              <span>
+                {{model?.city}}
+              </span>
+            </mat-list-item>
+            <mat-divider></mat-divider>
+            <mat-list-item>
+              <span class="data-span"> Birthday:  </span>
+              <span>
+                {{model?.birthday?.toLocaleDateString()}}
+              </span>
+            </mat-list-item>
+            <mat-divider></mat-divider>
+            <mat-list-item>
+              <span class="data-span"> Gender:  </span>
+              <span>
+                {{model?.gender}}
+              </span>
+            </mat-list-item>
+            <mat-divider></mat-divider>
+            <mat-list-item>
+              <span class="data-span"> Mobile:  </span>
+              <span>
+                {{model?.phone}}
+              </span>
+            </mat-list-item>
+            <mat-divider></mat-divider>
+            <mat-list-item>
+              <span class="data-span"> Email:  </span>
+              <span>
+                {{model?.mail}}
+              </span>
+            </mat-list-item>
+            <mat-divider></mat-divider>     
+          </mat-list>
+          <div class="presentation-box">
+            <h2>Presentation</h2>
+            <p class="m-t-25">
+              {{model?.presentation}}
+            </p>
+          </div>    
+        </div>  
+      </mat-card>
+    </div>
+  </div>
 </div>

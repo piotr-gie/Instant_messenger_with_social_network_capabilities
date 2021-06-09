@@ -30,6 +30,7 @@ import { FriendshipRequestListComponent } from './components/users/friendship-re
 import { UserCardComponent } from './components/users/user-card/user-card.component';
 import { EditPostDialogComponent } from './components/dialog/edit-post-dialog/edit-post-dialog.component';
 import { RichPostComponent } from './components/posts/rich-post/rich-post.component';
+import { UserAvatarComponent } from './components/shared/user-avatar/user-avatar.component';
 
 
 @NgModule({
@@ -55,7 +56,8 @@ import { RichPostComponent } from './components/posts/rich-post/rich-post.compon
     FriendshipRequestListComponent,
     UserCardComponent,
     EditPostDialogComponent,
-    RichPostComponent
+    RichPostComponent,
+    UserAvatarComponent
 
    ],
   imports: [
