@@ -14,6 +14,7 @@ public class Message {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 
+    @Column(length = 1000000)
     private String content;
 
     private int senderId;
