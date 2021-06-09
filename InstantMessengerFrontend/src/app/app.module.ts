@@ -30,7 +30,6 @@ import { FriendshipRequestListComponent } from './components/users/friendship-re
 import { UserCardComponent } from './components/users/user-card/user-card.component';
 import { UserAvatarComponent } from './components/shared/user-avatar/user-avatar.component';
 
-
 @NgModule({
   declarations: [	
     AppComponent,
@@ -54,14 +53,12 @@ import { UserAvatarComponent } from './components/shared/user-avatar/user-avatar
     FriendshipRequestListComponent,
     UserCardComponent,
     UserAvatarComponent
-
    ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     MaterialModule,
-    MatToolbarModule,
     ReactiveFormsModule,
     HttpClientModule,
     FormsModule,
