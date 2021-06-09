@@ -4,7 +4,6 @@ import { TextBoxType } from 'src/app/enums/message-box-type.enum';
 import { Message } from 'src/app/models/fetch/message';
 import ImageCompress from 'quill-image-compress';
 import * as Quill from "quill";
-import { BehaviorSubject } from 'rxjs';
 
 Quill.register('modules/imageCompress', ImageCompress);
 
@@ -18,7 +17,7 @@ export class RichTextBoxComponent implements OnInit {
   @Output() textBoxSubmitEmit: EventEmitter<Message> = new EventEmitter();
 
   @Input() content: string;
-  @Input() isReadOnly: BehaviorSubject<boolean>;
+  @Input() isReadOnly: boolean;
   @Input() textBoxType: TextBoxType;
   @Input() uploadedFiles: File [] = [];
 
