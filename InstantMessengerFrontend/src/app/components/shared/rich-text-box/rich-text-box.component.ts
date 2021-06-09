@@ -2,7 +2,11 @@ import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild }
 import { FormControl, FormGroup } from '@angular/forms';
 import { TextBoxType } from 'src/app/enums/message-box-type.enum';
 import { Message } from 'src/app/models/fetch/message';
-import { MessageHelper } from 'src/app/models/helpers/messageHelper';
+import ImageCompress from 'quill-image-compress';
+import * as Quill from "quill";
+import { BehaviorSubject } from 'rxjs';
+
+Quill.register('modules/imageCompress', ImageCompress);
 
 @Component({
   selector: 'app-rich-text-box',
@@ -14,7 +18,7 @@ export class RichTextBoxComponent implements OnInit {
   @Output() textBoxSubmitEmit: EventEmitter<Message> = new EventEmitter();
 
   @Input() content: string;
-  @Input() isReadOnly: boolean;
+  @Input() isReadOnly: BehaviorSubject<boolean>;
   @Input() textBoxType: TextBoxType;
   @Input() uploadedFiles: File [] = [];
 
@@ -26,7 +30,21 @@ export class RichTextBoxComponent implements OnInit {
 
   editorForm: FormGroup;
   editorStyle: any;
-  editorConfig: any;
+
+  editorConfig: any = {
+    imageCompress: {
+      quality: 0.5, 
+      maxWidth: 600, 
+      maxHeight: 600, 
+      imageType: 'image/jpeg', 
+    },
+    toolbar: [
+      ['bold', 'italic', 'underline', 'strike',
+        { 'size': [] }, { 'color': [] }, { 'background': [] },
+        { 'list': 'ordered' }, { 'list': 'bullet'},
+        'image', 'clean'],
+    ],   
+  }
 
   textBoxTypeEnum = TextBoxType;
 
@@ -36,8 +54,8 @@ export class RichTextBoxComponent implements OnInit {
     
   ngOnInit() { 
     this.initFormGroup();
-    this.initEditorConfig();
     this.initEditorStyle();
+    this.removeToolbarIfReadOnly();
   }
 
   onSubmit() {
@@ -55,14 +73,11 @@ export class RichTextBoxComponent implements OnInit {
   
   }
 
-  private initEditorConfig() {
-    this.editorConfig = {
-      toolbar: (this.isReadOnly) ? false : [
-        ['bold', 'italic', 'underline', 'strike',
-          { 'size': [] }, { 'color': [] }, { 'background': [] },
-          { 'list': 'ordered' }, { 'list': 'bullet'},
-          'image', 'clean'],
-      ],
+  private removeToolbarIfReadOnly() {
+    if(this.isReadOnly) {
+      this.editorConfig = {
+        toolbar:  false 
+      }
     }
   }
 
