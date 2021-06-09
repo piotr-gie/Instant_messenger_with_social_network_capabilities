@@ -1,16 +1,13 @@
 package com.example.socialapp.controller;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import com.example.socialapp.config.LoginCredentials;
 
 @RestController
 public class LoginController {
 
     @PostMapping("/login")
-    public void login(@RequestBody LoginCredentials credentials) {
+    public void login(@RequestParam String mail, @RequestParam String password) {
     }
 
     @GetMapping("/secured")
