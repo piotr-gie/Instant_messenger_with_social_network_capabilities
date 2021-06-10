@@ -29,19 +29,18 @@ public class FileController {
                 .body(file.getFileContent());
     }
 
-    @PostMapping
-    public ResponseEntity<?> uploadFiles(@RequestParam("files") MultipartFile[] files, @RequestParam("message") int messageId) {
-            List<File> attachments = new ArrayList<>();
-
-            Arrays.stream(files).forEach(file -> {
-                try {
-                    attachments.add(fileService.saveAttachment(file, messageId));
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            });
-
-            return ResponseEntity.ok(attachments);
-
-    }
+//    @PostMapping
+//    public ResponseEntity<?> uploadFiles(@RequestParam("files") MultipartFile[] files, @RequestParam("message") int messageId) {
+//            List<File> attachments = new ArrayList<>();
+//            Arrays.stream(files).forEach(file -> {
+//                try {
+//                    attachments.add(fileService.saveAttachment(file, messageId));
+//                } catch (IOException e) {
+//                    e.printStackTrace();
+//                }
+//            });
+//
+//            return ResponseEntity.ok(attachments);
+//
+//    }
 }

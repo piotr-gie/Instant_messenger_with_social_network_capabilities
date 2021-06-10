@@ -1,8 +1,15 @@
 package com.example.socialapp.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.springframework.lang.Nullable;
+import net.bytebuddy.implementation.bind.annotation.Empty;
+import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
+import java.time.Instant;
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 
 @Entity
 @Table(name = "files")
@@ -19,6 +26,12 @@ public class File {
     private int size;
 
     private String name;
+
+    private String type;
+
+    @Nullable
+    private long lastModified;
+
     @ManyToOne
     @JoinColumn(name = "message")
     @JsonIgnore
@@ -45,6 +58,7 @@ public class File {
         this.message = message;
     }
 
+ //   public File(byte[] fileContent, int size, String name, String type) {
     public File(byte[] fileContent, int size, String name, Post post) {
         this(fileContent, size, name);
         this.post = post;
@@ -54,6 +68,8 @@ public class File {
         this.fileContent = fileContent;
         this.size = size;
         this.name = name;
+        this.type = type;
+        this.lastModified = Instant.now().toEpochMilli();
     }
 
     public int getId() {
@@ -94,6 +110,30 @@ public class File {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getWebkitRelativePath(){
+        return "";
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public long getLastModified() {
+        return lastModified;
+    }
+
+    public void setLastModified(long lastModified) {
+        this.lastModified = lastModified;
+    }
+
+    public LocalDateTime getLastModifiedDate(){
+        return LocalDateTime.ofInstant(Instant.ofEpochMilli(lastModified), ZoneId.systemDefault());
     }
 }
 

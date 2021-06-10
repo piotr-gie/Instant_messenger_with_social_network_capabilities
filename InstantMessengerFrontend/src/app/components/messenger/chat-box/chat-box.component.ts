@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { GenderType } from 'src/app/enums/gender-type.enum';
 import { TextBoxType } from 'src/app/enums/message-box-type.enum';
 import { Message } from 'src/app/models/fetch/message';
@@ -19,10 +20,10 @@ export class ChatBoxComponent implements OnInit{
   @Input() user: User;
   @Input() friends: User [] = [];
   messages: Message [] = [];
-  firstAndLastName = "John Smith"
 
   genderType = GenderType;
   textBoxTypeEnum = TextBoxType
+  uploadForm: FormGroup;
 
   constructor(
     private messageService: MessageService,
@@ -30,39 +31,39 @@ export class ChatBoxComponent implements OnInit{
     private userSerivce: UserService) {}
 
   ngOnInit(): void {
-    this.userSerivce.getModels().subscribe((response) => {
-      this.friends = response;
-    })
+    this.initConversation();
+    this.initFriends();
+  }
 
+  sendMessage(message: Message) {
+    const formData = new FormData();
+
+    formData.append('content', message.content)
+    formData.append('senderId', (this.authService.getCurrentUser().id).toString())
+    formData.append('receiverId', this.user.id.toString())
+
+    for(let i = 0; i < message.attachments.length; i ++) {
+      formData.append('files', message.attachments[i], message.attachments[i].name);
+    } 
+    
+    this.messageService.sendMessage(formData).subscribe(() => {   
+      this.initConversation();
+    }); 
+  }
+
+  private initConversation() {
     this.messageService.getAllMessagesInConversationByUsers(1, this.user.id).subscribe((response) => {
       this.messages = response;
     });
   }
 
-  sendMessage(messageHelper: MessageHelper) {
-
-    let message = {
-      content: messageHelper.content,
-      senderId: this.authService.getCurrentUser().id,
-      attachment: { files: messageHelper.files }, 
-      date: new Date()
-    }
-
-    this.messages.push(message);
-    
-    this.messageService.sendMessage(
-      {
-        content: messageHelper.content,
-        senderId: this.authService.getCurrentUser().id,
-        attachment: null, 
-        date: new Date()
-      }, this.authService.getCurrentUser().id, this.user.id).subscribe((response) => {
-        
-      })
+  private initFriends() {
+    this.userSerivce.getModels().subscribe((response) => {
+      this.friends = response;
+    })
   }
 
   close() {
     this.closeEmit.emit();
-  }
-
+  }  
 }

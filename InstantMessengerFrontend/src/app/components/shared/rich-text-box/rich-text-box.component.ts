@@ -1,7 +1,11 @@
 import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { TextBoxType } from 'src/app/enums/message-box-type.enum';
-import { MessageHelper } from 'src/app/models/helpers/messageHelper';
+import { Message } from 'src/app/models/fetch/message';
+import ImageCompress from 'quill-image-compress';
+import * as Quill from "quill";
+
+Quill.register('modules/imageCompress', ImageCompress);
 
 @Component({
   selector: 'app-rich-text-box',
@@ -10,7 +14,7 @@ import { MessageHelper } from 'src/app/models/helpers/messageHelper';
 })
 export class RichTextBoxComponent implements OnInit {
   @ViewChild('editor') elementView: ElementRef;
-  @Output() textBoxSubmitEmit: EventEmitter<MessageHelper> = new EventEmitter();
+  @Output() textBoxSubmitEmit: EventEmitter<Message> = new EventEmitter();
 
   @Input() content: string;
   @Input() isReadOnly: boolean;
@@ -25,7 +29,21 @@ export class RichTextBoxComponent implements OnInit {
 
   editorForm: FormGroup;
   editorStyle: any;
-  editorConfig: any;
+
+  editorConfig: any = {
+    imageCompress: {
+      quality: 0.5, 
+      maxWidth: 600, 
+      maxHeight: 600, 
+      imageType: 'image/jpeg', 
+    },
+    toolbar: [
+      ['bold', 'italic', 'underline', 'strike',
+        { 'size': [] }, { 'color': [] }, { 'background': [] },
+        { 'list': 'ordered' }, { 'list': 'bullet'},
+        'image', 'clean'],
+    ],   
+  }
 
   textBoxTypeEnum = TextBoxType;
 
@@ -35,30 +53,30 @@ export class RichTextBoxComponent implements OnInit {
     
   ngOnInit() { 
     this.initFormGroup();
-    this.initEditorConfig();
     this.initEditorStyle();
+    this.removeToolbarIfReadOnly();
   }
 
   onSubmit() {
-    const messageHelper: MessageHelper = {
-      content: (this.editorForm.get("editor").value)?.toString(),
-      files: this.uploadedFiles
+    let content: string = (this.editorForm.get("editor").value)?.toString();
+    const message: Message = {
+      senderId : 1,
+      date : null,
+      content: (content) ? content : "",
+      attachments: this.uploadedFiles
     }
     if (this.isEditorFormNotEmpty() || this.uploadedFiles.length > 0) {
-      this.textBoxSubmitEmit.emit(messageHelper);
+      this.textBoxSubmitEmit.emit(message);
       this.cleanTextBoxData();
     }  
   
   }
 
-  private initEditorConfig() {
-    this.editorConfig = {
-      toolbar: (this.isReadOnly) ? false : [
-        ['bold', 'italic', 'underline', 'strike',
-          { 'size': [] }, { 'color': [] }, { 'background': [] },
-          { 'list': 'ordered' }, { 'list': 'bullet'},
-          'image', 'clean'],
-      ],
+  private removeToolbarIfReadOnly() {
+    if(this.isReadOnly) {
+      this.editorConfig = {
+        toolbar:  false 
+      }
     }
   }
 

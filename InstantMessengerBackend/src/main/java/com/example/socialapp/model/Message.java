@@ -11,6 +11,14 @@ import java.util.List;
 @Table(name = "messages")
 public class Message extends AbstractMessage {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private int id;
+
+
+    @Column(length = 1000000)
+    private String content;
+
 
     @OneToMany(mappedBy = "message", cascade = CascadeType.PERSIST)
     private List<File> files = new ArrayList<>();
