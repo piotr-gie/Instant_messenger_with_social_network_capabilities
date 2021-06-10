@@ -7,18 +7,18 @@
 }
 
 .search-autocomplete {
-    background-color: $primary;
-    color: $main;
+    background-color: $main;
     border-radius: 0px 0px 5px 5px;
     border: 0px solid $primary;
     // padding: 5px;
     display: block;
     top: 0px;
+    border-width: 2px;
+    border-color: $primary;
 }
 
 .search-autocomplete .mat-card{
-    background-color: $primary;
-    color: $main;
+    background-color: $main;
     cursor: pointer;
     transition-property: background-color;
     transition-duration: 0.2s;
@@ -29,7 +29,7 @@
 }
 
 .search-box  .mat-input-element{
-    width: 20em;
+    width: 10em;
     font: inherit;
     font-weight: 500;
     color: $main;
@@ -50,8 +50,8 @@
 //     width: 30em;
 // }
 
-.search-box .mat-input-element:placeholder-shown{
-    width: 6em;
+.search-box .mat-input-element:focus{
+    width: 20em;
 }
 
 .search-box .mat-input-element::placeholder{

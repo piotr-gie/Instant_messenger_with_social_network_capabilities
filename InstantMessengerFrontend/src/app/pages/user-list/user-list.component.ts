@@ -5,7 +5,7 @@ import { User } from 'src/app/models/fetch/user';
 import { FriendshipService } from 'src/app/services/fetch/friendship.service';
 import { GenderType } from 'src/app/enums/gender-type.enum';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
-import { BehaviorSubject } from 'rxjs';
+import { UserSearchService } from 'src/app/services/functional/user-search.service';
 
 @Component({
   selector: 'app-user-list',
@@ -19,7 +19,6 @@ export class UserListComponent implements OnInit {
   filteredList: User [] = [];
   isFriendsTab: boolean;
 
-  searchValue$ = new BehaviorSubject<string>('');
   isMyCity: boolean;
   isMyCountry: boolean;
   searchedGender: GenderType;
@@ -30,11 +29,13 @@ export class UserListComponent implements OnInit {
   constructor(
      private userService: UserService,
      private authService: AuthService, 
-     private friendshipSerivce: FriendshipService) {}
+     private friendshipSerivce: FriendshipService,
+     public userSearch: UserSearchService) {}
 
   ngOnInit() {
     this.initializeUserList();
     this.initializeFriendships();
+    this.search(this.userSearch.searchValue$.value);
   }
 
   initializeUserList() {
@@ -64,7 +65,7 @@ export class UserListComponent implements OnInit {
         this.searchedGender = elem.value
         elem.checked = true;
       }
-    this.search(this.searchValue$.getValue());
+    this.search(this.userSearch.searchValue$.getValue());
   }
 
   tabChange() {
@@ -75,12 +76,12 @@ export class UserListComponent implements OnInit {
   }
 
   clearSearchInput() {
-    this.searchValue$.next('');
+    this.userSearch.searchValue$.next('');
   }
 
   search(value: string) {
-    this.searchValue$.next(value);
-    this.searchValue$.pipe(
+    this.userSearch.searchValue$.next(value);
+    this.userSearch.searchValue$.pipe(
       debounceTime(400),
       distinctUntilChanged()
     ).subscribe(() => {
@@ -93,7 +94,7 @@ export class UserListComponent implements OnInit {
     })
   }
   private filterUser(user: User) { 
-    const search = this.searchValue$.getValue(); 
+    const search = this.userSearch.searchValue$.getValue(); 
     let currentUser = this.authService.getCurrentUser();
    
     const myCountryFilter = (this.isMyCountry) ? user.country === currentUser.country : true;

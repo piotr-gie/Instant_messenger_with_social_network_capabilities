@@ -6,11 +6,20 @@
             <mat-icon matSuffix>search</mat-icon>
         </button>
         <div class="search-autocomplete" *ngIf="show">
-            <div *ngFor="let user of usersSearchList | slice:0:5;">
+            <div *ngFor="let user of usersSearchList | slice:0:5;">          
                 <mat-card (click)="showUserProfile(user.id); show = false;">
-                    <h2>{{user.firstName + " " + user.lastName}}</h2>
+                    <div class="flex-horizontal">
+                        <app-user-avatar
+                            [user]='user'
+                            [size]='40'
+                            [isRound]="true"
+                            class="m-r-10"
+                        >
+                        </app-user-avatar>
+                        <h2>{{user.firstName + " " + user.lastName}}</h2>
+                    </div>
                 </mat-card>
-            </div>
+            </div>           
         </div>
     </div>
 </span>
