@@ -1,7 +1,11 @@
 <div class="post-list-container m-l-25 m-r-25">
-  <mat-card class="m-b-10 postey-machiney-container" *ngIf="!filter || filter == currentUser.id">
-    <button mat-raised-button color="primary" class="post-button" (click)="openEditDialog()">New post</button>
-    <div class="make-post">
+  <!-- <mat-card class="m-b-10 postey-machiney-container"> -->
+    <button  *ngIf="!filter || filter == currentUser.id"
+      mat-raised-button color="primary"
+      class="post-button m-b-10 shadow"
+      (click)="openEditDialog()"><mat-icon class="icon-align m-r-5">post_add</mat-icon>Add post
+    </button>
+    <!-- <div class="make-post">
       <textarea matInput class="postey-machiney" autocomplete="off" placeholder="Say something cringy!" 
         [(ngModel)]="content"></textarea>
       <span *ngIf="!!content" class="buttons">
@@ -9,20 +13,21 @@
         <button mat-button (click)="submitPost()">Post</button>
         <button mat-button>Attachment</button>
       </span>
-    </div>
-  </mat-card>
+    </div> -->
+  <!-- </mat-card> -->
 
-  <mat-card class="m-b-10 posts" *ngFor="let post of posts">
+  <mat-card class="m-b-10 posts shadow"  *ngFor="let post of posts">
     <mat-card-header>
         <app-user-avatar mat-card-avatar 
           [user]="users[post.posterId-1]"
-          [size]="40"
+          [size]="55"
           [isRound]="true"
           [isShadowless]="true"
+          class="m-r-10"
         >
         </app-user-avatar>
         <mat-card-title>{{users[post.posterId-1]?.firstName}} {{users[post.posterId-1]?.lastName}}</mat-card-title>
-      <mat-card-subtitle>{{post.date}}</mat-card-subtitle>
+        <mat-card-subtitle>{{post.date.toString().substring(0, 16)}}</mat-card-subtitle>
     </mat-card-header>
 
     <div>
@@ -39,26 +44,25 @@
     </mat-card-content>
 
     <div>
-      <mat-divider [inset]="true"></mat-divider>
+      <!-- <mat-divider [inset]="true"></mat-divider> -->
       <span>
-        <button mat-button>Like</button>
-        <button mat-button (click)="commentId = post.id; commentContent=null;">Comment</button>
+        <button class="m-b-10 m-t-5" button mat-raised-button color="primary" (click)="commentId = post.id; commentContent=null;"><mat-icon class="icon-align m-r-5">insert_comment</mat-icon>Comment</button>
       </span>
-
       <mat-divider [inset]="true"></mat-divider>
-
       <div *ngIf="!!post.comments">
         <div *ngFor="let comment of post.comments">
           <mat-card-header class="m-t-10">
           <app-user-avatar mat-card-avatar 
             [user]="users[comment.posterId-1]"
-            [size]="40"
+            [size]="55"
             [isRound]="true"
             [isShadowless]="true"
+            class="m-r-10"
           >
           </app-user-avatar>
-            <mat-card-title style="font-size: medium;">
-                {{users[comment.posterId-1]?.firstName}} {{users[comment.posterId-1]?.lastName}}
+            <mat-card-title class="flex-vertical">
+                <span style="font-size: medium;">{{users[comment.posterId-1]?.firstName}} {{users[comment.posterId-1]?.lastName}}</span>
+                <span style="font-size: small;"  class="m-b-10">{{comment.date.toString().substring(0, 16)}}</span>
             </mat-card-title>
             <mat-card-subtitle style="color: black; font-size: medium;">
                 {{comment.content}}
@@ -71,19 +75,20 @@
       <div *ngIf="post.id === commentId" class="m-b-10 postey-machiney-container">
         <app-user-avatar mat-card-avatar
           [user]="users[currentUser.id]"
-          [size]="40"
+          [size]="55"
           [isRound]="true"
           [isShadowless]="true"
+          class="m-r-10"
         >
         </app-user-avatar>       
         <div class="make-post m-t-5 m-b-5 m-l-5" style="width: 90%;">
           <textarea matInput class="postey-machiney" autocomplete="off" placeholder="Comment" 
             [(ngModel)]="commentContent"></textarea>
-          <span *ngIf="!!commentContent" class="buttons">
+          <!-- <span *ngIf="!!commentContent" class="buttons">
             <mat-divider [inset]="true"></mat-divider>
-            <button mat-button (click)="createComment(post.id)">Comment</button>
+            <button mat-raised-button color="primary" (click)="createComment(post.id)">sss</button>
             <button mat-button>Attachment</button>
-          </span>
+          </span> -->
         </div>
       </div>
     </div>

@@ -48,7 +48,9 @@ export class RichPostComponent implements OnInit {
       ],
     }
     this.editorStyle = {
-      minHeight: '300px'
+      minHeight: '300px',
+      border: 'none',
+      backgroundColor: '#f5f5f5e3'
     }
   }
 

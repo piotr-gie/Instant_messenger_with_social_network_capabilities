@@ -51,24 +51,30 @@ export class BoardComponent implements OnInit, OnChanges {
     this.posts[0] = {
       id: 0,
       content: "Im a sssnek",
-      posterId: 1
+      posterId: 1,
+      date: new Date()
     }
     this.posts[1] = {
       id: 1,
       content: "Im a sssnek dude",
-      posterId: 3
+      posterId: 3,
+      date: new Date()
     }
     this.posts[2] = {
       id: 2,
       content: "Mamma mia de la bondziorno margerita insigne roma spaghetti",
       posterId: 2,
+      date: new Date(),
       comments: [{
         content: "To by nic nie dało i tak",
-        posterId: 3
+        posterId: 3,
+        date: new Date(),
+        
       },
       {
         content: "Jeszcze jak!",
-        posterId: 1
+        posterId: 1,
+        date: new Date(),
       }
       ]
     }
@@ -101,9 +107,9 @@ export class BoardComponent implements OnInit, OnChanges {
     if(!! this.filter)
       this.posts = this.posts.filter(e => e.posterId === Number(this.filter));
 
-    // this.userService.getModels().subscribe((response) => { //TODO: uncomment after BE implementation 
-    //   this.users = response;
-    // })
+    this.userService.getModels().subscribe((response) => { //TODO: uncomment after BE implementation 
+      this.users = response;
+    })
   }
 
   createPost() {

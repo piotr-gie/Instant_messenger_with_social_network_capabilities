@@ -13,24 +13,26 @@
         [placeholder]="''">
       </quill-editor>
     </div> 
-    <div *ngIf="!isReadOnly" class="m-b-10">
-      <app-file-uploader (fileSelectedEmit)="addFileToUpload($event)"></app-file-uploader>
+    <div *ngIf="uploadedFiles.length !== 0 || !isReadOnly" class="flex-horizontal attachments-margin">
+      <div *ngIf="!isReadOnly" class="m-b-10">
+        <app-file-uploader (fileSelectedEmit)="addFileToUpload($event)"></app-file-uploader>
+      </div>   
+      <mat-chip-list class="m-l-10 m-t-5">
+        <div *ngFor="let file of uploadedFiles">
+          <mat-chip
+            attachment
+            [attachedFile]="file"
+            [removable]="true"
+            (removed)="removeFile(file)"         
+          >
+            {{file.name}}
+            <mat-icon 
+              matChipRemove>cancel
+            </mat-icon>          
+          </mat-chip>
+        </div>        
+      </mat-chip-list>    
     </div>   
-    <mat-chip-list class="m-t-10">
-      <div *ngFor="let file of uploadedFiles">
-        <mat-chip
-          attachment
-          [attachedFile]="file"
-          [removable]="true"
-          (removed)="removeFile(file)"         
-        >
-          {{file.name}}
-          <mat-icon 
-            matChipRemove>cancel
-          </mat-icon>          
-        </mat-chip>
-      </div>        
-    </mat-chip-list>    
   </div>
   <span *ngIf="!isReadOnly" class="flex-horizontal center">
     <button class="m-t-25 submit-button"
