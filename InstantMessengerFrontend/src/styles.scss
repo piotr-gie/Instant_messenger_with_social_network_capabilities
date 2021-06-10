@@ -9,7 +9,7 @@ $secondary: white;
 $additional: #f5f5f5e3;
 $faded: #c8c8c8;
 $dark: #0000002b;
-$primary: #3f51b5;
+$primary: rgb(63, 81, 181);
 $accent:  #ffd740;
 $warn:  #f44336;
 
@@ -17,8 +17,12 @@ html, body { height: 100%; }
 body { 
     margin: 0;
     font-family: Roboto, "Helvetica Neue", sans-serif;
-    
-    background-color: $main;
+
+    background:
+    linear-gradient(135deg, whitesmoke 21px, #dadada 22px, #dadada 24px, transparent 24px, transparent 67px, #dadada 67px, #dadada 69px, transparent 69px),
+    linear-gradient(225deg, whitesmoke 21px, #dadada 22px, #dadada 24px, transparent 24px, transparent 67px, #dadada 67px, #dadada 69px, transparent 69px)0 64px;
+    background-color: whitesmoke;
+    background-size: 64px 128px;
     
 }
 
@@ -26,16 +30,22 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
+    height: 100vh;
 }
 
 .page-content {
     display: flex;
     flex-direction: row;
     justify-content: center;
+    background-color: $main;  
+    padding-left: 15px;
+    padding-right: 15px;
 }
 
 .header {
     height: 50px;
+    width: 100%;
+    background-color: $main;
 }
 
 .align-icon {
@@ -138,6 +148,10 @@ body {
 
 .center {
     justify-content: center;
+}
+
+.screen-height {
+    height: 100vh;
 }
 
 // .ql-toolbar.ql-snow {
