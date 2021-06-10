@@ -32,7 +32,6 @@ import { EditPostDialogComponent } from './components/dialog/edit-post-dialog/ed
 import { RichPostComponent } from './components/posts/rich-post/rich-post.component';
 import { UserAvatarComponent } from './components/shared/user-avatar/user-avatar.component';
 
-
 @NgModule({
   declarations: [	
     AppComponent,
@@ -58,14 +57,12 @@ import { UserAvatarComponent } from './components/shared/user-avatar/user-avatar
     EditPostDialogComponent,
     RichPostComponent,
     UserAvatarComponent
-
    ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     MaterialModule,
-    MatToolbarModule,
     ReactiveFormsModule,
     HttpClientModule,
     FormsModule,

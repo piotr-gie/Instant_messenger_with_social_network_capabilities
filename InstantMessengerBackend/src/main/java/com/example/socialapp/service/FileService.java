@@ -14,6 +14,7 @@ import java.io.IOException;
 public class FileService {
 
     FileRepository fileRepository;
+    MessageRepository messageRepository;
 
 
     public FileService(FileRepository fileRepository) {

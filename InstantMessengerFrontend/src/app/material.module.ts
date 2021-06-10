@@ -36,7 +36,8 @@ const material = [
     MatToolbarModule,
     MatRippleModule,
     MatTabsModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    MatToolbarModule,
 ]
 
 @NgModule({

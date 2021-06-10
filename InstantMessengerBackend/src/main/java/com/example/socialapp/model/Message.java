@@ -9,22 +9,20 @@ import java.util.List;
 
 @Entity
 @Table(name = "messages")
-public class Message {
+public class Message extends AbstractMessage {
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 
+
     @Column(length = 1000000)
     private String content;
 
-    private int senderId;
-
-//    private int receiverId;
 
     @OneToMany(mappedBy = "message", cascade = CascadeType.PERSIST)
     private List<File> files = new ArrayList<>();
 
-    private LocalDateTime date;
 
     @JoinColumn(name = "conversation")
     @ManyToOne(cascade = CascadeType.PERSIST)
@@ -39,30 +37,6 @@ public class Message {
         this.senderId = senderId;
         this.conversation = conversation;
         this.date = LocalDateTime.now();
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getContent() {
-        return content;
-    }
-
-    public void setContent(String content) {
-        this.content = content;
-    }
-
-    public int getSenderId() {
-        return senderId;
-    }
-
-    public void setSenderId(int senderId) {
-        this.senderId = senderId;
     }
 
     public List<File> getAttachments() {
