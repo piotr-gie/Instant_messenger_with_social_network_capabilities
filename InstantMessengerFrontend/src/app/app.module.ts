@@ -24,13 +24,13 @@ import { SearchComponent } from './components/search/search.component';
 import { UserListComponent } from './pages/user-list/user-list.component';
 import { SearchPageComponent } from './pages/search-page/search-page.component';
 import { ToastrModule } from 'ngx-toastr';
-import { BoardComponent } from './components/posts/board/board.component';
 import { ContactListComponent } from './components/messenger/contact-list/contact-list.component';
 import { FriendshipRequestListComponent } from './components/users/friendship-request-list/friendship-request-list.component';
 import { UserCardComponent } from './components/users/user-card/user-card.component';
 import { EditPostDialogComponent } from './components/dialog/edit-post-dialog/edit-post-dialog.component';
-import { RichPostComponent } from './components/posts/rich-post/rich-post.component';
 import { UserAvatarComponent } from './components/shared/user-avatar/user-avatar.component';
+import { BoardComponent } from './components/posts/board/board.component';
+import { RichPostComponent } from './components/posts/rich-post/rich-post.component';
 
 @NgModule({
   declarations: [	

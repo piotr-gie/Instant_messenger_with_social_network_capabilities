@@ -10,5 +10,5 @@ export interface User extends BaseModel {
     phone?: string;
     mail?: string,
     presentation?: string;
-    avatar?: File;
+    avatar?: string;
 }
