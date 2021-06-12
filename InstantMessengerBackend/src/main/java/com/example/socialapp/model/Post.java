@@ -19,6 +19,17 @@ public class Post extends AbstractMessage {
     @JsonIgnore
     private Board board;
 
+    public List<Comment> getComments() {
+        return comments;
+    }
+
+    public void setComments(List<Comment> comments) {
+        this.comments = comments;
+    }
+
+    @OneToMany(mappedBy = "post", cascade = CascadeType.PERSIST)
+    private List<Comment> comments = new ArrayList<>();
+
     public Post() {
     }
 
