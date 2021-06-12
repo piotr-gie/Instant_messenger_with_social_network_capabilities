@@ -58,7 +58,10 @@ public class File {
         this.message = message;
     }
 
- //   public File(byte[] fileContent, int size, String name, String type) {
+    public File(byte[] fileContent, int size, String name, String type) {
+        this(fileContent, size, name);
+        this.type = type;
+    }
     public File(byte[] fileContent, int size, String name, Post post) {
         this(fileContent, size, name);
         this.post = post;
@@ -68,7 +71,6 @@ public class File {
         this.fileContent = fileContent;
         this.size = size;
         this.name = name;
-        this.type = type;
         this.lastModified = Instant.now().toEpochMilli();
     }
 
