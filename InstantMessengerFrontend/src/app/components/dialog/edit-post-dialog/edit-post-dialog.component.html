@@ -1,7 +1,8 @@
 <div class="x">
   <app-rich-post
+  [content]="model?.content"
   [isReadOnly]="false"
   (postSubmitEmit)="sendPost($event)"
->
-</app-rich-post>
+  >
+  </app-rich-post>
 </div>

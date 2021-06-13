@@ -1,7 +1,8 @@
 import { Component, Inject, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Post } from 'src/app/models/fetch/post';
+import { DialogWindowService } from 'src/app/services/functional/dialog-window.service';
 
 @Component({
   selector: 'app-edit-post-dialog',
@@ -14,16 +15,16 @@ export class EditPostDialogComponent implements OnInit {
   uploadedFiles: any [] = [];
 
 
-  constructor(@Inject(MAT_DIALOG_DATA) data: Post ) {
-    
+  constructor(@Inject(MAT_DIALOG_DATA) data: Post, private dialogService: DialogWindowService) {
+    this.model = data;
   }
+  
   ngOnInit(): void {
- 
+    
   }
 
   sendPost(post: Post) {
     this.model = post; 
-    console.log(this.model);
+    this.dialogService.dialogRef.close(this.model);
   }
-
 }

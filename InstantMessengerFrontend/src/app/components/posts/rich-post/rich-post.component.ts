@@ -30,7 +30,6 @@ export class RichPostComponent implements OnInit {
     const post: Post = {
       content: (this.postForm.get("editor").value)?.toString()
     }
-    console.log(post);
     if (this.isEditorFormNotEmpty() || this.uploadedFiles.length > 0) {
       this.postSubmitEmit.emit(post);
       
