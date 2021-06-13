@@ -5,6 +5,9 @@ import com.example.socialapp.service.MessageService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.messaging.handler.annotation.MessageMapping;
+import org.springframework.messaging.handler.annotation.Payload;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -16,7 +19,8 @@ import java.util.Set;
 @RestController
 @RequestMapping(value = "/message")
 public class MessageController {
-    MessageService messageService;
+    private final MessageService messageService;
+
 
     public MessageController(MessageService messageService) {
         this.messageService = messageService;

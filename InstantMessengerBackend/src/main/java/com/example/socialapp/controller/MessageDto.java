@@ -1,13 +1,33 @@
 package com.example.socialapp.controller;
 
-public class MessageDto {
-    private String message;
+import org.springframework.web.multipart.MultipartFile;
 
-    public MessageDto(String message) {
-        this.message = message;
+public class MessageDto {
+    private String content;
+    private String files;
+    private int receiverId;
+
+    public String getContent() {
+        return content;
     }
 
-    public String getMessage() {
-        return message;
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    public String getFiles() {
+        return files;
+    }
+
+    public void setFiles(String files) {
+        this.files = files;
+    }
+
+    public int getReceiverId() {
+        return receiverId;
+    }
+
+    public void setReceiverId(int receiverId) {
+        this.receiverId = receiverId;
     }
 }
