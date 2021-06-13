@@ -1,23 +1,23 @@
-<mat-toolbar class="navbar shadow">
+<mat-toolbar *ngIf="currentUser" class="navbar shadow">
   <div class="nav-group">
     <span>Instant Messenger<mat-icon class="align-icon m-l-5">forum</mat-icon></span>  
     <app-user-avatar class="m-l-25 avatar-margin"
-        [user]="this.user"
+        [user]="this.currentUser"
         [isNav]="true"
       >
     </app-user-avatar>
-    <span class="m-l-10">{{this.user?.firstName}}</span>
+    <span class="m-l-10">{{this.currentUser?.firstName}}</span>
     <app-search class="m-l-25 shadow"></app-search>   
   </div>
   <div>
     <span class="nav-group">       
-      <button mat-fab color="primary" class="m-r-10" routerLink="/home">
+      <button mat-fab color="primary" class="m-r-10" routerLink="/home" routerLinkActive='active'>
         <mat-icon>home</mat-icon>
       </button>    
-      <button mat-fab color="primary" class="m-r-10" routerLink="/users">
+      <button mat-fab color="primary" class="m-r-10" routerLink="/users" routerLinkActive='active'>
         <mat-icon>people</mat-icon>
       </button>  
-      <button  mat-fab color="primary" class="m-r-10" routerLink="/profile/1">
+      <button  mat-fab color="primary" class="m-r-10" [routerLink]="['/profile/', currentUser.id]" routerLinkActive='active'>
         <mat-icon>account_box</mat-icon>
       </button>   
       <div
