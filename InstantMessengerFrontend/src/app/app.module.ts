@@ -4,11 +4,10 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NavbarComponent } from './components/nav/navbar/navbar.component';
-import { MatToolbarModule } from '@angular/material/toolbar';
 import { MaterialModule } from './material.module';
 import { LoginComponent } from './components/login/login.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { RegisterComponent } from './components/register/register.component';
 import { RichTextBoxComponent } from './components/shared/rich-text-box/rich-text-box.component';
 import { QuillModule } from 'ngx-quill';
@@ -29,6 +28,8 @@ import { ContactListComponent } from './components/messenger/contact-list/contac
 import { FriendshipRequestListComponent } from './components/users/friendship-request-list/friendship-request-list.component';
 import { UserCardComponent } from './components/users/user-card/user-card.component';
 import { UserAvatarComponent } from './components/shared/user-avatar/user-avatar.component';
+import { TokenInterceptor } from './interceptors/token-interceptor';
+
 
 @NgModule({
   declarations: [	
@@ -70,7 +71,13 @@ import { UserAvatarComponent } from './components/shared/user-avatar/user-avatar
     }), 
     FormsModule,
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptor,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule { }

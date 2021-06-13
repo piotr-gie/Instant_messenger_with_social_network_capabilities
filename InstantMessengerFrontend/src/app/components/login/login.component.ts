@@ -32,7 +32,9 @@ export class LoginComponent implements OnInit {
     
     // })
 
-    this.authService.login(null).subscribe((response) => {
+    this.authService.login(this.loginForm.get('email').value, this.loginForm.get('password').value).subscribe((response) => {
+      const token = response.token;
+      this.authService.setToken(token)
       this.toastrService.success("Successfully logged in!")
     }, error => {
       this.toastrService.error("Failed to login!");
