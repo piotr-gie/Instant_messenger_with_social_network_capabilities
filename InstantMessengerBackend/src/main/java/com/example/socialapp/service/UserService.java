@@ -52,8 +52,6 @@ public class UserService implements UserDetailsService {
     }
 
     public User updateById(User user) {
-
-
         userRepository.updateById(user.getFirstName(), user.getLastName(),
                 user.getMail(), user.getPassword(),
                 user.getAboutMe(), user.getPhone(),

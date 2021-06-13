@@ -9,6 +9,7 @@ import javax.transaction.Transactional;
 import java.sql.Blob;
 import java.text.SimpleDateFormat;
 import java.util.List;
+import java.util.Set;
 
 public interface UserRepository extends JpaRepository<User, Integer> {
 
@@ -27,5 +28,5 @@ public interface UserRepository extends JpaRepository<User, Integer> {
             "u.active = ?11,u.roles = ?12 where u.id = ?13")
     void updateById(String firstName, String lastName, String email, String
             password, String about, String phone, SimpleDateFormat birthDate,
-                    String city, String gender, byte[] image, boolean active, String roles, int id);
+                    String city, String gender, byte[] image, boolean active, Set<Role> roles, int id);
 }
