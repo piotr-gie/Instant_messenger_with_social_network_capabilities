@@ -1,8 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { GenderType } from 'src/app/enums/gender-type.enum';
+import { User } from 'src/app/models/fetch/user';
 import { Friendship } from 'src/app/models/helpers/friendship';
+import { AuthService } from 'src/app/services/fetch/auth.service';
 import { FriendshipService } from 'src/app/services/fetch/friendship.service';
 
 @Component({
@@ -12,20 +13,27 @@ import { FriendshipService } from 'src/app/services/fetch/friendship.service';
 })
 export class FriendshipRequestListComponent implements OnInit {
   @Input() friendshipsRequests: Friendship [] = [];
-
-  genderType = GenderType;
+  currentUser: User;
 
   constructor(private friendshipService: FriendshipService,
     private toastrService: ToastrService,
-    private router: Router) {}
+    private router: Router,
+    private authService: AuthService) {}
 
   ngOnInit() {
+    this.initCurrentUser();
     this.initializeFriendships();
   }
 
+  initCurrentUser() {
+    this.authService.currentUser$.subscribe((res) => {
+      this.currentUser = res;
+    })
+  }
+
   initializeFriendships() {
-    this.friendshipService.getAllFriends(1).subscribe((response) => {
-      this.friendshipsRequests = response.filter(friend => friend.accepted === false)
+    this.friendshipService.getAllFriends(this.currentUser.id).subscribe((res) => {
+      this.friendshipsRequests = res.filter(friend => friend.accepted === false)
     })
   }
 

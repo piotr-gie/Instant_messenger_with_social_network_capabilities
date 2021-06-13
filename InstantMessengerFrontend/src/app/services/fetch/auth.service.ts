@@ -4,40 +4,33 @@ import { BaseService } from './base.service';
 import { map } from 'rxjs/operators';
 import { Observable, ReplaySubject } from 'rxjs';
 import { User } from 'src/app/models/fetch/user';
+import { UserService } from './user.service';
+import { JwtHelperService } from '@auth0/angular-jwt';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService extends BaseService<User> {
-loggedIn: boolean;
 private currentUserSource = new ReplaySubject<User>(1);
 currentUser$ = this.currentUserSource.asObservable()
 
- constructor(http: HttpClient) {
+ constructor(http: HttpClient,
+   private userService: UserService,
+   private jwtHelper: JwtHelperService) {
       super(http);
-      this.controllerPath = "login";
-      
+      this.controllerPath = "login";   
   }
-  // login(user: User) : Observable<any> {
-  //   return this.postModel(user).pipe(
-  //     map((respose: User) => {
-  //       const user = respose;
-  //       if (user) {
-  //         localStorage.setItem('user', JSON.stringify(user));
-  //         this.currentUserSource.next(user);
-  //       }
-  //     })
-  //   )
-  //   this.currentUserSource.next({ firstName: "John", lastName: "Smith", id: 1 }) //TODO: to remove after login imp
-  //   if(this.currentUser$ != null) { 
-  //     this.loggedIn = true;  
-  //   } 
-  //   return this.currentUserSource;
-  // } 
   login(mail: string, password: string) : Observable<any> {
+    let user;
     let formData = new FormData();
     formData.append('mail', mail);
     formData.append('password', password); 
+
+    this.userService.getModels().subscribe((res) => { //to update
+      user = res.find(u => u.mail === mail)
+      this.setCurrentUser(user);
+    })
     return this.http.post<any>(this.baseUrl + this.controllerPath, formData);
   }
 
@@ -60,6 +53,7 @@ currentUser$ = this.currentUserSource.asObservable()
   }
 
   setCurrentUser(user: User) {
+    localStorage.setItem('user', JSON.stringify(user));
     this.currentUserSource.next(user);
   }
 
@@ -71,19 +65,8 @@ currentUser$ = this.currentUserSource.asObservable()
     return localStorage.getItem('token');
   }
 
-  // public isAuthenticated(): boolean {
-  //   // get the token
-  //   const token = this.getToken();
-  //   // return a boolean indicating whether or not the token is expired
-  //   return tokenNotExpired(token);
-  // }
-
-  getCurrentUser(): any {
-    // let id;
-    // this.currentUser$.subscribe((response) => {
-    //   id = response.id;
-    // })
-    let user = { firstName: "John", lastName: "Smith", id: 1, country: "Germany", city: "Berlin", gender: "male"};
-    return user; //TODO
+  public isAuthenticated(): boolean {
+    const token = this.getToken();
+    return this.jwtHelper.isTokenExpired(token);
   }
 }

@@ -2,6 +2,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { TextBoxType } from 'src/app/enums/message-box-type.enum';
 import { Message } from 'src/app/models/fetch/message';
+import { User } from 'src/app/models/fetch/user';
 import { AuthService } from 'src/app/services/fetch/auth.service';
 
 @Component({
@@ -11,18 +12,25 @@ import { AuthService } from 'src/app/services/fetch/auth.service';
 })
 export class MessageComponent implements OnInit{
   @Input() model: Message;
+  currentUser: User;
   isDateShown: boolean;
   isMouseEnetered: boolean;
   textBoxType: TextBoxType;
 
   textBoxTypeEnum = TextBoxType;
-
+  
   constructor(private authService: AuthService) {}
 
   ngOnInit(): void {
-
-    this.textBoxType = (this.model.senderId === this.authService.getCurrentUser().id) ?
+    this.initCurrentUser();
+    this.textBoxType = (this.model.senderId === this.currentUser.id) ?
       this.textBoxTypeEnum.sent : this.textBoxTypeEnum.recived;
+  }
+
+  initCurrentUser() {
+    this.authService.currentUser$.subscribe((res) => {
+      this.currentUser = res;
+    })
   }
 
   showDate(): void {

@@ -33,8 +33,8 @@ export class AttachmentDirective {
 
   private downloadFile() {
     if(!this.preventDownload) {
-      this.attachmentService.getAttachment(this.attachedFile.id).subscribe(response => {
-        let blob:any = new Blob([response], { type: 'text/json; charset=utf-8' });
+      this.attachmentService.getAttachment(this.attachedFile.id).subscribe(res => {
+        let blob:any = new Blob([res], { type: 'text/json; charset=utf-8' });
 			  saveAs(blob, this.attachedFile.name);
       });
     }     

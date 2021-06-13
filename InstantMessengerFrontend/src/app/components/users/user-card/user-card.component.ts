@@ -13,11 +13,8 @@ import { ChatBoxService } from 'src/app/services/functional/chat-box.service';
 })
 export class UserCardComponent implements OnInit {
   @Input() model: User;
+  currentUser: User;
   mutalFriends: number;
-
-  genderType = GenderType;
-  avatar: File;
-
   constructor(
     private chatBoxSerice: ChatBoxService,
     private friendshipService: FriendshipService,
@@ -25,7 +22,14 @@ export class UserCardComponent implements OnInit {
     private router: Router) { }
 
   ngOnInit() {
+    this.initCurrentUser();
     this.getMutalFriendsCount();
+  }
+
+  initCurrentUser() {
+    this.authService.currentUser$.subscribe((res) => {
+      this.currentUser = res;
+    })
   }
 
   showUserProfile(id: number) {
@@ -37,12 +41,11 @@ export class UserCardComponent implements OnInit {
   }
 
   getMutalFriendsCount() {
-    const currentUser = this.authService.getCurrentUser();
     let loggedUserFriends = [];
-    this.friendshipService.getAllFriends(currentUser.id).subscribe((response) => {
-      loggedUserFriends = response;
-      this.friendshipService.getAllFriends(this.model.id).subscribe((response) => {
-        this.mutalFriends = response.filter(
+    this.friendshipService.getAllFriends(this.currentUser.id).subscribe((res) => {
+      loggedUserFriends = res;
+      this.friendshipService.getAllFriends(this.model.id).subscribe((res) => {
+        this.mutalFriends = res.filter(
           friendship => loggedUserFriends.find(
             loggedFriendship => loggedFriendship.user.id === friendship.user.id)).length;
       })

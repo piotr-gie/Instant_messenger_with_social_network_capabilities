@@ -29,6 +29,7 @@ import { FriendshipRequestListComponent } from './components/users/friendship-re
 import { UserCardComponent } from './components/users/user-card/user-card.component';
 import { UserAvatarComponent } from './components/shared/user-avatar/user-avatar.component';
 import { TokenInterceptor } from './interceptors/token-interceptor';
+import { JwtHelperService, JWT_OPTIONS } from '@auth0/angular-jwt';
 
 
 @NgModule({
@@ -76,7 +77,11 @@ import { TokenInterceptor } from './interceptors/token-interceptor';
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptor,
       multi: true
-    }
+    },
+    { 
+      provide: JWT_OPTIONS, useValue: JWT_OPTIONS
+    },
+    JwtHelperService
   ],
   bootstrap: [AppComponent],
 })
