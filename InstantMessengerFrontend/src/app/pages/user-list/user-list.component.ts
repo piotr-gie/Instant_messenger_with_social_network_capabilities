@@ -17,6 +17,7 @@ export class UserListComponent implements OnInit {
   friends: User [] = [];
   userList: User [] = [];
   filteredList: User [] = [];
+  currentUser: User;
   isFriendsTab: boolean;
 
   isMyCity: boolean;
@@ -24,8 +25,8 @@ export class UserListComponent implements OnInit {
   searchedGender: GenderType;
 
   genderType = GenderType;
-  
 
+  
   constructor(
      private userService: UserService,
      private authService: AuthService, 
@@ -33,14 +34,20 @@ export class UserListComponent implements OnInit {
      public userSearch: UserSearchService) {}
 
   ngOnInit() {
+    this.initCurrentUser();
     this.initializeUserList();
-    this.initializeFriendships();
-    this.search(this.userSearch.searchValue$.value);
+    this.initializeFriendships();    
+  }
+
+  initCurrentUser() {
+    this.authService.currentUser$.subscribe((res) => {
+      this.currentUser = res;
+    })
   }
 
   initializeUserList() {
-    this.userService.getModels().subscribe((response) => {
-      this.users = response.filter(user => user.id !== this.authService.getCurrentUser().id);
+    this.userService.getModels().subscribe((res) => {
+      this.users = res.filter(user => user.id !== this.currentUser.id);
       this.users[0].avatar = "https://randomuser.me/api/portraits/men/28.jpg"
       this.users[1].avatar = "https://randomuser.me/api/portraits/women/20.jpg"
       this.users[2].avatar = "https://randomuser.me/api/portraits/women/28.jpg"
@@ -49,15 +56,14 @@ export class UserListComponent implements OnInit {
   }
 
   initializeFriendships() {
-    this.friendshipSerivce.getAllFriends(1).subscribe((response) => {
-      let friendships = response.filter(friend => friend.accepted === true);
+    this.friendshipSerivce.getAllFriends(this.currentUser.id).subscribe((res) => {
+      let friendships = res.filter(friend => friend.accepted === true);
       friendships.forEach(f => {
         this.friends.push(f.user);
       })
       this.userList = this.users
       this.filteredList = this.userList;
-    })
-   
+    }) 
   }
 
   checkGenderState(event, elem) {
@@ -98,11 +104,9 @@ export class UserListComponent implements OnInit {
     })
   }
   private filterUser(user: User) { 
-    const search = this.userSearch.searchValue$.getValue(); 
-    let currentUser = this.authService.getCurrentUser();
-   
-    const myCountryFilter = (this.isMyCountry) ? user.country === currentUser.country : true;
-    const myCityFilter = (this.isMyCity) ? user.city === currentUser.city : true;
+    const search = this.userSearch.searchValue$.getValue();   
+    const myCountryFilter = (this.isMyCountry) ? user.country === this.currentUser.country : true;
+    const myCityFilter = (this.isMyCity) ? user.city === this.currentUser.city : true;
     const genderFilter = (this.searchedGender) ? user.gender === this.searchedGender : true;
 
     let filterResult = (((user.firstName + ' ' + user.lastName)?.toLocaleLowerCase().match(search) || 
@@ -113,7 +117,6 @@ export class UserListComponent implements OnInit {
       genderFilter
     );
 
-    return filterResult;
-  
+    return filterResult; 
   }
 }

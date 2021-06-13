@@ -8,6 +8,7 @@ import { UserService } from 'src/app/services/fetch/user.service';
 import { DialogWindowService } from 'src/app/services/functional/dialog-window.service';
 import { FriendshipService } from 'src/app/services/fetch/friendship.service';
 import { ToastrService } from 'ngx-toastr';
+import { AuthService } from 'src/app/services/fetch/auth.service';
 
 @Component({
   selector: 'app-profile-page',
@@ -17,8 +18,7 @@ import { ToastrService } from 'ngx-toastr';
 export class ProfilePageComponent {
   model: User;
   isFriend: boolean;
-  genderType = GenderType;
-  avatar: File;
+  currentUser: User;
 
   constructor(
     private userService: UserService,
@@ -26,13 +26,21 @@ export class ProfilePageComponent {
     private activatedRoute: ActivatedRoute,
     private chatBoxSerice: ChatBoxService,
     private friendshipService: FriendshipService,
-    private toastrService: ToastrService
+    private toastrService: ToastrService,
+    private authService: AuthService
     ) {
       activatedRoute.params.subscribe(val => this.ngOnInit())
     }
   
   ngOnInit() {
+    this.initCurrentUser();
     this.initializeUserProfile();  
+  }
+
+  initCurrentUser() {
+    this.authService.currentUser$.subscribe((res) => {
+      this.currentUser = res;
+    })
   }
 
   initializeUserProfile() {
@@ -40,11 +48,11 @@ export class ProfilePageComponent {
     this.activatedRoute.paramMap.subscribe(params => { 
       userId = params.get('id');
     })
-    this.userService.getModel(userId).subscribe((response) => {
-      this.model = response;
+    this.userService.getModel(userId).subscribe((res) => {
+      this.model = res;
       this.model.birthday = new Date();
-      this.friendshipService.getAllFriends(1).subscribe((response) => {
-        this.isFriend = response.some(
+      this.friendshipService.getAllFriends(this.currentUser.id).subscribe((res) => {
+        this.isFriend = res.some(
           friendship => friendship.user.id === this.model.id &&
           friendship.accepted === true
           )
@@ -65,13 +73,13 @@ export class ProfilePageComponent {
   }
 
   sendFriendRequest() {
-    this.friendshipService.addFriendship(1, this.model.id).subscribe(() => {
+    this.friendshipService.addFriendship(this.currentUser.id, this.model.id).subscribe(() => {
       this.toastrService.warning("Friendship request sent!")
     })
   }
 
   cancelFriendship (senderId: number) {
-    this.friendshipService.deleteFriendship(senderId, 1).subscribe(() => {
+    this.friendshipService.deleteFriendship(senderId, this.currentUser.id).subscribe(() => {
       this.toastrService.warning("Friendship canceled!")
     })
   }

@@ -1,5 +1,6 @@
 package com.example.socialapp.service;
 
+import com.example.socialapp.config.UserDetailsImpl;
 import com.example.socialapp.model.User;
 import com.example.socialapp.model.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,20 +10,25 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import com.example.socialapp.model.*;
 
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 
 @Service
 public class UserService implements UserDetailsService {
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private RoleRepository roleRepository;
 
     public UserService(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
 
     public User add(User user) {
+        Set<Role> roles = new HashSet<>();
+        // Adding all users to USER role
+        roles.add(roleRepository.getOne(1));
+        user.setRoles(roles);
         return userRepository.save(user);
     }
 
@@ -37,13 +43,7 @@ public class UserService implements UserDetailsService {
     }
 
     public User updateById(User user) {
-        userRepository.updateById(user.getFirstName(), user.getLastName(),
-                user.getMail(), user.getPassword(),
-                user.getAboutMe(), user.getPhone(),
-                user.getBirthday(), user.getCity(),
-                user.getGender(), user.getProfileImage(),
-                user.isActive(),user.getRoles(),
-                user.getId());
+        userRepository.save(user);
         return user;
     }
 
@@ -63,18 +63,8 @@ public class UserService implements UserDetailsService {
 
         user.orElseThrow(() -> new UsernameNotFoundException("Not found: " + mail));
 
-        CustomUserDetails userDetails = new CustomUserDetails(user.get());
+        UserDetailsImpl userDetails = new UserDetailsImpl(user.get());
 
         return userDetails;
     }
-
-
-//    public User authentication(String mail, String password) {
-//        User user = userRepository.getByMail(mail);
-//        if(user.getPassword().equals(ShaHashing.encrypted(password)))
-//            return user;
-//        else
-//            return null;
-//    }
-
 }

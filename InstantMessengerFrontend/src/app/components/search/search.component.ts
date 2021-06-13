@@ -1,6 +1,5 @@
 import { Component, OnInit, ViewEncapsulation, HostListener, ElementRef } from '@angular/core';
 import { Router } from '@angular/router';
-import { GenderType } from 'src/app/enums/gender-type.enum';
 import { UserService } from 'src/app/services/fetch/user.service';
 import { BehaviorSubject, from, Observable } from 'rxjs';
 import { filter } from 'rxjs/operators';
@@ -18,10 +17,7 @@ export class SearchComponent implements OnInit {
   input: string;
   users: User [] = [];
   usersSearchList: User [] = [];
-  // users: Observable<User>
   usersSearch: Observable<User>
-  genderType = GenderType;
-  avatar: File;
 
   constructor(
     private userService: UserService,
@@ -44,8 +40,8 @@ export class SearchComponent implements OnInit {
   }
 
   initializeUserList() {
-    this.userService.getModels().subscribe((response) => {
-      this.users = response;
+    this.userService.getModels().subscribe((res) => {
+      this.users = res;
     })
   }
 

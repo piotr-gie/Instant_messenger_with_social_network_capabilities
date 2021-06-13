@@ -12,10 +12,10 @@
               >
             </app-user-avatar>
             <div class="m-t-10">   
-              <button *ngIf="model?.id != 1" mat-raised-button color="primary" (click)="openConversation()"><mat-icon>chat</mat-icon></button>
-              <button *ngIf="model?.id == 1"mat-raised-button class="m-l-10" (click)="openEditDialog()"><mat-icon>settings</mat-icon></button>
-              <button *ngIf="model?.id != 1 && isFriend === false" class="m-l-10" mat-raised-button><mat-icon>person_add</mat-icon></button>
-              <button *ngIf="model?.id != 1 && isFriend === true" class="m-l-10" mat-raised-button color="warn"><mat-icon>person_remove</mat-icon></button>
+              <button *ngIf="model?.id != currentUser.id" mat-raised-button color="primary" (click)="openConversation()"><mat-icon>chat</mat-icon></button>
+              <button *ngIf="model?.id == currentUser.id"mat-raised-button class="m-l-10" (click)="openEditDialog()"><mat-icon>settings</mat-icon></button>
+              <button *ngIf="model?.id != currentUser.id && isFriend === false" class="m-l-10" mat-raised-button><mat-icon>person_add</mat-icon></button>
+              <button *ngIf="model?.id != currentUser.id && isFriend === true" class="m-l-10" mat-raised-button color="warn"><mat-icon>person_remove</mat-icon></button>
             </div> 
             <h2 class="m-t-25">
               Photos
