@@ -4,7 +4,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 public class MessageDto {
     private String content;
-    private String files;
+    private MultipartFile[] files;
     private int receiverId;
 
     public String getContent() {
@@ -15,11 +15,12 @@ public class MessageDto {
         this.content = content;
     }
 
-    public String getFiles() {
+
+    public MultipartFile[] getFiles() {
         return files;
     }
 
-    public void setFiles(String files) {
+    public void setFiles(MultipartFile[] files) {
         this.files = files;
     }
 

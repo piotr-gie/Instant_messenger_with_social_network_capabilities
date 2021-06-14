@@ -2,7 +2,7 @@ var currentUser = {
     id: 2
 }
 var stompClient = null
-var token = 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJnZW5lc2lzLm1vcmlzQGdtYWlsLmNvbSIsImV4cCI6MTYyMzYyMjYxMH0.8rFKpwZ21mxUb2RRH9UZV-yL9lazjrl-BfNh5EO_WEI'
+var token = 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJnZW5lc2lzLm1vcmlzQGdtYWlsLmNvbSIsImV4cCI6MTYyMzcwMjg3N30.fMqmNARbAi1vtb_FKvKAE319LRr-V4cPNMxzSEXjRRE'
 
 function connect() {
     var socket = new SockJS('/ws');
@@ -40,8 +40,19 @@ const onError = () => {
 }
 
 window.sendMessage = function () {
+    var formData = new FormData(document.querySelector('form'))
+    var object = {};
+    formData.forEach(function(value, key){
+        object[key] = value;
+    });
+    var file = formData.get("files")
+    var buff = file.arrayBuffer().then( value => console.log(JSON.stringify(buff)))
+
+
     var msg = document.getElementById("content")
+    var files = document.getElementById("files")
     console.log(msg)
+    console.log(files);
     const message = {
         content: msg.value,
     };
