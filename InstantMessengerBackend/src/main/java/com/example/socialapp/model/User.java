@@ -3,7 +3,6 @@ package com.example.socialapp.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
-import javax.sql.rowset.serial.SerialBlob;
 import java.text.SimpleDateFormat;
 import java.util.Set;
 
@@ -36,7 +35,10 @@ public class User {
     private String gender;
     private String phone;
     private String aboutMe;
-    private SerialBlob profileImage;
+
+    @Lob
+    @Column(columnDefinition="BLOB")
+    private byte[] profileImage;
 
     @OneToMany(mappedBy = "user1")
     @JsonIgnore
@@ -146,11 +148,11 @@ public class User {
         this.aboutMe = aboutMe;
     }
 
-    public SerialBlob getProfileImage() {
+    public byte[] getProfileImage() {
         return profileImage;
     }
 
-    public void setProfileImage(SerialBlob profileImage) {
+    public void setProfileImage(byte[] profileImage) {
         this.profileImage = profileImage;
     }
 
