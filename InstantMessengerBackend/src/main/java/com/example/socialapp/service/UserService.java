@@ -4,6 +4,7 @@ import com.example.socialapp.config.UserDetailsImpl;
 import com.example.socialapp.model.User;
 import com.example.socialapp.model.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -55,6 +56,12 @@ public class UserService implements UserDetailsService {
         } else {
             return null;
         }
+    }
+
+    public int getLoggedUserId(){
+        String mail = (String)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        return ((UserDetailsImpl)loadUserByUsername(mail)).getUserId();
     }
 
     @Override

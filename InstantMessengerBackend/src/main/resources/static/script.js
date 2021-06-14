@@ -1,8 +1,8 @@
 var currentUser = {
-    id: 2
+    id: 3
 }
 var stompClient = null
-var token = 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJnZW5lc2lzLm1vcmlzQGdtYWlsLmNvbSIsImV4cCI6MTYyMzcwMjg3N30.fMqmNARbAi1vtb_FKvKAE319LRr-V4cPNMxzSEXjRRE'
+var token = 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJnZW5lc2lzLm1vcmlzQGdtYWlsLmNvbSIsImV4cCI6MTYyMzczMjc3MH0.WDR6RL3XLRXAXW91aiEgDNNlgqoocNqIetph-jcZ02o'
 
 function connect() {
     var socket = new SockJS('/ws');
@@ -41,22 +41,31 @@ const onError = () => {
 
 window.sendMessage = function () {
     var formData = new FormData(document.querySelector('form'))
-    var object = {};
-    formData.forEach(function(value, key){
-        object[key] = value;
-    });
-    var file = formData.get("files")
-    var buff = file.arrayBuffer().then( value => console.log(JSON.stringify(buff)))
+    var files = formData.getAll("files")
+    var output = [];
+    files.forEach((element) => {
+        var f = {
+            lastModified: element.lastModified,
+            name: element.name,
+            size: element.size,
+            type: element.type
+        }
+        element.text().then(function (text){
+            f.fileContent = text;
+        })
+        output.push(f);
+    })
+    console.log(output);
+    var receiverId = formData.get("receiverId")
+    var content = formData.get("content")
 
-
-    var msg = document.getElementById("content")
-    var files = document.getElementById("files")
-    console.log(msg)
-    console.log(files);
     const message = {
-        content: msg.value,
+        content: content,
+        receiverId: receiverId,
+        files: output
     };
-    msg.value=''
+
+    console.log(message)
 
     stompClient.send("/msg/send", {'Authorization': token}, JSON.stringify(message));
 };
