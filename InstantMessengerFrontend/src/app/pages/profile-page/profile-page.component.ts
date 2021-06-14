@@ -17,6 +17,7 @@ import { AuthService } from 'src/app/services/fetch/auth.service';
 })
 export class ProfilePageComponent {
   model: User;
+  profileId: number;
   isFriend: boolean;
   currentUser: User;
 
@@ -47,6 +48,7 @@ export class ProfilePageComponent {
     let userId;
     this.activatedRoute.paramMap.subscribe(params => { 
       userId = params.get('id');
+      this.profileId = userId;
     })
     this.userService.getModel(userId).subscribe((res) => {
       this.model = res;

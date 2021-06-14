@@ -10,7 +10,7 @@ import { Post } from 'src/app/models/fetch/post';
 export class RichPostComponent implements OnInit {
   @Output() postSubmitEmit: EventEmitter<Post> = new EventEmitter();
   
-  @Input() content: string;
+  @Input() post: Post;
   @Input() isReadOnly: boolean;
 
   postForm: FormGroup;
@@ -28,7 +28,12 @@ export class RichPostComponent implements OnInit {
 
   onSubmit() {
     const post: Post = {
-      content: (this.postForm.get("editor").value)?.toString()
+      id : this.post?.id,
+      senderId : this.post?.senderId,
+      content: (this.postForm.get("editor").value)?.toString(),
+      date : this.post?.date,
+      comments : this.post?.comments,
+      files : this.post?.files
     }
     if (this.isEditorFormNotEmpty() || this.uploadedFiles.length > 0) {
       this.postSubmitEmit.emit(post);
@@ -58,8 +63,8 @@ export class RichPostComponent implements OnInit {
       'editor' : new FormControl(null)
     })
 
-    if(this.content !== undefined) {
-      this.postForm.get("editor").setValue(this.content);
+    if(this.post?.content !== undefined) {
+      this.postForm.get("editor").setValue(this.post?.content);
     }
   }
 

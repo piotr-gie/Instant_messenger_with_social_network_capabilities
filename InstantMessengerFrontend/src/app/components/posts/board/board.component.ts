@@ -1,14 +1,13 @@
-import { Component, OnInit, Input, SimpleChanges, HostListener, ElementRef } from '@angular/core';
-import { GenderType } from 'src/app/enums/gender-type.enum';
+import { Component, OnInit, Input, HostListener, ElementRef } from '@angular/core';
 import { User } from 'src/app/models/fetch/user';
 import { UserService } from 'src/app/services/fetch/user.service';
 import { BoardService } from 'src/app/services/fetch/board.service';
 import { Post } from 'src/app/models/fetch/post';
 import { AuthService } from 'src/app/services/fetch/auth.service';
-import { OnChanges } from '@angular/core';
 import { EditPostDialogComponent } from '../../dialog/edit-post-dialog/edit-post-dialog.component';
 import { DialogWindowService } from 'src/app/services/functional/dialog-window.service';
 import { Board } from 'src/app/models/fetch/board';
+import { FriendshipService } from 'src/app/services/fetch/friendship.service';
 
 @Component({
   selector: 'app-board',
@@ -16,7 +15,8 @@ import { Board } from 'src/app/models/fetch/board';
   styleUrls: ['./board.component.scss']
 })
 export class BoardComponent implements OnInit {
-  @Input() filter: any;
+  @Input() userId: number;
+  @Input() isHomeBoard: boolean;
   posts: Post [] = [];
   board: Board;
   users: User [] = [];
@@ -24,12 +24,15 @@ export class BoardComponent implements OnInit {
   commentContent: string;
   commentId: number;
   currentUser: User;
+  commentToEditId: number;
 
   constructor(
     private boardService: BoardService,
     private authService: AuthService,
     private elementRef: ElementRef,
-    private dialogService: DialogWindowService) { }
+    private dialogService: DialogWindowService,
+    private friendshipService: FriendshipService,
+    public userService: UserService,) { }
 
   @HostListener('document:click', ['$event.target'])
   clickedOut(targetElement) {
@@ -39,39 +42,73 @@ export class BoardComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.initCurrentUser();
+    this.initUsers();
     this.initializeBoardPosts();
-    
-    // if(!! this.filter)
-    //   this.posts = this.posts.filter(e => e.senderId === Number(this.filter));
-    // // ^
-    // // |
-    // //delete later
   }
 
-  openEditDialog(post: Post) {
+  initCurrentUser() {
+    this.authService.currentUser$.subscribe((res) => {
+      this.currentUser = res;
+    })
+  }
+
+  initUsers() {
+    this.userService.getModels().subscribe((res) => {
+      this.users = res;
+    })
+  }
+
+  openEditDialog(post: Post, isEditMode: boolean) {
     this.dialogService.openDialogWindow(EditPostDialogComponent, post, (data: Post) => { 
       if(data != null)  {
-        this.submitPost(data);
+        if(!isEditMode) {
+          this.submitPost(data);
+        }
+        else {
+          this.updatePost(data);
+        }
       }
     });  
   }
 
   initializeBoardPosts(){
-    this.boardService.getBoardByUserId(1).subscribe((response) => {
-      this.board = response;
-      this.posts = this.board.posts.sort((a, b) => a.date < b.date ? 1 : -1);
-      console.log(this.posts);
-    })
+    if(!this.isHomeBoard) {
+      this.boardService.getBoardByUserId(this.userId).subscribe((response) => {
+        this.board = response;
+        this.posts = this.board.posts.sort((a, b) => a.date < b.date ? 1 : -1);
+      })
+    }
+    else {
+      this.friendshipService.getAllFriends(this.currentUser.id).subscribe((res) => {
+        res.forEach((friend) => {
+          this.boardService.getBoardByUserId(friend.user.id).subscribe((res) => {
+            res.posts?.forEach((post) => {
+              this.posts.push(post)
+            })         
+          })     
+        })    
+      this.posts = this.posts.sort((a, b) => a.date < b.date ? 1 : -1);
+      })
+    } 
   }
 
   submitPost(post: Post){
-    this.boardService.addPost(post.content, 1).subscribe(()=> {
+    this.boardService.addPost(post.content, this.currentUser.id).subscribe(()=> {
       this.initializeBoardPosts();
     });  
   }
 
+  updatePost(post: Post) {
+    this.boardService.editPost(post).subscribe(() => {
+      this.initializeBoardPosts();
+    })
+  }
+
   deletePost(post: Post) {
-    this.boardService.deletePostById(post.id).subscribe();
+    this.boardService.deletePostById(post.id).subscribe(() => {
+      this.initializeBoardPosts();
+    });
   }
 
   createComment(postId: number){
@@ -90,13 +127,24 @@ export class BoardComponent implements OnInit {
       }]
     }
 
-    // this.boardService.postModel(newComment).subscribe((response) => { //TODO: uncomment after BE implementation 
-   
-    // });
+    this.boardService.addComment(this.commentContent, postId, this.currentUser.id).subscribe(() => {
+      this.initializeBoardPosts();
+    })
 
-    this.commentContent = ""; 
-    this.posts[this.posts.indexOf(this.posts.find(e => e.id === postId))] = newComment;       //delete later
+    //this.posts[this.posts.indexOf(this.posts.find(e => e.id === postId))] = newComment;      
     this.initializeBoardPosts();
     this.commentId = null;
+  }
+
+  editComment(comment: Post) {
+    this.boardService.editComment(comment).subscribe(()=> {
+      this.initializeBoardPosts();
+      this.commentToEditId = null;
+    })
+  }
+  deleteComment(commentId: number) {
+    this.boardService.deleteComment(commentId).subscribe(() => {
+      this.initializeBoardPosts();
+    })
   }
 }

@@ -15,13 +15,6 @@ export class BoardService extends BaseService<Post> {
       this.controllerPath = "board"
    }
 
-   addPost(content: string, userId: number): Observable<any> {
-    let formData = new FormData();
-    formData.append('content', content);
-    formData.append('userId', userId.toString());
-    return this.http.post<any>(this.baseUrl + this.controllerPath, formData);
-  }
-
    getBoardByUserId(userId: number): Observable<Board> {
     return this.http.get<Board>(this.baseUrl + this.controllerPath, {
       params: {
@@ -30,11 +23,47 @@ export class BoardService extends BaseService<Post> {
     })
   }
 
+   addPost(content: string, userId: number): Observable<any> {
+    let formData = new FormData();
+    formData.append('content', content);
+    formData.append('userId', userId.toString());
+    return this.http.post<any>(this.baseUrl + this.controllerPath, formData);
+  }
+
+  editPost(post: Post): Observable<Post> {
+    console.log(post);
+    return this.http.put<Post>(this.baseUrl + this.controllerPath, post)
+  }
+
   deletePostById(postId: number): Observable<Post> {
     return this.http.delete<Post>(this.baseUrl + this.controllerPath, {
       params: {
-        id : postId.toString()
+        postId : postId.toString()
       }
     })
+  }
+
+  addComment(content: string, postId: number, senderId: number): Observable<Post> {
+    let formData = new FormData();
+    formData.append('content', content);
+    formData.append('postId', postId.toString());
+    formData.append('senderId', senderId.toString());
+    return this.http.post<Post>(this.baseUrl + this.controllerPath + '/' + postId, formData);
+  }
+
+  getComment(postId: number): Observable<Post> {
+    return this.http.get<Post>(this.baseUrl + this.controllerPath + '/' + postId, {
+      params : {
+        postId : postId.toString()
+      }
+    });
+  }
+
+  editComment(comment: Post): Observable<Post> {
+    return this.http.post<Post>(this.baseUrl + this.controllerPath + '/updateComment', comment);
+  }
+
+  deleteComment(commentId: number): Observable<Post> {
+    return this.http.delete<Post>(this.baseUrl + this.controllerPath + '/' + commentId)
   }
 }

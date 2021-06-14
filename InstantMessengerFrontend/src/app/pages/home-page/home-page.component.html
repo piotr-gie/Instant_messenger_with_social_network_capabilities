@@ -3,7 +3,10 @@
     <div class="header"></div>
     <div class="page-content"> 
       <div class="board">
-          <app-board></app-board>
+          <app-board 
+            [userId]="currentUser.id"
+            [isHomeBoard]="true"
+          ></app-board>
       </div>
       </div>
   </div>

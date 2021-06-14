@@ -24,7 +24,6 @@ export class EditPostDialogComponent implements OnInit {
   }
 
   sendPost(post: Post) {
-    this.model = post; 
-    this.dialogService.dialogRef.close(this.model);
+    this.dialogService.dialogRef.close(post);
   }
 }
