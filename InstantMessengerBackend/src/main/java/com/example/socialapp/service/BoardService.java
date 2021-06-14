@@ -103,7 +103,7 @@ public class BoardService {
     }
 
     public Post updatePost(Post post) {
-        postRepository.updatePost(post.getId(),post.getContent(), post.getFiles());
+        postRepository.updatePost(post.getId(),post.getContent());
         return post;
     }
 
