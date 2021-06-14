@@ -1,5 +1,6 @@
 package com.example.socialapp.controller;
 
+import com.example.socialapp.dto.FileDto;
 import com.example.socialapp.model.File;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -7,9 +8,12 @@ import java.util.List;
 
 public class MessageDto {
     private String content;
-    private List<File> files;
+    private FileDto[] files;
     private int receiverId;
     private int senderId;
+
+    public MessageDto() {
+    }
 
     public String getContent() {
         return content;
@@ -19,12 +23,11 @@ public class MessageDto {
         this.content = content;
     }
 
-
-    public List<File> getFiles() {
+    public FileDto[] getFiles() {
         return files;
     }
 
-    public void setFiles(List<File> files) {
+    public void setFiles(FileDto[] files) {
         this.files = files;
     }
 

@@ -1,6 +1,7 @@
 package com.example.socialapp.service;
 
 import com.example.socialapp.controller.MessageDto;
+import com.example.socialapp.dto.FileDto;
 import com.example.socialapp.model.*;
 import org.springframework.boot.autoconfigure.neo4j.Neo4jProperties;
 import org.springframework.security.core.Authentication;
@@ -66,7 +67,12 @@ public class MessageService {
     }
 
     public Message sendMessage(MessageDto messageDto) {
-        return sendMessage(messageDto.getContent(), messageDto.getSenderId(), messageDto.getReceiverId(), messageDto.getFiles());
+        var filesDto = messageDto.getFiles();
+        List<File> files = new ArrayList<>();
+        for (FileDto f:filesDto) {
+            files.add(new File(f));
+        }
+        return sendMessage(messageDto.getContent(), messageDto.getSenderId(), messageDto.getReceiverId(), files);
     }
 
     public List<Message> getAllMessagesInConversation(int senderId, int receiverId) {

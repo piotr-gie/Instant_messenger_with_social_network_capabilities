@@ -20,7 +20,7 @@ public class Conversation {
     @JoinColumn(name = "user2")
     private User user2;
 
-    @OneToMany(mappedBy = "conversation", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "conversation", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     List<Message> messages;
 
     public Conversation(){

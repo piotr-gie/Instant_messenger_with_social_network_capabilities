@@ -21,7 +21,6 @@ function onConnected() {
         "/chat/" + currentUser.id + "/queue/messages",
         onMessageReceived
     );
-    stompClient.send("/msg/send", {'Authorization': token}, JSON.stringify({content: "user " + currentUser.id + " joined to chat with you"}));
 }
 
 
@@ -39,36 +38,44 @@ const onError = () => {
     console.log("onError")
 }
 
-window.sendMessage = function () {
+window.sendMessage = async function () {
     var formData = new FormData(document.querySelector('form'))
     var files = formData.getAll("files")
-    var output = [];
-    files.forEach((element) => {
-        var f = {
-            lastModified: element.lastModified,
-            name: element.name,
-            size: element.size,
-            type: element.type
-        }
-        element.text().then(function (text){
-            f.fileContent = text;
-        })
-        output.push(f);
-    })
-    console.log(output);
+    let output = [];
+
+    await iterateThrough(files, output);
+
     var receiverId = formData.get("receiverId")
     var content = formData.get("content")
+
+    console.log(output[0])
 
     const message = {
         content: content,
         receiverId: receiverId,
-        files: output
+        files: output,
+        senderId: currentUser.id
     };
 
     console.log(message)
 
+
     stompClient.send("/msg/send", {'Authorization': token}, JSON.stringify(message));
 };
+
+async function iterateThrough(files, output) {
+    for await(let element of files) {
+        var f = {
+            name: element.name,
+            size: element.size,
+            type: element.type
+        }
+
+        f.fileString = await element.text();
+
+        output.push(f);
+    }
+}
 
 setTimeout(function(){
     connect();
