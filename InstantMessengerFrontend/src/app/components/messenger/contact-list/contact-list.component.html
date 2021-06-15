@@ -37,7 +37,7 @@
             <h2 class="m-l-10"> {{contact.user.firstName + " " + contact.user.lastName}}</h2>
           </span>
           <span>
-            <p class="timestamp m-l-25 m-t-10">{{ contact.date?.toString() }}</p>
+            <p class="timestamp m-l-25 m-t-10">{{ contact.date?.toString().substring(0, 16).replace('T',' ') }}</p>
           </span>         
         </mat-list-item> 
       </div> 

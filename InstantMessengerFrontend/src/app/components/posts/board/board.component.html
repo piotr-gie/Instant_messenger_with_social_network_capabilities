@@ -17,7 +17,7 @@
         >
         </app-user-avatar>
         <mat-card-title>{{getPostAuthor(post)?.firstName}} {{getPostAuthor(post)?.lastName}}</mat-card-title>
-        <mat-card-subtitle>{{post.date.toString().substring(0, 16)}}</mat-card-subtitle>
+        <mat-card-subtitle>{{post.date.toString().substring(0, 16).replace('T',' ')}}</mat-card-subtitle>
     </mat-card-header>
 
     <div>
@@ -42,7 +42,7 @@
           <mat-icon class="icon-align m-r-5">insert_comment</mat-icon>
           Comment
         </button>
-        <span>
+        <span *ngIf="!isHomeBoard">
           <button class="m-l-5"
           button mat-raised-button
           (click)="openEditDialog(post, true);">
@@ -114,7 +114,7 @@
           class="m-r-10"
         >
         </app-user-avatar>           
-          <span style="font-size: medium;">{{currentUser.firstName}} {{currentUser.firstName}}</span>
+          <span style="font-size: medium;">{{currentUser.firstName}} {{currentUser.lastName}}</span>
         </mat-card-title>    
         <div class="flex-horizontal">
           <div class="make-post m-t-5 m-b-5 m-l-5" style="width: 90%;">

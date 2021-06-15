@@ -112,26 +112,10 @@ export class BoardComponent implements OnInit {
   }
 
   createComment(postId: number){
-    let newComment = this.posts.find(e => e.id === postId);
-    if (!! newComment.comments){
-      newComment.comments.push({
-        content: this.commentContent,
-        senderId: this.currentUser.id,                  //change later
-        // attachment?: Attachment,
-      })
-    }
-    else {
-      newComment.comments = [{
-        content: this.commentContent,
-        senderId: this.currentUser.id,                  //change later
-      }]
-    }
-
     this.boardService.addComment(this.commentContent, postId, this.currentUser.id).subscribe(() => {
       this.initializeBoardPosts();
     })
-
-    //this.posts[this.posts.indexOf(this.posts.find(e => e.id === postId))] = newComment;      
+   
     this.initializeBoardPosts();
     this.commentId = null;
   }
