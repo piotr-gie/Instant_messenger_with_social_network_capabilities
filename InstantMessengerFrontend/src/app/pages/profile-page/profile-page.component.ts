@@ -17,9 +17,9 @@ import { AuthService } from 'src/app/services/fetch/auth.service';
 })
 export class ProfilePageComponent {
   model: User;
+  profileId: number;
   isFriend: boolean;
   currentUser: User;
-  temp: any; //delete later
 
   constructor(
     private userService: UserService,
@@ -48,7 +48,7 @@ export class ProfilePageComponent {
     let userId;
     this.activatedRoute.paramMap.subscribe(params => { 
       userId = params.get('id');
-      this.temp = params.get('id'); //delete later (posts filtering)
+      this.profileId = userId;
     })
     this.userService.getModel(userId).subscribe((res) => {
       this.model = res;

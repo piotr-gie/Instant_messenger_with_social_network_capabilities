@@ -1,0 +1,134 @@
+<div class="post-list-container m-l-25 m-r-25">
+  <button  *ngIf="(!userId || userId == currentUser.id) && !this.isHomeBoard"
+    mat-raised-button color="primary"
+    class="post-button m-b-10 shadow"
+    (click)="openEditDialog()"><mat-icon class="icon-align m-r-5">post_add</mat-icon>Add post
+  </button>
+  <h2 *ngIf="posts.length === 0 && isHomeBoard" class="colored">No posts from friends...</h2>
+  <h2 *ngIf="posts.length === 0 && !isHomeBoard" class="colored">Board is empty...</h2>
+  <mat-card class="m-b-10 posts shadow"  *ngFor="let post of posts">
+    <mat-card-header>
+        <app-user-avatar mat-card-avatar 
+          [userId]="post.senderId"
+          [size]="55"
+          [isRound]="true"
+          [isShadowless]="true"
+          class="m-r-10"
+        >
+        </app-user-avatar>
+        <mat-card-title>{{getPostAuthor(post)?.firstName}} {{getPostAuthor(post)?.lastName}}</mat-card-title>
+        <mat-card-subtitle>{{post.date.toString().substring(0, 16)}}</mat-card-subtitle>
+    </mat-card-header>
+
+    <div>
+      <!-- idk how attachments will look like so its #todo -->
+    </div>
+
+    <mat-card-content class="m-t-10">
+      <!-- <h2>{{post.content}}</h2> -->
+      <app-rich-post
+        [isReadOnly]="true"
+        [post]="post"
+      >
+      </app-rich-post>
+    </mat-card-content>
+
+    <div>
+      <!-- <mat-divider [inset]="true"></mat-divider> -->
+      <span class="flex-horizontal m-b-10 m-t-5" style="justify-content: space-between;">
+        <button 
+          button mat-raised-button color="primary"
+          (click)="commentId = post.id; commentContent=null;">
+          <mat-icon class="icon-align m-r-5">insert_comment</mat-icon>
+          Comment
+        </button>
+        <span>
+          <button class="m-l-5"
+          button mat-raised-button
+          (click)="openEditDialog(post, true);">
+          <mat-icon class="icon-align m-r-5">edit</mat-icon>
+          Edit
+        </button>
+        <button class="m-l-5"
+          button mat-raised-button color="warn"
+          (click)="deletePost(post);">
+          <mat-icon>delete</mat-icon>
+        </button>
+        </span>     
+      </span>
+      <mat-divider [inset]="true"></mat-divider>
+      <div *ngIf="!!post.comments">
+        <div *ngFor="let comment of post.comments">
+          <mat-card-header class="m-t-10">
+          <app-user-avatar mat-card-avatar 
+            [userId]="comment.senderId"
+            [size]="55"
+            [isRound]="true"
+            [isShadowless]="true"
+            class="m-r-10"
+          >
+          </app-user-avatar>
+          <span class="flex-horizontal w-100" style="justify-content: space-between;">
+              <span>
+                <mat-card-title class="flex-vertical">
+                  <span style="font-size: medium;">{{getPostAuthor(post)?.firstName}} {{getPostAuthor(post)?.lastName}}</span>
+                  <span style="font-size: small;"  class="m-b-10">{{comment.date.toString().substring(0, 16).replace('T',' ')}}</span>
+                  <mat-card-subtitle *ngIf="commentToEditId === post.id" class="flex-horizontal w-100">
+                    <div class="make-post m-t-5 m-b-5 m-l-5" style="width: 90%;">
+                      <textarea matInput class="postey-machiney" autocomplete="off" placeholder="Comment" 
+                        [(ngModel)]="comment.content"></textarea>
+                    </div>
+                    <button
+                        (click)="editComment(post)"
+                        class="m-l-10" type="submit"
+                        mat-mini-fab color="primary">
+                      <mat-icon>send</mat-icon>
+                    </button>
+                  </mat-card-subtitle>   
+                </mat-card-title>
+                <mat-card-subtitle *ngIf="commentToEditId !== post.id" style="color: black; font-size: medium;">
+                    {{comment.content}}
+                </mat-card-subtitle>
+          
+              </span>
+              <span>
+                <!-- <button mat-button 
+                (click)="commentToEditId = post.id;">Edit
+              </button>       -->
+              <button mat-button color="warn"
+                (click)="deleteComment(comment.id);"> Delete             
+              </button>       
+              </span>
+            </span>
+          </mat-card-header>
+          <mat-divider [inset]="true"></mat-divider>
+        </div>
+      </div>
+      <div *ngIf="post.id === commentId" class="m-b-10 postey-machiney-container">
+        <mat-card-title  class="flex-horizontal m-b-25">
+          <app-user-avatar mat-card-avatar
+          [user]="currentUser"
+          [size]="55"
+          [isRound]="true"
+          [isShadowless]="true"
+          class="m-r-10"
+        >
+        </app-user-avatar>           
+          <span style="font-size: medium;">{{currentUser.firstName}} {{currentUser.firstName}}</span>
+        </mat-card-title>    
+        <div class="flex-horizontal">
+          <div class="make-post m-t-5 m-b-5 m-l-5" style="width: 90%;">
+            <textarea matInput class="postey-machiney" autocomplete="off" placeholder="Comment" 
+              [(ngModel)]="commentContent"></textarea>
+          </div>
+          <button
+              (click)="createComment(post.id)"
+              class="m-l-10" type="submit"
+              mat-mini-fab color="primary">
+            <mat-icon>send</mat-icon>
+          </button>
+        </div>   
+      </div>
+    </div>
+  </mat-card>
+</div>

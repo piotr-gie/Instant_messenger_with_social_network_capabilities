@@ -1,11 +1,12 @@
 import { BaseModel } from "./baseModel"
-import { Attachment } from "./attachment";
+import { Board } from "./board";
+
 
 export interface Post extends BaseModel{
     content: string;
-    posterId: number;
-    attachment?: Attachment;
-    likes?: number;
+    senderId?: number;
+    board?: Board;
     date?: Date;
+    files?: any;
     comments?: Post[];
 }

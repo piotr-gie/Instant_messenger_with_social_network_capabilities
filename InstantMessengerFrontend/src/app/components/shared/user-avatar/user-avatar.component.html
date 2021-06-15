@@ -7,7 +7,13 @@
     [ngStyle]="{'width': this.size + 'px', 'height': this.size + 'px'}"
   >
   </div>
-  <div *ngIf="this.user?.avatar" class="avatar">
-    <img [src]="this.user?.avatar">
+  <div *ngIf="this.user?.avatar">
+    <img
+      class="avatar"
+      [class.round]="this.isRound"
+      [class.nav]="this.isNav"
+      [class.shadow]="!this.isShadowless"
+      [ngStyle]="{'width': this.size + 'px', 'height': this.size + 'px'}"
+     [src]="this.user?.avatar">
   </div> 
 </div>

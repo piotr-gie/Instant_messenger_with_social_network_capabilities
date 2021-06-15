@@ -38,13 +38,13 @@ export class FriendshipRequestListComponent implements OnInit {
   }
 
   acceptRequest(senderId: number) {
-    this.friendshipService.acceptFriendship(senderId, 1).subscribe(() => {
+    this.friendshipService.acceptFriendship(senderId, this.currentUser.id).subscribe(() => {
       this.toastrService.success("Friendship accepted!")
     })
   }
 
   declineRequest(senderId: number) {
-    this.friendshipService.deleteFriendship(senderId, 1).subscribe(() => {
+    this.friendshipService.deleteFriendship(senderId, this.currentUser.id).subscribe(() => {
       this.toastrService.warning("Friendship declined")
     })
   }

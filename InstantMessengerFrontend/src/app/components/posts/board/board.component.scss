@@ -1,7 +1,7 @@
 @import  "./src/styles.scss";
 
 .post-list-container {
-    width: 500px;
+    width: 600px;
 }
 
 .post-list-container .posts {
@@ -29,7 +29,6 @@
     max-width: 96%;
     height: 80px;
     font: inherit;
-    font-size: large;
     font-weight: 500;
     background: transparent;
     border: none;
@@ -53,6 +52,10 @@
     display: block;
     height: 35px;
     animation: buttonsIn 0.2s;
+}
+
+.post-button {
+    
 }
 
 @keyframes buttonsIn {

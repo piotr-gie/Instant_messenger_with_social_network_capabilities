@@ -1,9 +1,10 @@
 import { Component, OnInit, ViewEncapsulation, HostListener, ElementRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserService } from 'src/app/services/fetch/user.service';
-import { from, Observable } from 'rxjs';
+import { BehaviorSubject, from, Observable } from 'rxjs';
 import { filter } from 'rxjs/operators';
 import { User } from 'src/app/models/fetch/user';
+import { UserSearchService } from 'src/app/services/functional/user-search.service';
 
 @Component({
   selector: 'app-search',
@@ -17,9 +18,13 @@ export class SearchComponent implements OnInit {
   users: User [] = [];
   usersSearchList: User [] = [];
   usersSearch: Observable<User>
-  
-  constructor(private userService: UserService, private router: Router, private elementRef: ElementRef) {
-    this.input = "";
+
+  constructor(
+    private userService: UserService,
+    private router: Router,
+    private elementRef: ElementRef,
+    private userSearch: UserSearchService) {
+    
   }
 
   @HostListener('document:click', ['$event.target'])
@@ -45,7 +50,9 @@ export class SearchComponent implements OnInit {
   }
 
   showSearchResults(){
-    this.router.navigate(['/search', this.input]);
+    this.userSearch.searchValue$.next(this.input);
+    this.router.navigate(['/users']);
+    this.input = '';
   }
 
   search($event){
