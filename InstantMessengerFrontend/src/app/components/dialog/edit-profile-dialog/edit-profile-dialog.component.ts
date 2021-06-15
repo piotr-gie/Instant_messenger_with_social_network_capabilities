@@ -15,7 +15,7 @@ export class EditProfileDialogComponent implements OnInit {
   userForm: FormGroup;
   selectedGender: GenderType;
   genderType = GenderType;
-  avatar: File;
+  avatar: any;
 
   constructor(@Inject(MAT_DIALOG_DATA) data: User,
    private formBuilder: FormBuilder, private userService: UserService) { 
@@ -55,6 +55,7 @@ export class EditProfileDialogComponent implements OnInit {
 
   onAvatarChange(event) {
     this.avatar = event.target.files[0];   
+    console.log(this.avatar);
     this.userService.setImage(this.model.id, this.avatar).subscribe();
   }
 }

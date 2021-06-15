@@ -15,7 +15,9 @@ export class UserService extends BaseService<User> {
   }
 
   setImage(id: number, image: any): Observable<User> {
-    return this.http.put<User>(this.baseUrl + this.controllerPath + '/' + id, image)
+    let formData = new FormData();
+    formData.append('image', image);
+    return this.http.put<User>(this.baseUrl + this.controllerPath + '/' + id, formData)
   }
 
 }
