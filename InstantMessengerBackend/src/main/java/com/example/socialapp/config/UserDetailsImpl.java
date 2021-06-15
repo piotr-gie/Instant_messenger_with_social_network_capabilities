@@ -17,6 +17,10 @@ public class UserDetailsImpl implements UserDetails {
         this.user = user;
     }
 
+    public int getUserId(){
+        return user.getId();
+    }
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         Collection<GrantedAuthority> authorities = new ArrayList<>();
@@ -57,7 +61,7 @@ public class UserDetailsImpl implements UserDetails {
         return user.isActive();
     }
 
-    public int getUserId(){
-        return user.getId();
+    public User getUser() {
+        return user;
     }
 }

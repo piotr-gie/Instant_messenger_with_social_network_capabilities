@@ -17,6 +17,7 @@ public class User {
 
     @Column(unique=true)
     private String mail;
+    @JsonIgnore
     private String password;
     private boolean active;
 
