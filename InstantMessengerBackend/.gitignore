@@ -31,6 +31,8 @@ build/
 
 ### VS Code ###
 .vscode/
+**/testing/**
+**/resources/static/**
+package-lock.json
+package.json
 
-testdb.mv.db
-testdb.trace.db
