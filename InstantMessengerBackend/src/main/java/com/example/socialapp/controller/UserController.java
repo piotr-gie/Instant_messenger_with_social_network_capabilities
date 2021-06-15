@@ -51,8 +51,8 @@ public class UserController {
     }
 
     @PutMapping(value = "/{id}")
-    public ResponseEntity<byte[]> setImage(@PathVariable int id, @RequestBody byte[] image ) throws IOException, SQLException {
-        return ResponseEntity.ok(service.updateImage(id, image));
+    public ResponseEntity<byte[]> setImage(@PathVariable int id, @RequestParam MultipartFile image ) throws IOException, SQLException {
+        return ResponseEntity.ok(service.updateImage(id, image.getBytes()));
     }
 
 
