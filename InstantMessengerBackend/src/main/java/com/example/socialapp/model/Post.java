@@ -27,7 +27,7 @@ public class Post extends AbstractMessage {
         this.comments = comments;
     }
 
-    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "post", cascade = CascadeType.REMOVE)
     private List<Comment> comments = new ArrayList<>();
 
     public Post() {
