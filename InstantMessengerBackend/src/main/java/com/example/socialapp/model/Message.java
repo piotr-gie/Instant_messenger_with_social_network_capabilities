@@ -25,7 +25,7 @@ public class Message extends AbstractMessage {
 
 
     @JoinColumn(name = "conversation")
-    @ManyToOne(cascade = CascadeType.PERSIST)
+    @ManyToOne
     @JsonIgnore
     private Conversation conversation;
 
