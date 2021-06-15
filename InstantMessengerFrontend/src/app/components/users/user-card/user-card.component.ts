@@ -12,6 +12,7 @@ import { ChatBoxService } from 'src/app/services/functional/chat-box.service';
   styleUrls: ['./user-card.component.scss']
 })
 export class UserCardComponent implements OnInit {
+  @Input() isFriend: boolean;
   @Input() model: User;
   currentUser: User;
   mutalFriends: number;

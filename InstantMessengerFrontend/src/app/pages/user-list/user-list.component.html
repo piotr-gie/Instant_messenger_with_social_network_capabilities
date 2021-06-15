@@ -62,7 +62,7 @@
               </div>        
             </div>   
             <div *ngFor="let friend of filteredList">
-              <app-user-card [model]="friend"></app-user-card>
+              <app-user-card [model]="friend" [isFriend]="true"></app-user-card>
             </div>       
           </mat-tab>    
         </mat-tab-group>

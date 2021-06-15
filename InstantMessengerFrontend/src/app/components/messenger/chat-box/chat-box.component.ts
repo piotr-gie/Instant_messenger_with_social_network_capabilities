@@ -44,7 +44,7 @@ export class ChatBoxComponent implements OnInit{
     const formData = new FormData();
 
     formData.append('content', message.content)
-    formData.append('senderId', (this.user.id).toString())
+    formData.append('senderId', (this.currentUser.id).toString())
     formData.append('receiverId', this.user.id.toString())
 
     for(let i = 0; i < message.attachments.length; i ++) {
@@ -57,7 +57,7 @@ export class ChatBoxComponent implements OnInit{
   }
 
   private initConversation() {
-    this.messageService.getAllMessagesInConversationByUsers(1, this.user.id).subscribe((res) => {
+    this.messageService.getAllMessagesInConversationByUsers(this.currentUser.id, this.user.id).subscribe((res) => {
       this.messages = res;
     });
   }

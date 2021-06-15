@@ -18,7 +18,7 @@
       <button (click)="showUserProfile(model.id)" mat-mini-fab color="primary">
         <mat-icon>person</mat-icon>
       </button>
-      <button (click)="openConversation(model.id)" mat-mini-fab color="primary" class="m-l-10">
+      <button *ngIf="isFriend" (click)="openConversation(model.id)" mat-mini-fab color="primary" class="m-l-10">
         <mat-icon>message</mat-icon>
       </button>
     </div>

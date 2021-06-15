@@ -31,7 +31,6 @@ export class BoardService extends BaseService<Post> {
   }
 
   editPost(post: Post): Observable<Post> {
-    console.log(post);
     return this.http.put<Post>(this.baseUrl + this.controllerPath, post)
   }
 

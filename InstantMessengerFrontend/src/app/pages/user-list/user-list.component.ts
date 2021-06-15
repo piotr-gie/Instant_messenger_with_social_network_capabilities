@@ -105,7 +105,7 @@ export class UserListComponent implements OnInit {
     const myCityFilter = (this.isMyCity) ? user.city === this.currentUser.city : true;
     const genderFilter = (this.searchedGender) ? user.gender === this.searchedGender : true;
 
-    let filterResult = (((user.firstName + ' ' + user.lastName)?.toLocaleLowerCase().match(search) || 
+    let filterResult = (((user.firstName + ' ' + user.lastName)?.toLocaleLowerCase().match(search.toLocaleLowerCase()) || 
       user.city?.toLocaleLowerCase().match(search) ||
       user.country?.toLocaleLowerCase().match(search)) &&
       myCountryFilter &&

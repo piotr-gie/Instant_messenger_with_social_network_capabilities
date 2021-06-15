@@ -11,7 +11,7 @@ export class DialogWindowService {
   constructor(private dialog: MatDialog) { }
 
   openDialogWindow(dialogComponent: ComponentType<unknown>, dialogData: any, dataCallback: (data) => void ) {
-    this.dialogRef =  this.dialog.open(dialogComponent, { data: dialogData})
+    this.dialogRef = this.dialog.open(dialogComponent, { data: dialogData})
     this.dialogRef.afterClosed().subscribe(result => {
       dataCallback(result);
     })
