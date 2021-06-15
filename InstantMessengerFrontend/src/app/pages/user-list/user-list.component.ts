@@ -48,10 +48,6 @@ export class UserListComponent implements OnInit {
   initializeUserList() {
     this.userService.getModels().subscribe((res) => {
       this.users = res.filter(user => user.id !== this.currentUser.id);
-      this.users[0].avatar = "https://randomuser.me/api/portraits/men/28.jpg"
-      this.users[1].avatar = "https://randomuser.me/api/portraits/women/20.jpg"
-      this.users[2].avatar = "https://randomuser.me/api/portraits/women/28.jpg"
-      this.users[3].avatar = "https://randomuser.me/api/portraits/men/2.jpg"
     })
   }
 

@@ -55,5 +55,6 @@ export class EditProfileDialogComponent implements OnInit {
 
   onAvatarChange(event) {
     this.avatar = event.target.files[0];   
+    this.userService.setImage(this.model.id, this.avatar).subscribe();
   }
 }

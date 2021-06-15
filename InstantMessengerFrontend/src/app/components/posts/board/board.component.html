@@ -4,7 +4,8 @@
     class="post-button m-b-10 shadow"
     (click)="openEditDialog()"><mat-icon class="icon-align m-r-5">post_add</mat-icon>Add post
   </button>
-  <h1 *ngIf="posts.length === 0">No posts from friends...</h1>
+  <h2 *ngIf="posts.length === 0 && isHomeBoard" class="colored">No posts from friends...</h2>
+  <h2 *ngIf="posts.length === 0 && !isHomeBoard" class="colored">Board is empty...</h2>
   <mat-card class="m-b-10 posts shadow"  *ngFor="let post of posts">
     <mat-card-header>
         <app-user-avatar mat-card-avatar 
@@ -15,7 +16,7 @@
           class="m-r-10"
         >
         </app-user-avatar>
-        <mat-card-title>{{users[post.senderId]?.firstName}} {{users[post.senderId]?.lastName}}</mat-card-title>
+        <mat-card-title>{{getPostAuthor(post)?.firstName}} {{getPostAuthor(post)?.lastName}}</mat-card-title>
         <mat-card-subtitle>{{post.date.toString().substring(0, 16)}}</mat-card-subtitle>
     </mat-card-header>
 
@@ -70,7 +71,7 @@
           <span class="flex-horizontal w-100" style="justify-content: space-between;">
               <span>
                 <mat-card-title class="flex-vertical">
-                  <span style="font-size: medium;">{{users[comment.senderId]?.firstName}} {{users[comment.senderId]?.lastName}}</span>
+                  <span style="font-size: medium;">{{getPostAuthor(post)?.firstName}} {{getPostAuthor(post)?.lastName}}</span>
                   <span style="font-size: small;"  class="m-b-10">{{comment.date.toString().substring(0, 16).replace('T',' ')}}</span>
                   <mat-card-subtitle *ngIf="commentToEditId === post.id" class="flex-horizontal w-100">
                     <div class="make-post m-t-5 m-b-5 m-l-5" style="width: 90%;">
@@ -104,14 +105,17 @@
         </div>
       </div>
       <div *ngIf="post.id === commentId" class="m-b-10 postey-machiney-container">
-        <app-user-avatar mat-card-avatar
+        <mat-card-title  class="flex-horizontal m-b-25">
+          <app-user-avatar mat-card-avatar
           [user]="currentUser"
           [size]="55"
           [isRound]="true"
           [isShadowless]="true"
           class="m-r-10"
         >
-        </app-user-avatar>      
+        </app-user-avatar>           
+          <span style="font-size: medium;">{{currentUser.firstName}} {{currentUser.firstName}}</span>
+        </mat-card-title>    
         <div class="flex-horizontal">
           <div class="make-post m-t-5 m-b-5 m-l-5" style="width: 90%;">
             <textarea matInput class="postey-machiney" autocomplete="off" placeholder="Comment" 

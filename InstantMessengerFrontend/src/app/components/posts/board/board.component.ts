@@ -79,7 +79,7 @@ export class BoardComponent implements OnInit {
         this.posts = this.board.posts.sort((a, b) => a.date < b.date ? 1 : -1);
       })
     }
-    else {
+    else if(this.isHomeBoard) {
       this.friendshipService.getAllFriends(this.currentUser.id).subscribe((res) => {
         res.forEach((friend) => {
           this.boardService.getBoardByUserId(friend.user.id).subscribe((res) => {
@@ -146,5 +146,9 @@ export class BoardComponent implements OnInit {
     this.boardService.deleteComment(commentId).subscribe(() => {
       this.initializeBoardPosts();
     })
+  }
+
+  getPostAuthor(post: Post) {
+    return this.users.find(u => u.id === post.senderId)
   }
 }
