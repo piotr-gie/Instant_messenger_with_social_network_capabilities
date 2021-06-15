@@ -1,6 +1,12 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Post } from 'src/app/models/fetch/post';
+import ImageCompress from 'quill-image-compress';
+import * as Quill from "quill";
+import { BehaviorSubject } from 'rxjs';
+
+Quill.register('modules/imageCompress', ImageCompress);
+
 
 @Component({
   selector: 'app-rich-post',
@@ -11,19 +17,34 @@ export class RichPostComponent implements OnInit {
   @Output() postSubmitEmit: EventEmitter<Post> = new EventEmitter();
   
   @Input() post: Post;
-  @Input() isReadOnly: boolean;
+  @Input() isReadOnly: BehaviorSubject<boolean>;
 
   postForm: FormGroup;
   uploadedFiles: any [] = [];
 
   editorStyle: any;
-  editorConfig: any;
+
+  editorConfig: any = {
+    imageCompress: {
+      quality: 0.5, 
+      maxWidth: 600, 
+      maxHeight: 600, 
+      imageType: 'image/jpeg', 
+    },
+    toolbar: [
+      ['bold', 'italic', 'underline', 'strike',
+        { 'size': [] }, { 'color': [] }, { 'background': [] },
+        { 'list': 'ordered' }, { 'list': 'bullet'},
+        'image', 'clean'],
+    ],   
+  }
 
   constructor() { }
 
   ngOnInit() {
     this.initEditorConfig();
     this.initFormGroup();
+    this.removeToolbarIfReadOnly();
   }
 
   onSubmit() {
@@ -43,18 +64,18 @@ export class RichPostComponent implements OnInit {
   }
 
   private initEditorConfig() {
-    this.editorConfig = {
-      toolbar: (this.isReadOnly) ? false : [
-        ['bold', 'italic', 'underline', 'strike',
-          { 'size': [] }, { 'color': [] }, { 'background': [] },
-          { 'list': 'ordered' }, { 'list': 'bullet'},
-          'image', 'clean'],
-      ],
-    }
     this.editorStyle = {
       minHeight: '300px',
       border: 'none',
       backgroundColor: '#f5f5f5e3'
+    }
+  }
+
+  private removeToolbarIfReadOnly() {
+    if(this.isReadOnly) {
+      this.editorConfig = {
+        toolbar:  false 
+      }
     }
   }
 
