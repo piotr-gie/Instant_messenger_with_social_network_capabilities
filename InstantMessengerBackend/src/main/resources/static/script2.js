@@ -1,13 +1,15 @@
 var currentUser = {
-    id: 3
+    id: 2
 }
 var stompClient = null
+var token = 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJnZW5lc2lzLm1vcmlzQGdtYWlsLmNvbSIsImV4cCI6MTYyMzczMjc3MH0.WDR6RL3XLRXAXW91aiEgDNNlgqoocNqIetph-jcZ02o'
 
 function connect() {
     var socket = new SockJS('/ws');
     stompClient = Stomp.over(socket);
 
-    stompClient.connect({}, onConnected, onError);
+    console.log("BEFORE CONNECT")
+    stompClient.connect({'Authorization': token}, onConnected, onError);
 
 
 }
@@ -19,7 +21,6 @@ function onConnected() {
         "/chat/" + currentUser.id + "/queue/messages",
         onMessageReceived
     );
-    stompClient.send("/app/chat", {}, JSON.stringify({content: "user " + currentUser.id + " joined to chat with you"}));
 }
 
 
@@ -37,18 +38,49 @@ const onError = () => {
     console.log("onError")
 }
 
-window.sendMessage = function () {
-    var msg = document.getElementById("content")
-    console.log(msg)
-    const message = {
-        content: msg.value,
-    };
-    msg.value=''
+window.sendMessage = async function () {
+    var formData = new FormData(document.querySelector('form'))
+    var files = formData.getAll("files")
+    let output = [];
 
-    stompClient.send("/app/chat", {}, JSON.stringify(message));
+    await iterateThrough(files, output);
+
+    var receiverId = formData.get("receiverId")
+    var content = formData.get("content")
+
+    console.log(output[0])
+
+    const message = {
+        content: content,
+        receiverId: receiverId,
+        files: output,
+        senderId: currentUser.id
+    };
+
+    console.log(message)
+
+
+    stompClient.send("/msg/send", {'Authorization': token}, JSON.stringify(message));
 };
 
-window.onload = connect
+async function iterateThrough(files, output) {
+    for await(let element of files) {
+        var f = {
+            name: element.name,
+            size: element.size,
+            type: element.type
+        }
+
+        f.fileString = await element.text();
+
+        output.push(f);
+    }
+}
+
+setTimeout(function(){
+    connect();
+}, 300);
+
 
 
 

@@ -3,17 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
     <script
             src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.1.4/sockjs.min.js"></script>
     <script
             src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+
     <script src="/script2.js"></script>
 
 </head>
 <body>
-<input type="text" id="content">
 
+<form action="/test" method="POST" enctype=multipart/form-data name="myForm">
+
+    <input type="text" name="content" id="content">
+
+    <input type="text" name="receiverId" id="receiver">
+    <input type="file" multiple name="files" id="files">
+
+
+</form>
 <button onclick="sendMessage()"> send </button>
+
 <div id="msg"></div>
 </body>
 </html>
