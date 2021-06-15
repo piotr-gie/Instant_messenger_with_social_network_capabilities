@@ -22,15 +22,9 @@ currentUser$ = this.currentUserSource.asObservable()
       this.controllerPath = "login";   
   }
   login(mail: string, password: string) : Observable<any> {
-    let user;
     let formData = new FormData();
     formData.append('mail', mail);
     formData.append('password', password); 
-
-    this.userService.getModels().subscribe((res) => { //to update
-      user = res.find(u => u.mail === mail)
-      this.setCurrentUser(user);
-    })
     return this.http.post<any>(this.baseUrl + this.controllerPath, formData);
   }
 

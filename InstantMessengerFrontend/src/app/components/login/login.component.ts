@@ -29,7 +29,9 @@ export class LoginComponent implements OnInit {
     this.authService.login(this.loginForm.get('email').value,
       this.loginForm.get('password').value).subscribe((res) => {
         const token = res.token;
+        const user = res.user;
         this.authService.setToken(token)
+        this.authService.setCurrentUser(user);
         this.toastrService.success("Successfully logged in!")
         this.router.navigate(['/home']);
       }, () => {

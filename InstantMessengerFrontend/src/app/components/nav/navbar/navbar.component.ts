@@ -34,14 +34,16 @@ export class NavbarComponent implements OnInit, OnDestroy{
       }
     }))
   }
+
   initCurrentUser() {
     this.authService.currentUser$.subscribe((res) => {
       this.currentUser = res;
     })
   }
+  
   logout() {
     this.authService.logout().subscribe(() => {
-      this.toastrService.info("Logged out")
+        this.toastrService.info("Logged out")
     });
   }
 
