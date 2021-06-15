@@ -54,6 +54,8 @@ public class UserService implements UserDetailsService {
 
     public User updateById(User user) {
         user.setActive(true);
+        User u = getById(user.getId());
+        user.setPassword(u.getPassword());
         return userRepository.save(user);
     }
 
