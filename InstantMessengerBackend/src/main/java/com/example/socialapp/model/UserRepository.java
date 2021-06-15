@@ -9,12 +9,12 @@ import javax.transaction.Transactional;
 import java.sql.Blob;
 import java.text.SimpleDateFormat;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 public interface UserRepository extends JpaRepository<User, Integer> {
 
-    @Query("select u from User u where u.mail = ?1")
-    User getByMail(String mail);
+    Optional<User> findByMail(String mail);
 
     @Transactional
     @Modifying

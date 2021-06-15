@@ -60,6 +60,9 @@ public class User {
     @JoinColumn(name = "board" , referencedColumnName = "id")
     private Board board;
 
+    public User() {
+    }
+
     public int getId() {
         return id;
     }
@@ -172,4 +175,6 @@ public class User {
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
     }
+
+
 }
