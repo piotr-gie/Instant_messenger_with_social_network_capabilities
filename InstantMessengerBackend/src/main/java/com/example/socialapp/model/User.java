@@ -34,7 +34,7 @@ public class User {
     private SimpleDateFormat birthday;
     private String gender;
     private String phone;
-    private String aboutMe;
+    private String presentation;
 
     @Lob
     @Column(columnDefinition="BLOB")
@@ -140,12 +140,12 @@ public class User {
         this.phone = phone;
     }
 
-    public String getAboutMe() {
-        return aboutMe;
+    public String getPresentation() {
+        return presentation;
     }
 
-    public void setAboutMe(String aboutMe) {
-        this.aboutMe = aboutMe;
+    public void setPresentation(String presentation) {
+        this.presentation = presentation;
     }
 
     public byte[] getProfileImage() {
