@@ -1,11 +1,13 @@
 package com.example.socialapp.model;
 
+import com.example.socialapp.dto.FileDto;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.lang.Nullable;
 import net.bytebuddy.implementation.bind.annotation.Empty;
 import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
+import java.nio.charset.StandardCharsets;
 import java.time.Instant;
 import java.time.Instant;
 import java.time.LocalDateTime;
@@ -51,6 +53,10 @@ public class File {
     private Post post;
 
     public File() {
+    }
+
+    public File(FileDto fileDto){
+        this(fileDto.getFileString().getBytes(StandardCharsets.UTF_8), fileDto.getSize(), fileDto.getName(), fileDto.getType());
     }
 
     public File(byte[] fileContent, int size, String name, Message message) {

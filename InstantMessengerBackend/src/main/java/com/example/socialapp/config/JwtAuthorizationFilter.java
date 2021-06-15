@@ -2,6 +2,7 @@ package com.example.socialapp.config;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -24,7 +25,7 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
     private final String secret;
 
     public JwtAuthorizationFilter(AuthenticationManager authenticationManager, UserDetailsService userDetailsService,
-                                  String secret) {
+                                  @Value("${jwt.secret}") String secret) {
         super(authenticationManager);
         this.userDetailsService = userDetailsService;
         this.secret = secret;
