@@ -42,9 +42,8 @@ export class NavbarComponent implements OnInit, OnDestroy{
   }
   
   logout() {
-    this.authService.logout().subscribe(() => {
-        this.toastrService.info("Logged out")
-    });
+    this.authService.logout();  
+    this.toastrService.info("Logged out");  
   }
 
   toggleChatExpand(isHidding: boolean) {

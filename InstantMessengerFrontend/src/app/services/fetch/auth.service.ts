@@ -39,11 +39,10 @@ currentUser$ = this.currentUserSource.asObservable()
     )
   }
 
-  logout(): Observable<User>  {
+  logout() {
     localStorage.removeItem('user');
-    localStorage.removeItem('token')
+    localStorage.removeItem('token');
     this.currentUserSource.next(null);
-    return this.currentUserSource;
   }
 
   setCurrentUser(user: User) {
