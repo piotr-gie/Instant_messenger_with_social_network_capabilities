@@ -53,6 +53,7 @@ public class UserService implements UserDetailsService {
     }
 
     public User updateById(User user) {
+        user.setActive(true);
         return userRepository.save(user);
     }
 
