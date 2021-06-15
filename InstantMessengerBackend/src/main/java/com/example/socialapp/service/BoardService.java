@@ -81,6 +81,7 @@ public class BoardService {
         post.getComments().add(comment);
         postRepository.save(post);
         boardRepository.save(post.getBoard());
+        commentRepository.save(comment);
         return comment;
     }
 
