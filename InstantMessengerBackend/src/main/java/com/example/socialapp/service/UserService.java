@@ -53,14 +53,7 @@ public class UserService implements UserDetailsService {
     }
 
     public User updateById(User user) {
-        userRepository.updateById(user.getFirstName(), user.getLastName(),
-                user.getMail(), user.getPassword(),
-                user.getAboutMe(), user.getPhone(),
-                user.getBirthday(), user.getCity(),
-                user.getGender(), user.getProfileImage(),
-                user.isActive(),user.getRoles(),
-                user.getId());
-        return user;
+        return userRepository.save(user);
     }
 
     public byte[] updateImage(int id, byte[] image) throws SQLException {
