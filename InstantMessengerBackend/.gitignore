@@ -34,3 +34,5 @@ build/
 
 testdb.mv.db
 testdb.trace.db
+
+**/resources/static
