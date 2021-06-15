@@ -16,7 +16,7 @@ public class Message extends AbstractMessage {
     private int id;
 
 
-    @Column(length = 1000000)
+    @Lob
     private String content;
 
 
