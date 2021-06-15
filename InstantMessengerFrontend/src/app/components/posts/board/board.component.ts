@@ -8,6 +8,7 @@ import { EditPostDialogComponent } from '../../dialog/edit-post-dialog/edit-post
 import { DialogWindowService } from 'src/app/services/functional/dialog-window.service';
 import { Board } from 'src/app/models/fetch/board';
 import { FriendshipService } from 'src/app/services/fetch/friendship.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-board',
@@ -32,6 +33,7 @@ export class BoardComponent implements OnInit {
     private elementRef: ElementRef,
     private dialogService: DialogWindowService,
     private friendshipService: FriendshipService,
+    private toastrService: ToastrService,
     public userService: UserService,) { }
 
   @HostListener('document:click', ['$event.target'])
@@ -96,6 +98,7 @@ export class BoardComponent implements OnInit {
   submitPost(post: Post){
     this.boardService.addPost(post.content, this.currentUser.id).subscribe(()=> {
       this.initializeBoardPosts();
+      
     });  
   }
 
@@ -108,12 +111,14 @@ export class BoardComponent implements OnInit {
   deletePost(post: Post) {
     this.boardService.deletePostById(post.id).subscribe(() => {
       this.initializeBoardPosts();
+      this.toastrService.warning("Post deleted!")
     });
   }
 
   createComment(postId: number){
     this.boardService.addComment(this.commentContent, postId, this.currentUser.id).subscribe(() => {
       this.initializeBoardPosts();
+      this.toastrService.success("Comment added!")
     })
    
     this.initializeBoardPosts();
@@ -128,6 +133,7 @@ export class BoardComponent implements OnInit {
   }
   deleteComment(commentId: number) {
     this.boardService.deleteComment(commentId).subscribe(() => {
+      this.toastrService.success("Comment deleted!")
       this.initializeBoardPosts();
     })
   }

@@ -76,12 +76,12 @@ export class ProfilePageComponent {
 
   sendFriendRequest() {
     this.friendshipService.addFriendship(this.currentUser.id, this.model.id).subscribe(() => {
-      this.toastrService.warning("Friendship request sent!")
+      this.toastrService.success("Friendship request sent!")
     })
   }
 
-  cancelFriendship (senderId: number) {
-    this.friendshipService.deleteFriendship(senderId, this.currentUser.id).subscribe(() => {
+  cancelFriendship () {
+    this.friendshipService.deleteFriendship(this.currentUser.id, this.model.id).subscribe(() => {
       this.toastrService.warning("Friendship canceled!")
     })
   }

@@ -145,6 +145,11 @@ export class RichTextBoxComponent implements OnInit {
             maxheight: this.minHeight + 'px'
         }
       }     
+      if(this.isEditorFormNotEmpty()) {
+        this.editorStyle = {
+          height: this.maxHeight + 'px'
+        }
+      }
     }
   }
 }

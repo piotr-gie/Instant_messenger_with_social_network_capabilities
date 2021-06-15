@@ -33,7 +33,7 @@ export class FriendshipRequestListComponent implements OnInit {
 
   initializeFriendships() {
     this.friendshipService.getAllFriends(this.currentUser.id).subscribe((res) => {
-      this.friendshipsRequests = res.filter(friend => friend.accepted === false)
+      this.friendshipsRequests = res.filter(friend => friend.accepted === false && friend.user.id === this.currentUser.id)
     })
   }
 

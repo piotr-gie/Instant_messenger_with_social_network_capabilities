@@ -14,8 +14,8 @@
             <div class="m-t-10">   
               <button *ngIf="model?.id != currentUser.id" mat-raised-button color="primary" (click)="openConversation()"><mat-icon>chat</mat-icon></button>
               <button *ngIf="model?.id == currentUser.id"mat-raised-button class="m-l-10" (click)="openEditDialog()"><mat-icon>settings</mat-icon></button>
-              <button *ngIf="model?.id != currentUser.id && isFriend === false" class="m-l-10" mat-raised-button><mat-icon>person_add</mat-icon></button>
-              <button *ngIf="model?.id != currentUser.id && isFriend === true" class="m-l-10" mat-raised-button color="warn"><mat-icon>person_remove</mat-icon></button>
+              <button *ngIf="model?.id != currentUser.id && isFriend === false" class="m-l-10" mat-raised-button (click)="sendFriendRequest()"><mat-icon>person_add</mat-icon></button>
+              <button *ngIf="model?.id != currentUser.id && isFriend === true" class="m-l-10" mat-raised-button color="warn" (click)="cancelFriendship()"><mat-icon>person_remove</mat-icon></button>
             </div> 
             <h2 class="m-t-25">
               Photos
