@@ -1,4 +1,4 @@
-package com.example.socialapp.controller;
+package com.example.socialapp.dto;
 
 import com.example.socialapp.dto.FileDto;
 import com.example.socialapp.model.File;

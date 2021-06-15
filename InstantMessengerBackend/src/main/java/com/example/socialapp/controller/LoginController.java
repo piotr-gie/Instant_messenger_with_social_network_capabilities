@@ -1,7 +1,6 @@
 package com.example.socialapp.controller;
 
 import org.springframework.web.bind.annotation.*;
-import com.example.socialapp.config.LoginCredentials;
 
 @RestController
 public class LoginController {

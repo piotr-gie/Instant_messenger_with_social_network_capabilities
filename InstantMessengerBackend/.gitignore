@@ -34,3 +34,8 @@ build/
 
 testdb.mv.db
 testdb.trace.db
+
+**/testing/**
+**/resources/static/**
+package-lock.json
+package.json

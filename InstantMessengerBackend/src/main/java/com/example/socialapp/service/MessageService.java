@@ -1,17 +1,12 @@
 package com.example.socialapp.service;
 
-import com.example.socialapp.controller.MessageDto;
+import com.example.socialapp.dto.MessageDto;
 import com.example.socialapp.dto.FileDto;
 import com.example.socialapp.model.*;
-import org.springframework.boot.autoconfigure.neo4j.Neo4jProperties;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.sql.rowset.serial.SerialException;
 import java.io.IOException;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
