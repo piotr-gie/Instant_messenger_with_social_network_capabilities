@@ -15,8 +15,6 @@ export class SearchPageComponent implements OnInit {
   users: User [] = [];
   usersSearchList: User [] = [];
   name: string;
-  genderType = GenderType;
-  avatar: File;
 
   constructor(private userService: UserService, 
     private router: Router, 
@@ -35,8 +33,8 @@ export class SearchPageComponent implements OnInit {
       this.name = params.get('name');
     });
 
-    this.userService.getModels().subscribe((response) => {
-      this.users = response;
+    this.userService.getModels().subscribe((res) => {
+      this.users = res;
     });
 
     const sauce = from(this.users);

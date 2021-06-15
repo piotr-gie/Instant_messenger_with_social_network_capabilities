@@ -1,5 +1,4 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { GenderType } from 'src/app/enums/gender-type.enum';
 import { ContactHelper } from 'src/app/models/helpers/contactHelper';
 import { ChatBoxService } from 'src/app/services/functional/chat-box.service';
 import { FriendshipService } from 'src/app/services/fetch/friendship.service';
@@ -8,6 +7,7 @@ import { User } from 'src/app/models/fetch/user';
 import { BehaviorSubject } from 'rxjs';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { Friendship } from 'src/app/models/helpers/friendship';
+import { AuthService } from 'src/app/services/fetch/auth.service';
 
 @Component({
   selector: 'app-contact-list',
@@ -20,17 +20,19 @@ export class ContactListComponent implements OnInit {
   contacts: ContactHelper [] = [];
   filteredContacts: ContactHelper [] = [];
   selectedUser: User;
+  currentUser: User;
 
   searchValue$ = new BehaviorSubject<string>('');
   
-  genderType = GenderType;
 
   constructor(
     private messageService: MessageService,
     private chatBoxService: ChatBoxService,
-    private friendshipService: FriendshipService) {}
+    private friendshipService: FriendshipService,
+    private authService: AuthService) {}
 
   ngOnInit() {
+    this.initCurrentUser();
     this.initializeContactList(); 
 
     if(this.selectedUser) {
@@ -39,17 +41,23 @@ export class ContactListComponent implements OnInit {
     else this.selectedUser = null;
   }
 
+  initCurrentUser() {
+    this.authService.currentUser$.subscribe((res) => {
+      this.currentUser = res;
+    })
+  }
+
   initializeContactList() {
-    this.friendshipService.getAllFriends(1).subscribe((response) => {
-      this.friends = response.filter(friend => friend.accepted === true);
+    this.friendshipService.getAllFriends(this.currentUser.id).subscribe((res) => {
+      this.friends = res.filter(friend => friend.accepted === true);
       this.chatBoxService.selectedUserId.subscribe((id) => {
         if (id !== null) {
-          this.selectedUser = response.find(friend => friend.user.id === id).user;
+          this.selectedUser = res.find(friend => friend.user.id === id).user;
         }     
       })   
-      response.forEach((friend) => {
-        this.messageService.getAllMessagesInConversationByUsers(1, friend.user.id).subscribe((response) => {
-          let timestamp = response[0]?.date
+      res.forEach((friend) => {
+        this.messageService.getAllMessagesInConversationByUsers(1, friend.user.id).subscribe((res) => {
+          let timestamp = res[0]?.date
           this.contacts.push({user: friend.user, date: timestamp})
           this.filteredContacts = this.contacts; 
         });      

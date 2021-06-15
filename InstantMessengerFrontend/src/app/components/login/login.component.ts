@@ -1,5 +1,6 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { AuthService } from 'src/app/services/fetch/auth.service';
 import { UserService } from 'src/app/services/fetch/user.service';
@@ -11,41 +12,29 @@ import { UserService } from 'src/app/services/fetch/user.service';
 })
 export class LoginComponent implements OnInit {
   @Output() onSignUpClickEmit: EventEmitter<any> = new EventEmitter();
-
   loginForm: FormGroup
   isPassHidden = true;
 
   constructor(
     private formBuilder: FormBuilder,
     private authService: AuthService,
-    private userService: UserService,
-    private toastrService: ToastrService) {}
+    private toastrService: ToastrService,
+    private router: Router) {}
 
   ngOnInit() {
     this.buildLoginForm();
-    this.getCurrentUser();
   }
 
   submitLoginForm() {
-    // this.authService.login(null).subscribe(respone => {
-    // }, error => {
-    
-    // })
-
-    this.authService.login(null).subscribe((response) => {
-      this.toastrService.success("Successfully logged in!")
-    }, error => {
-      this.toastrService.error("Failed to login!");
-    });
-    this.authService.loggedIn = true; 
-   
-  }
-
-  getCurrentUser() {
-    this.authService.currentUser$.subscribe(user => {
-      this.authService.loggedIn = !!user;
-    }, error => {
-    })
+    this.authService.login(this.loginForm.get('email').value,
+      this.loginForm.get('password').value).subscribe((res) => {
+        const token = res.token;
+        this.authService.setToken(token)
+        this.toastrService.success("Successfully logged in!")
+        this.router.navigate(['/home']);
+      }, () => {
+        this.toastrService.error("Failed to login!");
+    });  
   }
 
   openRegisterForm() {

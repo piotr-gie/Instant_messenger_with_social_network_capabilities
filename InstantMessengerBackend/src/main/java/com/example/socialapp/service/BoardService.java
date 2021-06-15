@@ -15,12 +15,14 @@ public class BoardService {
     private BoardRepository boardRepository;
     private PostRepository postRepository;
     private UserService userService;
+    private CommentRepository commentRepository;
     private FileService fileService;
 
-    public BoardService(BoardRepository boardRepository,PostRepository postRepository , UserService userService) {
+    public BoardService(BoardRepository boardRepository,PostRepository postRepository , UserService userService, CommentRepository commentRepository) {
         this.boardRepository = boardRepository;
         this.postRepository = postRepository;
         this.userService = userService;
+        this.commentRepository = commentRepository;
     }
 
     public Board getUsersBoardOrCreate(int userId) {
@@ -59,13 +61,54 @@ public class BoardService {
         }
     }
 
-    public Post deleteById(int postId) {
+    public Post deletePostById(int postId) {
         Optional<Post> optional = postRepository.findById(postId);
         if(optional.isPresent()) {
-            boardRepository.deleteById(postId);
+            postRepository.deleteById(postId);
             return optional.get();
         } else {
             return null;
         }
+    }
+
+    public Comment addCommentToPost(int postId, String content, int senderId) {
+        Optional<Post> optionalPost = postRepository.findById(postId);
+        if(optionalPost.isEmpty()) {
+            return null;
+        }
+        Post post = optionalPost.get();
+        Comment comment = new Comment(senderId,content,post);
+        post.getComments().add(comment);
+        postRepository.save(post);
+        boardRepository.save(post.getBoard());
+        commentRepository.save(comment);
+        return comment;
+    }
+
+    public List<Comment> getCommentsForPost(int postId) {
+        Optional<Post> optionalPost = postRepository.findById(postId);
+            if(optionalPost.isEmpty()) {
+                return null;
+            }
+            return optionalPost.get().getComments();
+    }
+
+    public Comment deleteCommentById(int commentId) {
+        Optional<Comment> optionalComment = commentRepository.findById(commentId);
+        if(optionalComment.isEmpty()) {
+            return null;
+        }
+        commentRepository.deleteById(commentId);
+        return optionalComment.get();
+    }
+
+    public Post updatePost(Post post) {
+        postRepository.updatePost(post.getId(),post.getContent());
+        return post;
+    }
+
+    public Comment updateComment(Comment comment) {
+        commentRepository.updateComment(comment.getId(),comment.getContent());
+        return comment;
     }
 }

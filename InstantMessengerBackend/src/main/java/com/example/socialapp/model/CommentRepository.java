@@ -4,14 +4,15 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 
+import javax.sql.rowset.serial.SerialBlob;
 import javax.transaction.Transactional;
-import java.time.LocalDateTime;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
-public interface PostRepository extends JpaRepository<Post, Integer> {
+public interface CommentRepository extends JpaRepository<Comment,Integer> {
 
     @Transactional
     @Modifying
-    @Query("update Post p set p.content = ?2 where p.id = ?1")
-    void updatePost(int id, String content);
+    @Query("update Comment c set c.content = ?2 where c.id = ?1")
+    void updateComment(int id, String content);
 }

@@ -3,6 +3,8 @@ package com.example.socialapp.service;
 import com.example.socialapp.config.UserDetailsImpl;
 import com.example.socialapp.model.User;
 import com.example.socialapp.model.UserRepository;
+import org.hibernate.Hibernate;
+import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -10,8 +12,15 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import com.example.socialapp.model.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.*;
+import javax.persistence.Query;
+import javax.sql.rowset.serial.SerialBlob;
+import java.sql.Blob;
+import java.sql.SQLException;
+import java.util.List;
+import java.util.Optional;
 
 
 @Service
@@ -44,8 +53,21 @@ public class UserService implements UserDetailsService {
     }
 
     public User updateById(User user) {
-        userRepository.save(user);
+        userRepository.updateById(user.getFirstName(), user.getLastName(),
+                user.getMail(), user.getPassword(),
+                user.getAboutMe(), user.getPhone(),
+                user.getBirthday(), user.getCity(),
+                user.getGender(), user.getProfileImage(),
+                user.isActive(),user.getRoles(),
+                user.getId());
         return user;
+    }
+
+    public byte[] updateImage(int id, byte[] image) throws SQLException {
+
+
+        userRepository.updateImage(id, image);
+        return image;
     }
 
     public User deleteById(int id) {

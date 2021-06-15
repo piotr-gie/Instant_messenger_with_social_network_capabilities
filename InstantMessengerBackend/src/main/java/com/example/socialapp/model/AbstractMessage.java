@@ -19,6 +19,10 @@ public abstract class AbstractMessage {
 
     protected LocalDateTime date;
 
+    public AbstractMessage(){
+        this.date = LocalDateTime.now();
+    }
+
     public LocalDateTime getDate() {
         return date;
     }

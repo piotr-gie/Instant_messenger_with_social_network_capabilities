@@ -35,8 +35,8 @@ export class BoardComponent implements OnInit, OnChanges {
   }
 
   ngOnInit(): void {
+    this.initCurrentUser();
     this.initializeBoardPosts();
-    this.currentUser = this.authService.getCurrentUser();
 
     //delete later 
     // |
@@ -76,16 +76,22 @@ export class BoardComponent implements OnInit, OnChanges {
     this.ngOnInit();
   }
 
+  initCurrentUser() {
+    this.authService.currentUser$.subscribe((res) => {
+      this.currentUser = res;
+    })
+  }
+
   initializeBoardPosts(){
-    // this.boardService.getModels().subscribe((response) => { //TODO: uncomment after BE implementation 
-    //   this.posts = response;
+    // this.boardService.getModels().subscribe((res) => { //TODO: uncomment after BE implementation 
+    //   this.posts = res;
     // })
 
     if(!! this.filter)
       this.posts = this.posts.filter(e => e.posterId === Number(this.filter));
 
-    // this.userService.getModels().subscribe((response) => { //TODO: uncomment after BE implementation 
-    //   this.users = response;
+    // this.userService.getModels().subscribe((res) => { //TODO: uncomment after BE implementation 
+    //   this.users = res;
     // })
   }
 
@@ -98,7 +104,7 @@ export class BoardComponent implements OnInit, OnChanges {
       // date?: Date,
     }
 
-    this.boardService.postModel(newPost).subscribe((response) => {
+    this.boardService.postModel(newPost).subscribe((res) => {
 
     });
 
@@ -128,7 +134,7 @@ export class BoardComponent implements OnInit, OnChanges {
       }]
     }
 
-    // this.boardService.postModel(newComment).subscribe((response) => { //TODO: uncomment after BE implementation 
+    // this.boardService.postModel(newComment).subscribe((res) => { //TODO: uncomment after BE implementation 
    
     // });
 

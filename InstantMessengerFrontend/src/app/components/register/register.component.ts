@@ -25,15 +25,12 @@ export class RegisterComponent implements OnInit {
   }
 
   submitRegisterForm() {
-    // this.authService.register(this.registerForm.value).subscribe(response => {  
-    // //this.authService.setCurrentUser(this.registerForm.value); //TODO
     this.closeRegisterForm();
-    this.userService.postModel(this.registerForm.value).subscribe((response) => {
+    this.userService.postModel(this.registerForm.value).subscribe((res) => {
       this.toastrService.success("Successfully registered new account!")
-    }, error => {
+    }, () => {
       this.toastrService.error("Failed to register!");
     });
-    
   }
 
   closeRegisterForm() {

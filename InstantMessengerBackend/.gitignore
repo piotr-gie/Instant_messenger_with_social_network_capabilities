@@ -36,6 +36,5 @@ build/
 package-lock.json
 package.json
 
-testdb.trace.db
-testdb.mv.db
+**/resources/static
 
